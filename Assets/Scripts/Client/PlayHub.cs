@@ -299,7 +299,7 @@ namespace Wolfsun
                 bool got = profile.unlockedAchievements.Contains(a.id);
                 float x = 90 + (i % 4) * 440, y = 806 + (i / 4) * 110;
                 ColorBox(root, "badge", x, y, 420, 96, new Color(0, 0, 0, got ? .32f : .16f));
-                Label(root, got ? "★" : "☆", x + 8, y, 56, 96, 40, got ? Gold : Quiet, true, TextAnchor.MiddleCenter);
+                Pic(root, Foundry + (got ? "SealLit" : "SealDim"), x + 12, y + 24, 48, 48);
                 SafeText(root, a.name, x + 70, y + 8, 340, 34, 24, got ? Gold : Muted, true, TextAnchor.MiddleLeft, 14);
                 SafeText(root, a.text, x + 70, y + 44, 340, 44, 17, got ? White : Quiet, false, TextAnchor.UpperLeft, 11);
             }

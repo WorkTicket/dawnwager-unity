@@ -353,6 +353,7 @@ namespace Wolfsun
                 handPoints[slot] = rect;
                 Click(rect, () => SelectHand(slot)).transition = Selectable.Transition.None;
                 BindHandHover(rect, card.Id, tilt, picked);
+                if (playable) BindCardDrag(rect, slot);
             }
         }
 

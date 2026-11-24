@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Wolfsun
@@ -32,6 +34,10 @@ namespace Wolfsun
                 if (victim != null && battlePieces.TryGetValue(victim.Key, out var tile)) impactAt = CenterAnchored(tile);
                 else if (move.Lane >= 0) impactAt = LanePoint(side, move.Lane);
             }
+            var snap = TakeSnap();
+            Vector2? handFrom = null;
+            if (move.Kind == ActionKind.Play && side == 0 && handPoints.TryGetValue(move.Slot, out var handRect) && handRect) handFrom = CenterAnchored(handRect);
+            else if (move.Kind == ActionKind.Play && side == 1) handFrom = new Vector2(960, -60);
             if (!match.Apply(side, move))
             {
                 UiSound("deny");
@@ -42,7 +48,9 @@ namespace Wolfsun
             Render();
             var layer = CardAnimationLayer();
             QueuePhaseFeedback(layer, oldRound, oldTurn, move);
+            if (played != null && handFrom.HasValue) StartCoroutine(GhostFlight(layer, played, handFrom.Value, impactAt));
             if (impactCard != null) StartCoroutine(CardImpact(layer, impactCard, impactAt, strike));
+            PlayFeedback(layer, snap);
             return true;
         }
 
@@ -70,6 +78,137 @@ namespace Wolfsun
         {
             presenting = false;
             yield break;
+        }
+
+        // ---------------------------------------------------------------- combat feedback
+
+        private sealed class BoardSnap
+        {
+            public readonly Dictionary<int, int> Hp = new Dictionary<int, int>();
+            public readonly Dictionary<int, Vector2> At = new Dictionary<int, Vector2>();
+            public readonly Dictionary<int, string> Art = new Dictionary<int, string>();
+            public readonly int[] HeroHp = new int[2];
+            public readonly int[] Seals = new int[2];
+            public int Contested, Round;
+        }
+
+        private BoardSnap TakeSnap()
+        {
+            var snap = new BoardSnap();
+            foreach (var unit in match.Units())
+            {
+                snap.Hp[unit.Key] = unit.Hp;
+                snap.Art[unit.Key] = UnitArt(unit.Card.Id);
+                if (battlePieces.TryGetValue(unit.Key, out var rect) && rect) snap.At[unit.Key] = CenterAnchored(rect);
+            }
+            snap.Contested = match.Contested;
+            snap.Round = match.Round;
+            for (int i = 0; i < 2; i++) { snap.HeroHp[i] = match.Players[i].Hp; snap.Seals[i] = match.Players[i].Seals; }
+            return snap;
+        }
+
+        /// <summary>Floating damage and healing numbers, fading ghosts for fallen units, and a banner when a Seal is claimed.</summary>
+        private void PlayFeedback(RectTransform layer, BoardSnap before)
+        {
+            foreach (var unit in match.Units())
+            {
+                if (!before.Hp.TryGetValue(unit.Key, out int old) || unit.Hp == old) continue;
+                if (!battlePieces.TryGetValue(unit.Key, out var rect) || !rect) continue;
+                int delta = unit.Hp - old;
+                StartCoroutine(FloatText(layer, (delta > 0 ? "+" : "−") + Mathf.Abs(delta), delta > 0 ? AllySage : EnemyCopper, CenterAnchored(rect)));
+            }
+            var alive = new HashSet<int>(match.Units().Select(u => u.Key));
+            foreach (var pair in before.At)
+            {
+                if (alive.Contains(pair.Key) || !before.Art.TryGetValue(pair.Key, out var art)) continue;
+                StartCoroutine(FallenGhost(layer, art, pair.Value));
+            }
+            for (int side = 0; side < 2; side++)
+            {
+                int delta = match.Players[side].Hp - before.HeroHp[side];
+                if (delta != 0 && heroBadges[side])
+                {
+                    var at = CenterAnchored(heroBadges[side]) + new Vector2(70, side == 0 ? 20 : 40);
+                    StartCoroutine(FloatText(layer, (delta > 0 ? "+" : "−") + Mathf.Abs(delta), delta > 0 ? AllySage : EnemyCopper, at));
+                    if (delta < 0) UiSound("hero-hit");
+                }
+                if (match.Players[side].Seals > before.Seals[side])
+                    StartCoroutine(DelayedBanner(layer, "Seal claimed", (side == 0 ? "You hold" : "The enemy holds") + " the " + Lane(Mathf.Max(0, before.Contested)) + " lane",
+                        side == 0 ? AllySage : EnemyCopper, 1.0f, match.Round != before.Round ? 1.2f : 0f));
+            }
+        }
+
+        private IEnumerator FloatText(RectTransform layer, string text, Color color, Vector2 at)
+        {
+            if (!layer) yield break;
+            var holder = Box(layer, "Float", at.x - 90, -at.y - 36, 180, 72);
+            var group = holder.gameObject.AddComponent<CanvasGroup>();
+            group.blocksRaycasts = false;
+            OutlinedText(holder, text, 0, 0, 180, 72, 56, color, true, TextAnchor.MiddleCenter, 30);
+            float duration = reduceMotion ? .9f : 1.05f;
+            for (float t = 0; t < duration && holder; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                if (!reduceMotion)
+                {
+                    holder.anchoredPosition = new Vector2(at.x - 90, at.y + 36 + 70 * Mathf.Sin(k * Mathf.PI * .5f));
+                    holder.localScale = Vector3.one * (k < .12f ? .6f + k / .12f * .55f : 1.15f - Mathf.Min(.15f, (k - .12f)));
+                }
+                group.alpha = k < .6f ? 1 : 1 - (k - .6f) / .4f;
+                yield return null;
+            }
+            if (holder) Destroy(holder.gameObject);
+        }
+
+        private IEnumerator FallenGhost(RectTransform layer, string art, Vector2 at)
+        {
+            if (!layer) yield break;
+            var holder = Box(layer, "Fallen", at.x - TileW / 2f, -at.y - TileH / 2f, TileW, TileH);
+            var group = holder.gameObject.AddComponent<CanvasGroup>();
+            group.blocksRaycasts = false;
+            FitSafe(holder, art, TileW * .1f, TileH * .08f, TileW * .8f, TileH * .8f);
+            Pic(holder, Foundry + "UnitToken", 0, 0, TileW, TileH);
+            float duration = reduceMotion ? .4f : .65f;
+            for (float t = 0; t < duration && holder; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                group.alpha = 1 - k;
+                if (!reduceMotion)
+                {
+                    holder.localScale = Vector3.one * (1f + .12f * k);
+                    group.alpha = 1 - k * k;
+                }
+                yield return null;
+            }
+            if (holder) Destroy(holder.gameObject);
+        }
+
+        /// <summary>A copy of a played card that glides from the hand (or the enemy) to its lane and fades.</summary>
+        private IEnumerator GhostFlight(RectTransform layer, Card card, Vector2 from, Vector2 to)
+        {
+            if (!layer || reduceMotion) yield break;
+            const int w = 170;
+            var ghost = PaperCard(card, 0, 0, w, 240, card.Cost, false, layer, false);
+            var group = ghost.gameObject.AddComponent<CanvasGroup>();
+            group.blocksRaycasts = false;
+            ghost.pivot = new Vector2(.5f, .5f);
+            const float duration = .38f;
+            for (float t = 0; t < duration && ghost; t += Time.unscaledDeltaTime)
+            {
+                float k = Mathf.SmoothStep(0, 1, t / duration);
+                ghost.anchoredPosition = Vector2.Lerp(from, to, k);
+                ghost.localScale = Vector3.one * Mathf.Lerp(1.15f, .62f, k);
+                ghost.localRotation = Quaternion.Euler(0, 0, Mathf.Sin(k * Mathf.PI) * (from.x < to.x ? -6f : 6f));
+                group.alpha = k < .7f ? 1 : 1 - (k - .7f) / .3f;
+                yield return null;
+            }
+            if (ghost) Destroy(ghost.gameObject);
+        }
+
+        private IEnumerator DelayedBanner(RectTransform layer, string title, string subtitle, Color accent, float hold, float delay)
+        {
+            if (delay > 0) yield return new WaitForSecondsRealtime(delay);
+            if (layer) ShowPhaseBanner(layer, title, subtitle, accent, hold);
         }
     }
 }

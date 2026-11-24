@@ -89,7 +89,7 @@ namespace Wolfsun
             Pic(node, art, 0, 0, size, size);
             string icon = enc.IsOptional ? "Campaign/EncounterShrine" : "Campaign/EncounterBoss";
             Pic(node, icon, size * .25f, size * .25f, size * .5f, size * .5f, open ? Color.white : new Color(.6f, .6f, .6f, 1));
-            if (cleared) OutlinedText(node, "✓", size * .55f, -6, size * .5f, size * .5f, 30, Gold, true, TextAnchor.MiddleCenter, 14);
+            if (cleared) Pic(node, Foundry + "SealLit", size * .58f, -8, size * .46f, size * .46f);
             string name = enc.Name;
             OutlinedText(root, name, at.x - 130, at.y + size / 2 + 2, 260, 30, 20, open ? White : Quiet, true, TextAnchor.MiddleCenter, 11);
             string id = enc.Id;
