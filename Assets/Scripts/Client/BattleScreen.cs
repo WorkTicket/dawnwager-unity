@@ -17,7 +17,8 @@ namespace Wolfsun
                 profile.deck=Campaign.Starter;
                 Save();
             }
-            ai=false;
+            PlayerPrefs.SetInt("dawnwager.rated",0);
+            ai=false;returnPage=practice?Page.Play:Page.Story;
             duel=practice;showRules=false;rewardCards=Array.Empty<string>();newCards=0;presented=false;listened=0;
             mulligan.Clear();choosing=false;presenting=false;selected=ActionKind.Pass;cursor=-1;inspected=null;status="";
             ResetPhaseAnnouncements();
@@ -39,6 +40,15 @@ namespace Wolfsun
             }
             Go(Page.Battle);
             DealOpeningHand();
+        }
+
+        private void ResetMatchState()
+        {
+            ai=false;showRules=false;rewardCards=Array.Empty<string>();newCards=0;presented=false;listened=0;
+            mulligan.Clear();choosing=false;presenting=false;selected=ActionKind.Pass;cursor=-1;inspected=null;status="";
+            pendingRelicChoices=Array.Empty<string>();pendingRelicEncounter="";
+            PlayerPrefs.SetInt("dawnwager.rated",0);
+            ResetPhaseAnnouncements();
         }
 
         private void Command(Move move, Vector2? dragOrigin = null)
@@ -149,7 +159,8 @@ namespace Wolfsun
                 result="Victory";
                 if(!duel&&!tutorialMatch)
                 {
-                    bool firstMainClear=chapter==profile.progress;
+                    bool optionalRun=CampaignMeta.Encounters.Any(e=>e.Id==activeEncounterId&&e.IsOptional);
+                    bool firstMainClear=!optionalRun&&chapter==profile.progress;
                     if(firstMainClear)
                     {
                         profile.progress++;LoadOwned();

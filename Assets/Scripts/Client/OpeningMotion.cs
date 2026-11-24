@@ -7,10 +7,16 @@ namespace Wolfsun
     {
         private readonly List<RectTransform> openingCards = new List<RectTransform>();
 
-        private void DealOpeningHand() { }
+        /// <summary>The opening hand is chosen in OpeningPanel; this just resets selection state and announces the match.</summary>
+        private void DealOpeningHand()
+        {
+            mulligan.Clear();
+            UiSound("card-shuffle");
+            UiSound("card-deal");
+        }
 
         private void EnsureOpeningDeckAnchor() { }
 
-        private Vector2 OpeningDeckPoint() => Vector2.zero;
+        private Vector2 OpeningDeckPoint() => new Vector2(1688, -888);
     }
 }

@@ -227,14 +227,25 @@ namespace Wolfsun
                 Destroy(root.gameObject);
             }
             root=Box(stage,"Screen",0,0,1920,1080);
-            // Fresh start: no client UI. Core rules remain in Assets/Scripts/Core.
-            ColorBox(root,"Blank",0,0,1920,1080,Ink);
-            Label(root,"Dawnwager",80,80,800,80,48,White,true);
-            Label(root,"UI cleared. Core rules only.",80,180,1000,40,22,Muted);
-            Label(root,"Match · Catalog · Campaign · Abilities wired under Assets/Scripts/Core.",80,240,1400,40,18,Muted);
-            inspected=null;
-            settings=false;
-            showRules=false;
+            UpdateBackdrop();
+            if(page!=Page.Home&&page!=Page.Battle&&page!=Page.Outcome)Nav();
+            switch(page)
+            {
+                case Page.Home:Home();break;
+                case Page.Story:Story();break;
+                case Page.Collection:Collection();break;
+                case Page.Battle:Battle();break;
+                case Page.Outcome:Outcome();break;
+                case Page.Play:PlayHub();break;
+                case Page.Career:Career();break;
+                case Page.Skills:SkillTree();break;
+            }
+            if(page==Page.Home)TryMenuAmbience();
+            Music(page==Page.Battle?(!duel&&!tutorialMatch&&chapter==Campaign.Chapters.Length-1?"Boss":"Battle")
+                :page==Page.Story||page==Page.Skills?"Campaign":"Menu");
+            if(inspected!=null)Inspect();
+            if(showRules)RulesOverlay();
+            if(settings)Settings();
         }
         private RectTransform Box(Transform parent,string name,float x,float y,float w,float h)
         {

@@ -27,8 +27,23 @@ namespace Wolfsun
 
         private void UpdateBackdrop()
         {
-            sceneArtwork.texture = null;
-            sceneArtwork.color = Ink;
+            string art;
+            switch (page)
+            {
+                case Page.Home: art = "Foundry/TitleKey"; break;
+                case Page.Story: art = "Foundry/RagnarokMap"; break;
+                case Page.Battle: art = "Board"; break;
+                case Page.Outcome: art = match != null && match.Winner == 0 ? "Foundry/OutcomeVictory" : match != null && match.Winner == 2 ? "Foundry/OutcomeDraw" : "Foundry/OutcomeDefeat"; break;
+                case Page.Play: art = "Foundry/Emberbridge"; break;
+                case Page.Collection: art = "Foundry/DawnPass"; break;
+                default: art = "Foundry/DawnPass"; break;
+            }
+            var tex = Texture(art);
+            if (tex == null && art != "Foundry/DawnPass") tex = Texture("Foundry/DawnPass");
+            sceneArtwork.texture = tex;
+            sceneArtwork.color = tex != null ? (page == Page.Battle ? new Color(.82f, .82f, .82f, 1f) : Color.white) : Ink;
+            viewportSize = Vector2.zero;
+            if (viewport) ResizeArtwork();
         }
 
         private void LateUpdate()
@@ -39,6 +54,11 @@ namespace Wolfsun
         private void ResizeArtwork()
         {
             viewportSize = viewport.rect.size;
+            var tex = sceneArtwork.texture;
+            if (tex == null || viewportSize.y <= 0) { sceneArtwork.uvRect = new Rect(0, 0, 1, 1); return; }
+            float aspect = viewportSize.x / viewportSize.y, src = (float)tex.width / tex.height;
+            if (src > aspect) { float crop = aspect / src; sceneArtwork.uvRect = new Rect((1 - crop) / 2, 0, crop, 1); }
+            else { float crop = src / aspect; sceneArtwork.uvRect = new Rect(0, (1 - crop) / 2, 1, crop); }
         }
 
         private RectTransform ViewportShade(string name, Color color) =>
