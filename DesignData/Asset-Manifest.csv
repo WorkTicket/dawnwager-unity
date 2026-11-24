@@ -1,0 +1,277 @@
+path,width,height,source
+Assets/Resources/Art/Campaign/DetailPanel.png,256,256,Amompharetus CC0 campaign panel
+Assets/Resources/Art/Campaign/EncounterBoss.png,48,48,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/EncounterRelic.png,48,48,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/EncounterShrine.png,48,48,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/IconBastion.png,128,128,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/IconRunecraft.png,128,128,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/IconWarcraft.png,128,128,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/LinkDormant.png,64,12,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/LinkLit.png,64,12,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/NodeAvailable.png,72,72,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/NodeLocked.png,72,72,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/NodeNormal.png,72,72,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/NodePurchased.png,72,72,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/PointToken.png,48,48,Amompharetus CC0 skill-tree sprite
+Assets/Resources/Art/Campaign/Relic1.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+Assets/Resources/Art/Campaign/Relic2.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+Assets/Resources/Art/Campaign/Relic3.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+Assets/Resources/Art/Campaign/Relic4.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+Assets/Resources/Art/Campaign/RewardPanel.png,256,256,Amompharetus CC0 campaign panel
+Assets/Resources/Art/Campaign/TreePanel.png,256,256,Amompharetus CC0 campaign panel
+BOM-Upgrade/Assets/Resources/Art/Foundry/Attack.png,128,128,Dawnwager medallion with a muted role silhouette
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-A-Order.png,416,590,Dawnwager original Order frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-A-Site.png,416,590,Dawnwager original Site frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-A-Unit-Mythic.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-A-Unit.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-H-Order.png,416,590,Dawnwager original Order frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-H-Site.png,416,590,Dawnwager original Site frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-H-Unit-Mythic.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-H-Unit.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-J-Order.png,416,590,Dawnwager original Order frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-J-Site.png,416,590,Dawnwager original Site frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-J-Unit-Mythic.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-J-Unit.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-L-Order.png,416,590,Dawnwager original Order frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-L-Site.png,416,590,Dawnwager original Site frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-L-Unit-Mythic.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-L-Unit.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-M-Order.png,416,590,Dawnwager original Order frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-M-Site.png,416,590,Dawnwager original Site frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-M-Unit-Mythic.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-M-Unit.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-N-Order.png,416,590,Dawnwager original Order frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-N-Site.png,416,590,Dawnwager original Site frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-N-Unit-Mythic.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-N-Unit.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-P-Prophecy.png,416,590,Dawnwager original Site frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-X-Order.png,416,590,Dawnwager original Order frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-X-Site.png,416,590,Dawnwager original Site frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-X-Unit-Mythic.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/Card-X-Unit.png,416,590,Dawnwager original Unit frame master with faction finish and exact aperture
+BOM-Upgrade/Assets/Resources/Art/Foundry/CardPlayableGlow.png,416,590,Dawnwager alpha-only outer glow
+BOM-Upgrade/Assets/Resources/Art/Foundry/CardShadow.png,416,590,Dawnwager blurred card silhouette
+BOM-Upgrade/Assets/Resources/Art/Foundry/ChargeCrystal.png,128,128,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/ChargePipOff.png,64,64,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/ChargePipOn.png,64,64,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/Cost.png,128,128,Dawnwager medallion with a muted role silhouette
+BOM-Upgrade/Assets/Resources/Art/Foundry/DenyX.png,128,128,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/DropRing.png,256,256,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/Emberbridge.jpg,1920,1080,"Dawnwager source art, resampled to 1080p"
+BOM-Upgrade/Assets/Resources/Art/Foundry/EndTurn.png,512,160,Dawnwager EA lantern lever
+BOM-Upgrade/Assets/Resources/Art/Foundry/EndTurnDisabled.png,512,160,Dawnwager EA lantern lever
+BOM-Upgrade/Assets/Resources/Art/Foundry/EndTurnGlow.png,512,160,Dawnwager EA lantern lever
+BOM-Upgrade/Assets/Resources/Art/Foundry/EndTurnHover.png,512,160,Dawnwager EA lantern lever
+BOM-Upgrade/Assets/Resources/Art/Foundry/EndTurnPressed.png,512,160,Dawnwager EA lantern lever
+BOM-Upgrade/Assets/Resources/Art/Foundry/Health.png,128,128,Dawnwager medallion with a muted role silhouette
+BOM-Upgrade/Assets/Resources/Art/Foundry/HeroFrame.png,512,512,Dawnwager clear-centre Norse portrait ring
+BOM-Upgrade/Assets/Resources/Art/Foundry/HeroPower.png,256,256,Dawnwager emblem mounted in an adapted CC0 globe
+BOM-Upgrade/Assets/Resources/Art/Foundry/HeroPowerCost.png,64,64,Dawnwager cost socket re-export
+BOM-Upgrade/Assets/Resources/Art/Foundry/HeroPowerDisabled.png,256,256,Dawnwager emblem mounted in an adapted CC0 globe
+BOM-Upgrade/Assets/Resources/Art/Foundry/HeroPowerHover.png,256,256,Dawnwager emblem mounted in an adapted CC0 globe
+BOM-Upgrade/Assets/Resources/Art/Foundry/HistoryRail.png,256,1024,Amompharetus CC0 forged iron panel adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/Icon-Campaign.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+BOM-Upgrade/Assets/Resources/Art/Foundry/Icon-Career.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+BOM-Upgrade/Assets/Resources/Art/Foundry/Icon-Casual.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+BOM-Upgrade/Assets/Resources/Art/Foundry/Icon-Collection.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+BOM-Upgrade/Assets/Resources/Art/Foundry/Icon-Options.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+BOM-Upgrade/Assets/Resources/Art/Foundry/Icon-Ranked.png,256,256,"Dawnwager EA Ravenmore-derived icon, see credits"
+BOM-Upgrade/Assets/Resources/Art/Foundry/LanePlate.png,560,128,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/ModalFrame.png,512,512,Amompharetus CC0 panel adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/Mode-Campaign.png,1280,720,Dawnwager EA pictorial tile
+BOM-Upgrade/Assets/Resources/Art/Foundry/Mode-CampaignHover.png,1280,720,Dawnwager EA pictorial tile
+BOM-Upgrade/Assets/Resources/Art/Foundry/Mode-Casual.png,1280,720,Dawnwager EA pictorial tile
+BOM-Upgrade/Assets/Resources/Art/Foundry/Mode-CasualHover.png,1280,720,Dawnwager EA pictorial tile
+BOM-Upgrade/Assets/Resources/Art/Foundry/Mode-Collection.png,1280,720,Dawnwager EA pictorial tile
+BOM-Upgrade/Assets/Resources/Art/Foundry/Mode-CollectionHover.png,1280,720,Dawnwager EA pictorial tile
+BOM-Upgrade/Assets/Resources/Art/Foundry/Mode-Ranked.png,1280,720,Dawnwager EA pictorial tile
+BOM-Upgrade/Assets/Resources/Art/Foundry/Mode-RankedHover.png,1280,720,Dawnwager EA pictorial tile
+BOM-Upgrade/Assets/Resources/Art/Foundry/Nameplate.png,336,44,Dawnwager unit plate adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/NavBar.png,1920,128,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/OutcomeDefeat.png,1920,1080,Dawnwager EA outcome scene
+BOM-Upgrade/Assets/Resources/Art/Foundry/OutcomeDraw.png,1920,1080,Dawnwager EA outcome scene
+BOM-Upgrade/Assets/Resources/Art/Foundry/OutcomeVictory.png,1920,1080,Dawnwager EA outcome scene
+BOM-Upgrade/Assets/Resources/Art/Foundry/Panel.png,256,256,Amompharetus CC0 panel adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/PanelGold.png,256,256,Amompharetus CC0 panel adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/Primary.png,560,128,Amompharetus CC0 button state adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/PrimaryDisabled.png,560,128,Amompharetus CC0 button state adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/PrimaryHover.png,560,128,Amompharetus CC0 button state adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/PrimaryPressed.png,560,128,Amompharetus CC0 button state adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/RagnarokMap.jpg,1920,1080,"Dawnwager source art, resampled to 1080p"
+BOM-Upgrade/Assets/Resources/Art/Foundry/RulesParchment.png,332,120,"Amompharetus CC0 parchment, reformatted"
+BOM-Upgrade/Assets/Resources/Art/Foundry/SealDim.png,128,128,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/SealLit.png,128,128,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/Secondary.png,560,128,Amompharetus CC0 button state adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/SecondaryDisabled.png,560,128,Amompharetus CC0 button state adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/SecondaryHover.png,560,128,Amompharetus CC0 button state adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/SecondaryPressed.png,560,128,Amompharetus CC0 button state adaptation
+BOM-Upgrade/Assets/Resources/Art/Foundry/TargetArrow.png,128,256,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/TargetNode.png,128,128,Dawnwager EA matching HUD sprite
+BOM-Upgrade/Assets/Resources/Art/Foundry/TitleKey.jpg,1920,1080,Dawnwager EA 1080p title scene
+BOM-Upgrade/Assets/Resources/Art/Foundry/UnitToken.png,256,320,Dawnwager ornate ring adapted to board-token aspect
+BOM-Upgrade/Assets/Resources/Art/Foundry/UnitTokenGlow.png,256,320,Dawnwager token edge glow
+BOM-Upgrade/Assets/Resources/Art/Heroes/A23.png,512,512,Dawnwager Foundry hero cutout re-export
+BOM-Upgrade/Assets/Resources/Art/Heroes/H23.png,512,512,Dawnwager Foundry hero cutout re-export
+BOM-Upgrade/Assets/Resources/Art/Heroes/J23.png,512,512,Dawnwager Foundry hero cutout re-export
+BOM-Upgrade/Assets/Resources/Art/Heroes/L23.png,512,512,Dawnwager Foundry hero cutout re-export
+BOM-Upgrade/Assets/Resources/Art/Heroes/M23.png,512,512,Dawnwager Foundry hero cutout re-export
+BOM-Upgrade/Assets/Resources/Art/Orders/A03.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/A04.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/A07.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/A11.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/A12.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/A14.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/A16.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/A18.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/A20.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H02.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H04.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H07.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H11.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H12.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H14.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H18.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H20.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/H22.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/J03.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/J04.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/J07.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/J11.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/J14.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/J17.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/J20.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/J22.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L02.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L03.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L07.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L09.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L11.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L14.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L16.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L17.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L19.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L20.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/L21.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M03.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M04.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M07.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M11.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M12.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M13.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M16.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M18.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M20.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/M22.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/N03.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/N07.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/N08.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/N12.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/N17.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/N18.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/N20.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/N23.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/X08.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/X09.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Orders/X10.png,512,512,WOLFSUN standalone card illustration
+BOM-Upgrade/Assets/Resources/Art/Places/A08.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/A15.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/H03.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/H08.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/H16.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/J08.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/J15.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/L08.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/L15.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/M08.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/M19.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/N04.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/N13.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/N14.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/P01.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/P02.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/P03.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/P04.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/P05.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Places/P06.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A01.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A02.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A05.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A06.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A09.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A10.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A13.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A17.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A19.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A21.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A22.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A23.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/A24.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H01.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H05.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H06.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H09.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H10.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H13.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H15.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H17.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H19.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H21.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H23.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/H24.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J01.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J02.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J05.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J06.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J09.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J10.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J12.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J13.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J16.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J18.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J19.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J21.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J23.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/J24.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L01.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L04.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L05.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L06.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L10.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L12.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L13.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L18.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L22.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L23.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/L24.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M01.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M02.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M05.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M06.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M09.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M10.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M14.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M15.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M17.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M21.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M23.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/M24.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N01.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N02.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N05.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N06.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N09.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N10.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N11.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N15.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N16.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N19.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N21.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N22.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/N24.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/X01.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/X02.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/X03.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/X04.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/X05.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/X06.png,512,512,Dawnwager portrait re-export
+BOM-Upgrade/Assets/Resources/Art/Units/X07.png,512,512,Dawnwager portrait re-export

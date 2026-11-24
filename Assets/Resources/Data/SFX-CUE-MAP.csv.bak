@@ -1,0 +1,40 @@
+resource_id,trigger,foley_sources,duration_seconds,sample_rate_hz,peak_dbfs
+card-deal,One card leaves a pile,bookFlip1 + bookPlace1,0.275,48000,-3
+card-draw-1,Card draw alternate A,bookFlip2 + bookPlace2,0.275,48000,-3
+card-draw-2,Card draw alternate B,bookFlip3 + bookPlace3,0.239,48000,-3
+card-draw-3,Card draw alternate C,bookFlip1 + bookPlace2,0.275,48000,-3
+card-select,Intentional card selection,bookFlip2 + metalClick,0.154,48000,-6
+card-shuffle,Deck shuffle before opening hand or return,bookFlip1 + bookFlip3 + bookFlip2 + bookPlace1,0.525,48000,-3
+card-play-unit,Successful Unit placement,cloth2 + bookPlace2 + doorClose_2,0.315,48000,-3
+card-play-order,Successful Order resolution,bookFlip3 + knifeSlice + metalPot2,0.539,48000,-3
+card-play-site,Successful Site placement,creak1 + bookPlace3 + doorClose_2,0.407,48000,-3
+target-confirm,Legal target selected,metalClick + bookPlace1,0.16,48000,-3
+target-denied,Invalid play or target,metalLatch + bookClose,0.221,48000,-3
+attack-swing-1,Attack animation lunge A,drawKnife1 + cloth1,0.235,48000,-3
+attack-swing-2,Attack animation lunge B,knifeSlice2 + cloth3,0.248,48000,-3
+unit-hit,Unit impact default,drawKnife2 + metalPot1 + doorClose_2,0.416,48000,-3
+unit-hit-2,Unit impact alternate B,drawKnife3 + metalPot2 + doorClose_2,0.416,48000,-3
+unit-hit-3,Unit impact alternate C,knifeSlice2 + metalPot3 + doorClose_2,0.416,48000,-3
+hero-hit,Bastion impact,doorClose_2 + metalPot1,0.461,48000,-3
+shield-gain,Shield granted,metalClick + handleCoins,0.385,48000,-3
+shield-break,Shield consumed,metalPot2 + glass + doorClose_2,0.494,48000,-3
+unit-death,Unit removed after resolution,dropLeather + metalPot3,0.436,48000,-3
+pass-turn,Player commits pass,metalLatch + doorClose_1,0.259,48000,-3
+end-turn-ready,End Turn becomes available,metalClick + creak1,0.197,48000,-6
+your-turn-fanfare,Priority goes to player,metalPot2 + metalClick,0.405,48000,-3
+beacon-claim,Seal awarded,doorClose_2 + metalPot1 + handleCoins2,0.593,48000,-3
+prophecy-reveal,Prophecy flips and resolves,bookFlip3 + glass + metalPot2,0.945,48000,-3
+fimbulwinter,Fimbulwinter-specific impact,cloth4 + glass + doorClose_2,0.966,48000,-3
+boss-intro,Boss card or boss title enters,creak3 + doorClose_2 + metalPot2 + fire,0.965,48000,-3
+relic-reveal,Campaign relic reward appears,bookOpen + handleCoins2 + metalPot2,0.675,48000,-3
+skill-unlock,Successful skill-tree purchase,metalLatch + metalPot2 + handleCoins,0.501,48000,-3
+ui-open,Open panel,bookOpen + metalClick,0.252,48000,-3
+ui-close,Close panel,bookClose + metalLatch,0.164,48000,-3
+ui-tab,Change tabs,bookFlip2 + metalClick,0.157,48000,-6
+queue-tick,Low-key queue update,metalClick,0.096,48000,-6
+match-found,Opponent matched,metalLatch + metalPot2 + doorClose_2,0.726,48000,-3
+star-gain,Rank star gained,handleCoins + metalClick,0.265,48000,-3
+star-loss,Rank star lost,handleCoins2 + dropLeather,0.285,48000,-3
+rank-up,Promotion awarded,metalPot1 + metalPot3 + handleCoins2,0.63,48000,-3
+victory,Battle victory,doorClose_2 + metalPot1 + metalPot2 + handleCoins,0.74,48000,-3
+defeat,Battle defeat,doorClose_2 + dropLeather + creak3,0.535,48000,-3

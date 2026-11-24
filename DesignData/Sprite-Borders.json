@@ -1,0 +1,107 @@
+{
+  "coordinateOrder": "left, top, right, bottom",
+  "sprites": {
+    "Assets/Resources/Art/Foundry/HistoryRail.png": [
+      24,
+      26,
+      24,
+      26
+    ],
+    "Assets/Resources/Art/Foundry/EndTurn.png": [
+      24,
+      16,
+      24,
+      16
+    ],
+    "Assets/Resources/Art/Foundry/EndTurnHover.png": [
+      24,
+      16,
+      24,
+      16
+    ],
+    "Assets/Resources/Art/Foundry/EndTurnPressed.png": [
+      24,
+      16,
+      24,
+      16
+    ],
+    "Assets/Resources/Art/Foundry/EndTurnDisabled.png": [
+      24,
+      16,
+      24,
+      16
+    ],
+    "Assets/Resources/Art/Foundry/EndTurnGlow.png": [
+      24,
+      16,
+      24,
+      16
+    ],
+    "Assets/Resources/Art/Foundry/Panel.png": [
+      24,
+      24,
+      24,
+      24
+    ],
+    "Assets/Resources/Art/Foundry/PanelGold.png": [
+      24,
+      24,
+      24,
+      24
+    ],
+    "Assets/Resources/Art/Foundry/ModalFrame.png": [
+      28,
+      28,
+      28,
+      28
+    ],
+    "Assets/Resources/Art/Foundry/Primary.png": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "Assets/Resources/Art/Foundry/PrimaryHover.png": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "Assets/Resources/Art/Foundry/PrimaryPressed.png": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "Assets/Resources/Art/Foundry/PrimaryDisabled.png": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "Assets/Resources/Art/Foundry/Secondary.png": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "Assets/Resources/Art/Foundry/SecondaryHover.png": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "Assets/Resources/Art/Foundry/SecondaryPressed.png": [
+      20,
+      20,
+      20,
+      20
+    ],
+    "Assets/Resources/Art/Foundry/SecondaryDisabled.png": [
+      20,
+      20,
+      20,
+      20
+    ]
+  }
+}

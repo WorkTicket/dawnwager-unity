@@ -1,0 +1,17 @@
+PASS full-bleed aspect crop at standard, tall, and ultrawide sizes.
+PASS campaign chapter routing for fresh, unlocked, and complete profiles.
+PASS inspection text, keyword help and live pass notice.
+PASS draw events, pile counts, kept cards, and full-hand overflow.
+PASS all 16 opening-hand keep and replacement patterns.
+PASS scripted Ringkeeper vs Candle Bearer Fimbulwinter sequence.
+PASS dedicated resolution checks for all six prophecies.
+PASS both victory routes, deck rules and reward gating.
+PASS every hand-playable card path and all five hero powers.
+Chapter 1 · 17/24 wins by progression-deck AI.
+Chapter 2 · 23/24 wins by progression-deck AI.
+Chapter 3 · 24/24 wins by progression-deck AI.
+Chapter 4 · 5/24 wins by progression-deck AI.
+Chapter 5 · 6/24 wins by progression-deck AI.
+Chapter 6 · 24/24 wins by progression-deck AI.
+Chapter 7 · 14/24 wins by progression-deck AI.
+PASS 168 completed campaign simulations (113 wins by progression-deck AI).

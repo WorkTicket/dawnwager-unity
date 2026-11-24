@@ -1,0 +1,11 @@
+id,route,name,bossOrRule,unlockAfter,firstWinSkillPoints,relic
+C01,Main,Fimbulwinter,Runa Ice Ferrier,,1,Ferry Bell
+C02,Main,Heimdalls Horn,The Oathguard,C01,1,
+C03,Main,The Road to Hel,Hel Keeper of the Names,C02,1,
+C04,Main,Naglfar Sets Sail,The Mountain Host,C03,1,Charred Coin
+C05,Main,Fenrir at Vigridr,Fenrir Chainbreaker,C04,1,
+C06,Main,Loki at the Broken Bridge,Loki Oathbreaker,C05,1,
+C07,Main,Surtrs Fire,Surtr the Coming Fire,C06,1,Last Lantern
+O01,Optional,The Frost Ford,Start with a quiet Site in each lane,C01,1,Frost Nail
+O02,Optional,The Toll at Gjoll,Enemy starts with one Guard in each lane,C03,1,Ferry Bell
+O03,Optional,The Buried Forge,First Site played by each side gains one Shield,C05,1,Charred Coin

@@ -1,0 +1,19 @@
+id,branch,display_name,column,row,cost,prerequisite,trigger,effect
+B1,Bastion,Set the Rampart,1,0,1,,MatchStart,Start with +2 maximum and current hero health.
+B2,Bastion,Keep the Watch,0,1,1,B1,FirstGuardFromHand,The first Guard Unit you play from hand gains +1 Health.
+B3,Bastion,Field Dressing,2,1,1,B1,FirstAllyDeath,Heal your hero for 2 the first time an allied Unit dies.
+B4,Bastion,Hold This Ground,0,2,2,B2,FirstEnemySeal,The first time the enemy claims a Seal heal your hero for 2.
+B5,Bastion,Iron Reserve,2,2,2,B3,MatchStart,Start with +3 maximum and current hero health.
+B6,Bastion,Stand at Dawn,1,3,2,B4+B5,FirstRoundEndAtLowHealth,"Once per match, if your hero has 6 or less health and the match is ongoing at round end, heal 3."
+W1,Warcraft,First Through,4,0,1,,FirstUnitFromHand,The first Unit you play from hand gains +1 Attack this round.
+W2,Warcraft,Marching Cadence,3,1,1,W1,FirstMarch,The first Unit you march gets +1 Attack this round.
+W3,Warcraft,Press the Opening,5,1,1,W1,FirstContestedUnitPlay,The first Unit you play from hand into the contested lane gets +1 Attack this round.
+W4,Warcraft,Steel Followthrough,3,2,2,W2,FirstOrderAfterAttack,Your first Order played after an allied Unit attacks costs 1 less Charge this round.
+W5,Warcraft,Oath of the Front,5,2,2,W3,FirstSealWon,When you claim your first Seal heal your hero for 2.
+W6,Warcraft,Break the Line,4,3,2,W4+W5,FirstRushFromHand,The first Rush Unit you play from hand gains +1 permanent Attack.
+R1,Runecraft,Measured Reading,7,0,1,,FirstOrderFromHand,The first Order you play from hand costs 1 less Charge.
+R2,Runecraft,Ink Before Iron,6,1,1,R1,FirstAlliedSiteFromHand,Heal your hero 1 when you first play a Site from hand.
+R3,Runecraft,Sigil Keeper,8,1,1,R1,FirstHeroPower,Heal your hero 1 after the first hero power you activate.
+R4,Runecraft,Quiet Rune,6,2,2,R2,FirstAlliedSeal,After your first Seal award your first Order in the following round costs 1 less Charge.
+R5,Runecraft,Last Page,8,2,2,R3,FirstProphecyResolved,"After the first prophecy resolves, draw one card if the match is ongoing."
+R6,Runecraft,Living Spellbook,7,3,2,R4+R5,FirstSiteAfterOrder,The first Site you play after an Order this match costs 1 less Charge.
