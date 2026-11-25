@@ -182,6 +182,7 @@ namespace Wolfsun
             if (target) act = () => CommitMove(choices.First(m => m.Target == unit.Key));
             else if (mine) act = () => SelectPiece(unit);
             CardTarget(tile, unit.Card.Id, act, false, unit);
+            if (mine && ready) BindUnitDrag(tile, unit);
         }
 
         // ---------------------------------------------------------------- heroes
@@ -405,6 +406,7 @@ namespace Wolfsun
                 SafeText(root, status, 560, 100, 800, 44, 20, Muted, false, TextAnchor.MiddleCenter, 12);
             bool idle = canAct && !legal.Any(m => m.Kind != ActionKind.Pass);
             string label = !canAct ? (match.Winner >= 0 ? "Finished" : "Enemy Turn") : match.AwaitingSecondPass ? "End Round" : (idle ? "End Turn" : "Pass");
+            if (canAct) SafeText(root, "Space pass · 1-8 cards · Q power · R rules", 1640, 806, 260, 22, 13, Quiet, false, TextAnchor.MiddleCenter, 9);
             EndTurnButton(label, 1650, 726, 240, 75, () => { if (choosing) CancelSelection(false); Command(new Move(ActionKind.Pass)); }, canAct, idle, root);
         }
 
@@ -471,6 +473,29 @@ namespace Wolfsun
             ShowPhaseBanner(CardAnimationLayer(), "Round 1", match.Turn == 0 ? "You move first" : "The enemy moves first", Brass, 1.0f);
             announcedRound = match.Round;
             Schedule();
+        }
+
+        /// <summary>Keyboard play: 1-8 pick a hand card, Q the hero power, Space or Enter passes, R opens the rules.</summary>
+        private void BattleKeys(UnityEngine.InputSystem.Keyboard keyboard)
+        {
+            if (page != Page.Battle || match == null || settings || showRules || inspected != null || presenting) return;
+            if (match.Opening)
+            {
+                if (keyboard.enterKey.wasPressedThisFrame || keyboard.spaceKey.wasPressedThisFrame) FinishOpening();
+                return;
+            }
+            if (keyboard.rKey.wasPressedThisFrame) { OpenRules(); return; }
+            if (!canAct) return;
+            var digits = new[] { keyboard.digit1Key, keyboard.digit2Key, keyboard.digit3Key, keyboard.digit4Key,
+                keyboard.digit5Key, keyboard.digit6Key, keyboard.digit7Key, keyboard.digit8Key };
+            for (int i = 0; i < digits.Length; i++)
+                if (digits[i].wasPressedThisFrame && i < match.Players[0].Hand.Count) { SelectHand(i); return; }
+            if (keyboard.qKey.wasPressedThisFrame) { SelectPower(); return; }
+            if (keyboard.spaceKey.wasPressedThisFrame || keyboard.enterKey.wasPressedThisFrame)
+            {
+                if (choosing) CancelSelection(false);
+                Command(new Move(ActionKind.Pass));
+            }
         }
     }
 }

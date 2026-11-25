@@ -74,9 +74,10 @@ namespace Wolfsun
 
         private void ContinueHandDrag(PointerEventData e)
         {
-            if (dragLayer == null || carriedCard == null || e.pointerId != dragPointer) return;
+            if (dragLayer == null || e.pointerId != dragPointer) return;
             var at = PointerInRoot(root, e);
-            carriedCard.anchoredPosition = new Vector2(at.x, -at.y);
+            if (carriedCard != null) carriedCard.anchoredPosition = new Vector2(at.x, -at.y);
+            if (dragArrow != null) AimArrow(at);
             var hit = DropTargetAt(at);
             foreach (var target in dragTargets)
                 if (target.Glow) target.Glow.color = hit != null && target.Move == hit
@@ -123,6 +124,68 @@ namespace Wolfsun
             dragPointer = int.MinValue;
             dropMove = null;
             dragTargets.Clear();
+        }
+
+        // ---------------------------------------------------------------- unit attack / march
+
+        private Vector2 arrowFrom;
+
+        private void BindUnitDrag(RectTransform tile, Piece unit)
+        {
+            var relay = tile.gameObject.GetComponent<PointerRelay>() ?? tile.gameObject.AddComponent<PointerRelay>();
+            relay.BeginDrag = e => BeginUnitDrag(tile, unit, e);
+            relay.Drag = e => ContinueHandDrag(e);
+            relay.EndDrag = e => EndHandDrag(e);
+        }
+
+        private void BeginUnitDrag(RectTransform tile, Piece unit, PointerEventData e)
+        {
+            if (!canAct || presenting || dragLayer != null) return;
+            var options = match.Legal(0).Where(m => (m.Kind == ActionKind.Attack || m.Kind == ActionKind.March) && m.Slot == unit.Key).ToArray();
+            if (options.Length == 0) { UiSound("deny"); return; }
+            ClearCardPreview();
+            dragPointer = e.pointerId;
+            dragTargets.Clear();
+            dropMove = null;
+            dragLayer = Box(root, "Drag layer", 0, 0, 1920, 1080);
+            foreach (var move in options)
+            {
+                if (move.Target != 0 && battlePieces.TryGetValue(move.Target, out var victim) && victim)
+                {
+                    var c = RootCenter(victim);
+                    var box = ColorBox(dragLayer, "Target", c.x - victim.rect.width / 2f, c.y - victim.rect.height / 2f, victim.rect.width, victim.rect.height, new Color(1, .45f, .35f, .24f));
+                    Pic(box, Foundry + "TargetNode", victim.rect.width / 2f - 30, victim.rect.height / 2f - 30, 60, 60);
+                    dragTargets.Add((move, box, box.GetComponent<Image>()));
+                }
+                else if (move.Kind == ActionKind.Attack && move.Target == 0 && heroBadges[1])
+                {
+                    var c = RootCenter(heroBadges[1]);
+                    var box = ColorBox(dragLayer, "Bastion", c.x - 100, c.y - 120, 200, 200, new Color(1, .45f, .35f, .2f));
+                    dragTargets.Add((move, box, box.GetComponent<Image>()));
+                }
+                else if (move.Kind == ActionKind.March && move.Lane >= 0)
+                {
+                    var box = ColorBox(dragLayer, "March", LaneX[move.Lane], AllyRowY - 8, LaneWidth, AllySiteY + 48 - AllyRowY, new Color(.6f, .8f, 1f, .14f));
+                    dragTargets.Add((move, box, box.GetComponent<Image>()));
+                }
+            }
+            arrowFrom = RootCenter(tile);
+            dragArrow = Box(dragLayer, "Aim", arrowFrom.x, arrowFrom.y, 10, 10);
+            dragArrow.pivot = new Vector2(0, .5f);
+            var arrowImage = dragArrow.gameObject.AddComponent<Image>();
+            arrowImage.color = new Color(Gold.r, Gold.g, Gold.b, .9f);
+            arrowImage.raycastTarget = false;
+            AimArrow(PointerInRoot(root, e));
+            UiSound("card-select");
+        }
+
+        private void AimArrow(Vector2 at)
+        {
+            if (!dragArrow) return;
+            Vector2 d = at - arrowFrom;
+            dragArrow.anchoredPosition = new Vector2(arrowFrom.x, -arrowFrom.y);
+            dragArrow.sizeDelta = new Vector2(Mathf.Max(4, d.magnitude), 10);
+            dragArrow.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(-d.y, d.x) * Mathf.Rad2Deg);
         }
     }
 }
