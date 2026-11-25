@@ -67,14 +67,19 @@ namespace Wolfsun
             var rect = Box(parent != null ? parent : root, card.Name, x, y, w, h);
             float sx = w / 416f, sy = h / 590f;
             // CardShadow and CardPlayableGlow are authored at exactly card size: draw them 1:1, never enlarged.
-            Pic(rect, Foundry + "CardShadow", w * .012f, h * .014f, w, h, new Color(1, 1, 1, .55f));
+            Pic(rect, Foundry + "CardShadow", w * .012f, h * .014f, w, h, new Color(1, 1, 1, .4f));
             if (highlighted) Pic(rect, Foundry + "CardPlayableGlow", 0, 0, w, h);
             var well = Box(rect, "Art well", 34 * sx, 56 * sy, 348 * sx, 296 * sy);
             var backing = Fill(well, new Color(.035f, .045f, .06f, 1f));
             backing.raycastTarget = false;
             var mask = MaskedContent(well, "Portrait", 0, 0, 348 * sx, 296 * sy);
             string art = CardArt(card);
-            if (card.Kind == Kind.Unit) FitSafe(mask, art, 0, 0, 348 * sx, 296 * sy);
+            if (card.Kind == Kind.Unit)
+            {
+                Backdrop(mask, 0, 0, 348 * sx, 296 * sy, CardAccent(card));
+                float ua = 348 * sx * 1.04f;
+                FitSafe(mask, art, (348 * sx - ua) / 2f, 4 * sy, ua, ua);
+            }
             else CoverSafe(mask, art, 0, 0, 348 * sx, 296 * sy, Color.white);
             var foil = Pic(mask, Foundry + "Foil-" + card.Faction, 0, 0, 88 * sx, 296 * sy);
             if (foil.texture != null && !reduceMotion) StartCoroutine(FoilSweep(foil, card, 348 * sx, 0));

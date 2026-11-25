@@ -36,6 +36,30 @@ namespace Wolfsun
         private Sprite Slice(string art) => FoundrySprite(art, BorderFor(art));
 
         /// <summary>Like Picture, but a missing texture draws nothing instead of a white box.</summary>
+        private Texture2D gradientTex;
+
+        /// <summary>Vertical accent gradient used behind cut-out busts so transparent art never shows a black hole.</summary>
+        private RawImage Backdrop(Transform parent, float x, float y, float w, float h, Color accent)
+        {
+            if (gradientTex == null)
+            {
+                gradientTex = new Texture2D(1, 64, TextureFormat.RGBA32, false) { wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear };
+                for (int i = 0; i < 64; i++)
+                {
+                    float t = i / 63f; // 0 = bottom
+                    float v = Mathf.Lerp(.28f, 1f, Mathf.SmoothStep(0, 1, t));
+                    gradientTex.SetPixel(0, i, new Color(v, v, v, 1));
+                }
+                gradientTex.Apply();
+            }
+            var rect = Box(parent, "backdrop", x, y, w, h);
+            var view = rect.gameObject.AddComponent<RawImage>();
+            view.texture = gradientTex;
+            view.color = Color.Lerp(accent, new Color(.12f, .16f, .24f, 1f), .45f);
+            view.raycastTarget = false;
+            return view;
+        }
+
         private RawImage Pic(Transform parent, string name, float x, float y, float w, float h, Color? tint = null)
         {
             var view = Picture(parent, name, x, y, w, h, tint);
@@ -138,8 +162,9 @@ namespace Wolfsun
             if (framed)
             {
                 // Busts have the face near the top: scale down and sit lower so the circle never clips it.
-                float s = d * .98f;
-                FitSafe(disc, artPath, (d - s) / 2f, d * .08f, s, s, spentTint ?? Color.white);
+                Backdrop(disc, 0, 0, d, d, new Color(.35f, .5f, .75f, 1f));
+                float s = d * 1.22f;
+                CoverSafe(disc, artPath, (d - s) / 2f, d * .03f, s, s, spentTint ?? Color.white);
                 Pic(holder, frameArt, 0, 0, size, size);
             }
             else CoverSafe(disc, artPath, 0, 0, d, d, spentTint ?? Color.white);

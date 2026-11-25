@@ -167,8 +167,9 @@ namespace Wolfsun
             backing.color = new Color(.05f, .07f, .1f, 1f);
             backing.raycastTarget = false;
             disc.gameObject.AddComponent<Mask>().showMaskGraphic = true;
-            float art = disc.sizeDelta.x * 1.08f;
-            FitSafe(disc, UnitArt(unit.Card.Id), (disc.sizeDelta.x - art) / 2f, disc.sizeDelta.y * .09f, art, art, tint);
+            Backdrop(disc, 0, 0, disc.sizeDelta.x, disc.sizeDelta.y, unit.Side == 0 ? AllySage : EnemyCopper);
+            float art = disc.sizeDelta.x * 1.25f;
+            FitSafe(disc, UnitArt(unit.Card.Id), (disc.sizeDelta.x - art) / 2f, disc.sizeDelta.y * .02f, art, art, tint);
             Pic(tile, Foundry + "UnitToken", 0, 0, TileW, TileH, tint);
             int medal = 30;
             Medal(tile, "Attack", unit.Attack.ToString(), -6, TileH - 62, 62, medal);
