@@ -160,14 +160,15 @@ namespace Wolfsun
                 var glow = Pic(tile, Foundry + "UnitTokenGlow", -14, -14, TileW + 28, TileH + 28,
                     target ? (mine ? AllySage : EnemyCopper) : picked ? Gold : new Color(Brass.r, Brass.g, Brass.b, .55f));
             }
-            var disc = Box(tile, "Portrait", TileW * .15f, TileH * .1f, TileW * .70f, TileH * .78f);
+            var disc = Box(tile, "Portrait", TileW * .16f, TileH * .155f, TileW * .68f, TileH * .69f);
             var backing = disc.gameObject.AddComponent<Image>();
             var circle = CircleSprite();
             if (circle != null) backing.sprite = circle;
             backing.color = new Color(.05f, .07f, .1f, 1f);
             backing.raycastTarget = false;
             disc.gameObject.AddComponent<Mask>().showMaskGraphic = true;
-            FitSafe(disc, UnitArt(unit.Card.Id), -8, -4, disc.sizeDelta.x + 16, disc.sizeDelta.y + 8, tint);
+            float art = disc.sizeDelta.x * 1.08f;
+            FitSafe(disc, UnitArt(unit.Card.Id), (disc.sizeDelta.x - art) / 2f, disc.sizeDelta.y * .09f, art, art, tint);
             Pic(tile, Foundry + "UnitToken", 0, 0, TileW, TileH, tint);
             int medal = 30;
             Medal(tile, "Attack", unit.Attack.ToString(), -6, TileH - 62, 62, medal);
@@ -346,7 +347,7 @@ namespace Wolfsun
                 float tilt = -t * 2.3f;
                 float y = HandBaseY + t * t * 3.2f - (picked ? 46 : 0);
                 var rect = PaperCard(card, x0 + i * step, y, HandCardW, HandCardH, match.Cost(0, card), playable || picked, root, false);
-                if (!playable && canAct) ColorBox(rect, "Unaffordable", 0, 0, rect.sizeDelta.x, rect.sizeDelta.y, new Color(0, 0, 0, .38f));
+                if (!playable && canAct) Pic(rect, Foundry + "CardShadow", 0, 0, rect.sizeDelta.x, rect.sizeDelta.y, new Color(0, 0, 0, .45f));
                 var size = rect.sizeDelta;
                 rect.pivot = new Vector2(.5f, .5f);
                 rect.anchoredPosition = new Vector2(x0 + i * step + size.x / 2f, -(y + size.y / 2f));

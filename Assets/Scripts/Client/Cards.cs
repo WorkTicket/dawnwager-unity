@@ -66,9 +66,9 @@ namespace Wolfsun
             CardSize(ref w, ref h);
             var rect = Box(parent != null ? parent : root, card.Name, x, y, w, h);
             float sx = w / 416f, sy = h / 590f;
-            float pad = w * .06f;
-            Pic(rect, Foundry + "CardShadow", -pad * .5f, pad * .3f, w + pad, h + pad, new Color(1, 1, 1, .85f));
-            if (highlighted) Pic(rect, Foundry + "CardPlayableGlow", -pad, -pad, w + pad * 2, h + pad * 2);
+            // CardShadow and CardPlayableGlow are authored at exactly card size: draw them 1:1, never enlarged.
+            Pic(rect, Foundry + "CardShadow", w * .012f, h * .014f, w, h, new Color(1, 1, 1, .55f));
+            if (highlighted) Pic(rect, Foundry + "CardPlayableGlow", 0, 0, w, h);
             var well = Box(rect, "Art well", 34 * sx, 56 * sy, 348 * sx, 296 * sy);
             var backing = Fill(well, new Color(.035f, .045f, .06f, 1f));
             backing.raycastTarget = false;
@@ -76,6 +76,9 @@ namespace Wolfsun
             string art = CardArt(card);
             if (card.Kind == Kind.Unit) FitSafe(mask, art, 0, 0, 348 * sx, 296 * sy);
             else CoverSafe(mask, art, 0, 0, 348 * sx, 296 * sy, Color.white);
+            var foil = Pic(mask, Foundry + "Foil-" + card.Faction, 0, 0, 88 * sx, 296 * sy);
+            if (foil.texture != null && !reduceMotion) StartCoroutine(FoilSweep(foil, card, 348 * sx, 0));
+            else foil.color = Color.clear;
             Pic(rect, FramePath(card), 0, 0, w, h);
             Pic(rect, Foundry + "Nameplate", 40 * sx, 330 * sy, 336 * sx, 44 * sy);
             var name = OutlinedText(rect, card.Name, 58 * sx, 330 * sy, 300 * sx, 44 * sy, Mathf.Max(11, Mathf.RoundToInt(26 * sx)),
@@ -101,7 +104,7 @@ namespace Wolfsun
                 Pic(rect, Foundry + "Shield", 168 * sx, 20 * sy, 80 * sx, 80 * sy);
             if (mulliganSelect)
             {
-                ColorBox(rect, "Replace shade", 0, 0, w, h, new Color(0, 0, 0, .55f));
+                Pic(rect, Foundry + "CardShadow", 0, 0, w, h, new Color(0, 0, 0, .6f));
                 Pic(rect, Foundry + "DenyX", w * .25f, h * .3f, w * .5f, w * .5f);
             }
             return rect;
@@ -112,7 +115,7 @@ namespace Wolfsun
         {
             var card = Catalog.Get(id);
             var rect = PaperCard(card, x, y, Mathf.RoundToInt(w), Mathf.RoundToInt(h), card.Cost, false, parent, false);
-            if (tint.HasValue) ColorBox(rect, "Tint", 0, 0, rect.sizeDelta.x, rect.sizeDelta.y, tint.Value);
+            if (tint.HasValue) Pic(rect, Foundry + "CardShadow", 0, 0, rect.sizeDelta.x, rect.sizeDelta.y, tint.Value);
             if (click != null)
             {
                 Click(rect, click);

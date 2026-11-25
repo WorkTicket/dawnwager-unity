@@ -124,13 +124,25 @@ namespace Wolfsun
             string frameArt = null, Color? spentTint = null)
         {
             var holder = Box(parent, "portrait", x, y, size, size);
-            var disc = Box(holder, "disc", size * .04f, size * .04f, size * .92f, size * .92f);
+            bool framed = !string.IsNullOrEmpty(frameArt);
+            // HeroFrame/UnitToken openings measure about 0.67 of the frame; tuck the disc just under the ring.
+            float d = framed ? size * .70f : size * .92f;
+            float off = (size - d) / 2f;
+            var disc = Box(holder, "disc", off, off, d, d);
             var maskImage = disc.gameObject.AddComponent<Image>();
             var sprite = CircleSprite();
             if (sprite != null) maskImage.sprite = sprite;
-            disc.gameObject.AddComponent<Mask>().showMaskGraphic = false;
-            CoverSafe(disc, artPath, 0, 0, size * .92f, size * .92f, spentTint ?? Color.white);
-            if (!string.IsNullOrEmpty(frameArt)) Pic(holder, frameArt, 0, 0, size, size);
+            maskImage.color = framed ? new Color(.05f, .07f, .1f, 1f) : Color.white;
+            maskImage.raycastTarget = false;
+            disc.gameObject.AddComponent<Mask>().showMaskGraphic = framed;
+            if (framed)
+            {
+                // Busts have the face near the top: scale down and sit lower so the circle never clips it.
+                float s = d * .98f;
+                FitSafe(disc, artPath, (d - s) / 2f, d * .08f, s, s, spentTint ?? Color.white);
+                Pic(holder, frameArt, 0, 0, size, size);
+            }
+            else CoverSafe(disc, artPath, 0, 0, d, d, spentTint ?? Color.white);
             return holder;
         }
 
