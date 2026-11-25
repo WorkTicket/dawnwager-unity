@@ -79,7 +79,7 @@ namespace Wolfsun
             var foe = Campaign.Chapters[Campaign.ChapterAtProgress(profile.progress)];
             bool finished = profile.progress >= Campaign.Chapters.Length;
             string story = finished ? "All seven chapters cleared" : (profile.progress == 0 ? "Begin the story" : "Next: " + foe.Name);
-            const float x0 = 115, gap = 30;
+            const float x0 = 115;
             ModeTile("Campaign", "Campaign", story, x0, 520, () => { chapter = Campaign.ChapterAtProgress(profile.progress); Go(Page.Story); });
             ModeTile("Casual", "Casual Duel", "Unranked match against a rival", x0 + 430, 520, () => { pendingQueue = Net.QueueMode.Casual; Go(Page.Play); });
             ModeTile("Ranked", "Ranked Ladder", Ladder.DisplayName(profile.ladderAbsolute, profile.legendPlace), x0 + 860, 520, () => { pendingQueue = Net.QueueMode.Ranked; Go(Page.Play); });
