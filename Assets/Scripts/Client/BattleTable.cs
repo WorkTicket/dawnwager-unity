@@ -127,8 +127,8 @@ namespace Wolfsun
                 }
             ChromePanel(root, "Lane header", lx, TableY, LaneWidth, 44, contested ? "PanelGold" : "Panel");
             int mine = match.SealPower(0, lane), theirs = match.SealPower(1, lane);
-            SafeText(root, Lane(lane) + (contested ? " · Contested" : ""), lx + 20, TableY, 330, 44, 24, contested ? Gold : White, true, TextAnchor.MiddleLeft, 14);
-            SafeText(root, "Seal Power  You " + mine + "  ·  Foe " + theirs, lx + 330, TableY, 270, 44, 18,
+            SafeText(root, Lane(lane) + (contested ? " · Contested" : ""), lx + 40, TableY, 310, 44, 24, contested ? Gold : White, true, TextAnchor.MiddleLeft, 14);
+            SafeText(root, "Seal Power  You " + mine + "  ·  Foe " + theirs, lx + 330, TableY, 246, 44, 17,
                 mine > theirs ? AllySage : mine < theirs ? EnemyCopper : Muted, false, TextAnchor.MiddleRight, 11);
             var zone = choices.FirstOrDefault(m => m.Target == 0 && m.Lane == lane && m.Kind != ActionKind.Attack);
             if (zone != null)
@@ -186,14 +186,15 @@ namespace Wolfsun
             backing.color = new Color(.05f, .07f, .1f, 1f);
             backing.raycastTarget = false;
             disc.gameObject.AddComponent<Mask>().showMaskGraphic = true;
-            Backdrop(disc, 0, 0, disc.sizeDelta.x, disc.sizeDelta.y, unit.Side == 0 ? AllySage : EnemyCopper);
+            Backdrop(disc, 0, 0, disc.sizeDelta.x, disc.sizeDelta.y, unit.Side == 0 ? new Color(.31f, .54f, .42f, 1f) : new Color(.66f, .36f, .27f, 1f), true);
             float art = disc.sizeDelta.x * 1.25f;
             FitSafe(disc, UnitArt(unit.Card.Id), (disc.sizeDelta.x - art) / 2f, disc.sizeDelta.y * .02f, art, art, tint);
             Pic(tile, Foundry + "UnitToken", 0, 0, TileW, TileH, tint);
             int medal = 30;
             Medal(tile, "Attack", unit.Attack.ToString(), -6, TileH - 62, 62, medal);
             Medal(tile, "Health", unit.Hp.ToString(), TileW - 56, TileH - 62, 62, medal);
-            OutlinedText(tile, unit.Card.Name, 52, TileH - 40, TileW - 104, 24, 15, unit.Card.Legendary ? Gold : White, true, TextAnchor.MiddleCenter, 8);
+            Pic(tile, Foundry + "UnitPlate", 44, 180, 88, 30, new Color(1, 1, 1, .92f));
+            OutlinedText(tile, unit.Card.Name, 50, 182, 76, 26, 14, unit.Card.Legendary ? Gold : White, true, TextAnchor.MiddleCenter, 8);
             if (unit.Shield) Pic(tile, Foundry + "Shield", TileW - 44, 0, 44, 44);
             if (unit.Guard) OutlinedText(tile, "Guard", 2, 2, 62, 22, 14, Frost, true, TextAnchor.MiddleLeft, 9);
             else if (unit.Card.Rush) OutlinedText(tile, "Rush", 2, 2, 62, 22, 14, Gold, true, TextAnchor.MiddleLeft, 9);
@@ -215,6 +216,7 @@ namespace Wolfsun
             heroBadges[side] = badge;
             bool strike = side == 1 && choices.Any(m => m.Kind == ActionKind.Attack && m.Target == 0);
             var portrait = CirclePortrait(badge, HeroArt(pilot.Hero), 35, 0, 170, Foundry + "HeroFrame");
+            if (!reduceMotion) StartCoroutine(Breathe(portrait));
             if (strike)
             {
                 Pic(badge, Foundry + "TargetNode", 70, 35, 100, 100);

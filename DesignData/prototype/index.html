@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Dawnwager battle table prototype</title>
+<style>
+@font-face{font-family:Display;src:url(Display.ttf)}
+@font-face{font-family:Body;src:url(Body.ttf)}
+:root{--brass:#c9a55c;--gold:#f0c75e;--muted:#9aa5a8;--sage:#b4d3c1;--copper:#e19781;--frost:#9fd6ee;--ink:#2f2820}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;height:100%;background:#05070a;overflow:hidden;font-family:Body,Georgia,serif;color:#fff}
+#stage{position:absolute;left:0;top:0;width:1920px;height:1080px;transform-origin:0 0;overflow:hidden;background:#0b1118}
+.abs{position:absolute}
+img{display:block;-webkit-user-drag:none}
+.fill{position:absolute;inset:0;width:100%;height:100%}
+.disp{font-family:Display,Georgia,serif;font-variant:small-caps;letter-spacing:.02em}
+.ol{text-shadow:0 2px 0 #000,0 0 6px #000,0 0 2px #000}
+.center{display:flex;align-items:center;justify-content:center;text-align:center}
+
+/* ---- card ---- */
+.cardwrap{position:absolute;transition:transform .22s cubic-bezier(.2,.8,.2,1),filter .2s;transform-origin:50% 100%;cursor:pointer}
+.card{position:absolute;left:0;top:0;width:416px;height:590px;transform-origin:0 0}
+.card .well{position:absolute;left:34px;top:56px;width:348px;height:296px;overflow:hidden;background:#0a0e14}
+.card .well .bd{position:absolute;inset:0}
+.card .well img.art{position:absolute}
+.card .foil{position:absolute;top:0;left:-100px;width:88px;height:296px;mix-blend-mode:screen;opacity:.0;animation:foil 5.5s ease-in-out infinite}
+@keyframes foil{0%,55%{left:-100px;opacity:0}60%{opacity:.9}85%{opacity:.9}100%{left:360px;opacity:0}}
+.card .nm{position:absolute;left:58px;top:330px;width:300px;height:44px;font-size:25px;color:#fff;white-space:nowrap}
+.card .tl{position:absolute;left:50px;top:374px;width:316px;height:28px;font-size:16px;color:#decda8}
+.card .rules{position:absolute;left:56px;top:416px;width:304px;height:108px;font-size:21px;line-height:1.12;color:var(--ink);padding:2px}
+.card .med{position:absolute;width:72px;height:72px}
+.card .med span{position:absolute;inset:0;font-size:38px;font-family:Display;display:flex;align-items:center;justify-content:center;text-shadow:0 2px 0 #000,0 0 5px #000}
+
+/* ---- tiles ---- */
+.tile{position:absolute;width:176px;height:220px}
+.tile .disc{position:absolute;left:28px;top:34px;width:120px;height:152px;border-radius:50%;overflow:hidden}
+.tile .disc .bd{position:absolute;inset:0}
+.tile .disc img.art{position:absolute;width:150px;left:-15px;top:3px}
+.tile .tok{position:absolute;left:0;top:0;width:176px;height:220px}
+.tile .med{position:absolute;width:62px;height:62px}
+.tile .med span{position:absolute;inset:0;font-size:30px;font-family:Display;display:flex;align-items:center;justify-content:center;text-shadow:0 2px 0 #000,0 0 5px #000}
+.tile .tn{position:absolute;left:50px;top:182px;width:76px;height:26px;font-size:14px;line-height:.95}
+.tile .np{position:absolute;left:44px;top:180px;width:88px;height:30px;opacity:.92}
+.sock{position:absolute;background:rgba(0,0,0,.22);border:1px solid rgba(201,165,92,.28)}
+.sock img{position:absolute;left:50%;top:50%;width:70px;margin:-35px 0 0 -35px;opacity:.16}
+
+/* ---- hero ---- */
+.hero{position:absolute;width:240px;height:330px}
+.hero .ring{position:absolute;left:35px;top:0;width:170px;height:170px}
+.hero .disc{position:absolute;left:50px;top:15px;width:140px;height:140px;border-radius:50%;overflow:hidden}
+.hero .disc .bd{position:absolute;inset:0}
+.hero .disc img.art{position:absolute;width:171px;left:-15px;top:4px}
+.breathe{animation:breathe 4.2s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.018) translateY(-1px)}}
+
+.panel{position:absolute}
+.lanehead{position:absolute;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 44px 0 40px}
+</style></head>
+<body><div id="stage"></div>
+<script>
+const A='Art/', F=A+'Foundry/';
+const ACC={A:'#3f7fc4',H:'#c26a3a',J:'#7a9a4a',L:'#8a5ac0',M:'#4aa59a',N:'#9aa7b8',X:'#b08a40'};
+const CARDS=[
+ {n:'Hold the Span',f:'A',k:'Order',art:'Orders/A03',cost:3,type:'Asgard Order',rules:'Choose a lane.'},
+ {n:'Fisher of the Sound',f:'X',k:'Unit',art:'Units/X02',cost:2,a:2,h:3,type:'Neutral Unit',rules:'No special ability.'},
+ {n:'Einherjar Muster',f:'A',k:'Order',art:'Orders/A04',cost:3,type:'Asgard Order',rules:'Choose a lane.'},
+ {n:'Hall Healer',f:'A',k:'Unit',art:'Units/A09',cost:4,a:2,h:4,type:'Asgard Unit',rules:'Deploy: Heal your strongest wounded unit 3.'},
+ {n:'Sigrun Standard',f:'A',k:'Unit',art:'Units/A10',cost:5,a:4,h:4,type:'Asgard Unit',rules:'Allies in this lane gain +1 Attack.',mythic:true},
+];
+const $=(h)=>{const d=document.createElement('div');d.innerHTML=h.trim();return d.firstElementChild};
+const st=document.getElementById('stage');
+function put(el,x,y,w,h){el.style.position='absolute';el.style.left=x+'px';el.style.top=y+'px';if(w!=null){el.style.width=w+'px';el.style.height=h+'px'}st.appendChild(el);return el}
+
+function cardEl(c,w){
+  const s=w/416,h=Math.round(590*s);
+  const wrap=$(`<div class="cardwrap" style="width:${w}px;height:${h}px"></div>`);
+  const kind=c.k==='Unit'?(c.mythic?'Unit-Mythic':'Unit'):c.k;
+  const art=c.k==='Unit'
+    ?`<div class="bd" style="background:linear-gradient(to bottom,${ACC[c.f]}ee,#141c28)"></div><img class="art" src="${A+c.art}.png" style="width:362px;left:-7px;top:4px">`
+    :`<img class="art" src="${A+c.art}.png" style="width:348px;height:296px;object-fit:cover">`;
+  const med=(src,x,y,v)=>`<div class="med" style="left:${x}px;top:${y}px"><img class="fill" src="${F+src}.png"><span>${v}</span></div>`;
+  wrap.innerHTML=`<div class="card" style="transform:scale(${s})">
+    <img class="abs" src="${F}CardShadow.png" style="left:5px;top:8px;width:416px;height:590px;opacity:.4">
+    ${c.glow?`<img class="abs" src="${F}CardPlayableGlow.png" style="left:0;top:0;width:416px;height:590px">`:''}
+    <div class="well">${art}<img class="foil" src="${F}Foil-${c.f==='X'?'N':c.f}.png"></div>
+    <img class="abs" src="${F}Card-${c.f}-${kind}.png" style="left:0;top:0;width:416px;height:590px">
+    <img class="abs" src="${F}Nameplate.png" style="left:40px;top:330px;width:336px;height:44px">
+    <div class="nm disp center ol">${c.n}</div>
+    <div class="tl disp center">${c.type}</div>
+    <img class="abs" src="${F}RulesParchment.png" style="left:42px;top:410px;width:332px;height:120px">
+    <div class="rules center" style="font-family:Body">${c.rules}</div>
+    ${med('Cost',8,8,c.cost)}
+    ${c.k==='Unit'?med('Attack',8,510,c.a)+med('Health',336,510,c.h):''}
+  </div>`;
+  return wrap;
+}
+
+function tile(x,y,u,side){
+  const t=$(`<div class="tile"></div>`);
+  const tint=side===0?'#4f8a6a':'#a85d45';
+  t.innerHTML=`${u.ready?`<img class="abs" src="${F}UnitTokenGlow.png" style="left:-14px;top:-14px;width:204px;height:248px;opacity:.55">`:''}
+   <div class="disc"><div class="bd" style="background:linear-gradient(to bottom,${tint},#141c28)"></div><img class="art" src="${A}${u.art}.png"></div>
+   <img class="tok" src="${F}UnitToken.png">
+   <div class="med" style="left:-6px;top:158px"><img class="fill" src="${F}Attack.png"><span>${u.a}</span></div>
+   <div class="med" style="left:120px;top:158px"><img class="fill" src="${F}Health.png"><span>${u.h}</span></div>
+   <img class="np" src="${F}UnitPlate.png"><div class="tn disp center ol" style="color:${u.leg?'#f0c75e':'#fff'}">${u.n}</div>
+   ${u.guard?`<div class="abs disp ol" style="left:2px;top:2px;font-size:14px;color:var(--frost)">Guard</div>`:''}`;
+  return put(t,x,y);
+}
+
+function lane(lx,name,contested,mine,theirs,ally,enemy,siteA,siteE){
+  const edge=contested?'rgba(240,199,94,.7)':'rgba(201,165,92,.32)';
+  put($(`<div style="background:linear-gradient(to bottom,rgba(8,13,20,.42),rgba(8,13,20,.62))"></div>`),lx,204,620,548);
+  put($(`<div style="background:${edge}"></div>`),lx,204,2,548);
+  put($(`<div style="background:${edge}"></div>`),lx+618,204,2,548);
+  put($(`<div style="background:${edge}"></div>`),lx,750,620,2);
+  if(contested)put($(`<div style="background:linear-gradient(to bottom,rgba(240,199,94,.12),rgba(240,199,94,0))"></div>`),lx,204,620,548);
+  put($(`<img src="${F}DividerOrnate.png" style="opacity:.85">`),lx+30,468,560,14);
+  const head=put($(`<div class="lanehead"></div>`),lx,160,620,44);
+  head.innerHTML=`<img class="fill" src="${F}${contested?'Contested':'LanePlate'}.png" style="object-fit:fill">
+   <span class="disp ol" style="position:relative;font-size:25px;color:${contested?'var(--gold)':'#fff'}">${name}${contested?' · Contested':''}</span>
+   <span style="position:relative;font-size:17px;color:${mine>theirs?'var(--sage)':mine<theirs?'var(--copper)':'var(--muted)'}">Seal Power&nbsp; You ${mine} · Foe ${theirs}</span>`;
+  [[1,enemy,250],[0,ally,482]].forEach(([side,units,y])=>{
+    for(let k=0;k<3;k++){
+      const x=lx+32+k*190;
+      if(units[k]) tile(x,y,units[k],side);
+      else{const s=put($(`<div class="sock"><img src="${F}DropRing.png"></div>`),x+8,y+10,160,200)}
+    }
+    const site=side===1?siteE:siteA, sy=side===1?206:708;
+    if(site){const p=put($(`<div style="background:rgba(20,28,40,.8);border:1px solid rgba(201,165,92,.5);border-radius:4px;display:flex;align-items:center;padding:0 12px;gap:12px"><span class="disp ol" style="font-size:19px">Site · ${site}</span></div>`),lx+32,sy,548,40)}
+  });
+}
+
+function hero(x,y,art,name,hp,charge,cap,seals,tint){
+  const h=put($(`<div class="hero"></div>`),x,y);
+  h.innerHTML=`<div class="breathe" style="position:absolute;left:0;top:0;width:240px;height:200px">
+   <div class="disc"><div class="bd" style="background:linear-gradient(to bottom,${tint},#141c28)"></div><img class="art" src="${A}${art}.png"></div>
+   <img class="ring" src="${F}HeroFrame.png"></div>
+   <div class="abs" style="left:148px;top:108px;width:70px;height:70px"><img class="fill" src="${F}Health.png"><span class="disp center ol" style="position:absolute;inset:0;font-size:34px">${hp}</span></div>
+   <img class="abs" src="${F}Nameplate.png" style="left:10px;top:172px;width:220px;height:32px">
+   <div class="abs disp center ol" style="left:10px;top:172px;width:220px;height:32px;font-size:20px">${name}</div>
+   ${Array.from({length:cap},(_,i)=>`<img class="abs" src="${F}ChargePip${i<charge?'On':'Off'}.png" style="left:${18+i*20.5}px;top:212px;width:20px;height:20px">`).join('')}
+   <div class="abs center" style="left:0;top:234px;width:240px;height:24px;font-size:17px;color:var(--frost)">Charge ${charge}/${cap}</div>
+   ${Array.from({length:6},(_,i)=>`<img class="abs" src="${F}Seal${i<seals?'Lit':'Dim'}.png" style="left:${18+i*35}px;top:262px;width:33px;height:33px">`).join('')}`;
+}
+
+// ---------------- scene
+put($(`<img src="${A}Board.png" style="object-fit:cover;filter:brightness(.82)">`),0,0,1920,1080);
+put($(`<div style="background:linear-gradient(to right,rgba(0,0,0,.55),rgba(0,0,0,0))"></div>`),0,0,300,1080);
+put($(`<div style="background:linear-gradient(to left,rgba(0,0,0,.55),rgba(0,0,0,0))"></div>`),1620,0,300,1080);
+
+lane(290,'West',false,0,0,[{n:'Hall Healer',art:'Units/A09',a:2,h:4,ready:true},{n:'Fisher',art:'Units/X02',a:2,h:3}],[{n:'Raider',art:'Units/H05',a:3,h:2,guard:true}],null,null);
+lane(990,'East',true,2,1,[{n:'Sigrun',art:'Units/A10',a:4,h:4,leg:true,ready:true}],[{n:'Frost Warden',art:'Units/J05',a:2,h:5},{n:'Ember Thane',art:'Units/H09',a:4,h:1}],'Dawn Altar',null);
+
+put($(`<div style="background:linear-gradient(to bottom,rgba(5,8,13,0),rgba(5,8,13,.7))"></div>`),0,700,1920,130);
+put($(`<img src="${F}HandTray.png">`),0,800,1920,280);
+// enemy hand (backs)
+for(let i=0;i<4;i++){const b=put($(`<img src="${F}CardBack.png" style="transform:rotate(${(i-1.5)*5}deg);transform-origin:50% 0">`),800+i*48,-50+Math.abs(i-1.5)*5,104,148)}
+
+hero(30,20,'Heroes/H23','Runa',15,1,1,0,'#a85d45');
+hero(30,536,'Heroes/A23','Thor',24,1,1,0,'#4f8a6a');
+put($(`<div class="abs"><img class="fill" src="${F}HeroPower.png"><span class="disp center ol" style="position:absolute;right:-6px;bottom:-6px;width:36px;height:36px;font-size:20px;background:url(${F}HeroPowerCost.png) center/contain no-repeat">2</span></div>`),40,846,86,86);
+
+// right rail
+put($(`<div class="center" style="gap:8px"></div>`),1650,16,240,54).innerHTML=`<img class="fill" src="${F}Secondary.png"><span class="disp ol" style="position:relative;font-size:24px">Menu</span>`;
+put($(`<div class="center"></div>`),1580,16,56,54).innerHTML=`<img class="fill" src="${F}Secondary.png"><span class="disp ol" style="position:relative;font-size:24px">?</span>`;
+[[84,'26 in deck','4 in hand'],[834,'26 in deck','4 in hand']].forEach(([y,a,b])=>{
+  put($(`<img src="${F}CardBack.png">`),1652,y,76,108);
+  put($(`<div class="disp ol" style="font-size:21px">${a}</div>`),1736,y+10,160,30);
+  put($(`<div style="font-size:18px;color:var(--muted)">${b}</div>`),1736,y+40,160,26);
+});
+const pl=put($(`<div></div>`),1650,190,240,120);
+pl.innerHTML=`<img class="fill" src="${F}ProphecyPlaque.png"><div class="abs disp center ol" style="left:28px;top:18px;width:184px;height:26px;font-size:17px;color:var(--gold)">Prophecy · round 3</div><div class="abs disp center ol" style="left:28px;top:46px;width:184px;height:40px;font-size:23px">Fimbulwinter</div>`;
+put($(`<div class="disp center ol" style="font-size:34px;color:var(--gold)">Round 1</div>`),1650,320,240,40);
+put($(`<div class="center" style="font-size:19px">Enemy lane contested</div>`),1650,358,240,28);
+put($(`<img src="${F}TurnGemAlly.png">`),1660,392,30,30);
+put($(`<div class="disp ol" style="font-size:22px;color:var(--sage);line-height:34px">Your turn</div>`),1698,390,190,34);
+const rail=put($(`<div></div>`),1650,432,240,220);
+rail.innerHTML=`<img class="fill" src="${F}HistoryRail.png" style="object-fit:fill">${['Round 1','You deployed Hall Healer','Enemy deployed Raider'].map((t,i)=>`<div class="abs" style="left:24px;top:${30+i*28}px;font-size:15px;color:${i==2?'#fff':'var(--muted)'}">${t}</div>`).join('')}`;
+put($(`<img src="${F}EndTurn.png">`),1650,736,240,75);
+put($(`<div class="disp center ol" style="font-size:26px;color:#fff">End Turn</div>`),1650,736,240,70);
+put($(`<div class="center" style="font-size:12px;color:var(--muted)">Space pass · 1-8 cards · Q power · R rules</div>`),1650,810,240,16);
+
+// hand
+const n=CARDS.length,step=Math.min(150,(1160-180)/(n-1)),x0=960-(180+step*(n-1))/2;
+CARDS.forEach((c,i)=>{
+  const t=i-(n-1)/2,tilt=-t*2.3,y=815+t*t*3.2;
+  c.glow=i!==1;
+  const el=cardEl(c,180);
+  el.style.left=(x0+i*step)+'px';el.style.top=y+'px';el.style.transform=`rotate(${tilt}deg)`;el.style.zIndex=i;
+  el.onmouseenter=()=>{el.style.zIndex=50;el.style.transform=`translateY(-180px) scale(1.55)`};
+  el.onmouseleave=()=>{el.style.zIndex=i;el.style.transform=`rotate(${tilt}deg)`};
+  st.appendChild(el);
+});
+
+function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);st.style.transform=`scale(${s})`;st.style.left=(innerWidth-1920*s)/2+'px';st.style.top=(innerHeight-1080*s)/2+'px'}
+addEventListener('resize',fit);fit();
+</script></body></html>

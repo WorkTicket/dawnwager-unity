@@ -39,7 +39,7 @@ namespace Wolfsun
         private Texture2D gradientTex;
 
         /// <summary>Vertical accent gradient used behind cut-out busts so transparent art never shows a black hole.</summary>
-        private RawImage Backdrop(Transform parent, float x, float y, float w, float h, Color accent)
+        private RawImage Backdrop(Transform parent, float x, float y, float w, float h, Color accent, bool raw = false)
         {
             if (gradientTex == null)
             {
@@ -55,7 +55,7 @@ namespace Wolfsun
             var rect = Box(parent, "backdrop", x, y, w, h);
             var view = rect.gameObject.AddComponent<RawImage>();
             view.texture = gradientTex;
-            view.color = Color.Lerp(accent, new Color(.12f, .16f, .24f, 1f), .45f);
+            view.color = raw ? accent : Color.Lerp(accent, new Color(.12f, .16f, .24f, 1f), .45f);
             view.raycastTarget = false;
             return view;
         }
@@ -150,7 +150,7 @@ namespace Wolfsun
             var holder = Box(parent, "portrait", x, y, size, size);
             bool framed = !string.IsNullOrEmpty(frameArt);
             // HeroFrame/UnitToken openings measure about 0.67 of the frame; tuck the disc just under the ring.
-            float d = framed ? size * .70f : size * .92f;
+            float d = framed ? size * .82f : size * .92f;
             float off = (size - d) / 2f;
             var disc = Box(holder, "disc", off, off, d, d);
             var maskImage = disc.gameObject.AddComponent<Image>();
@@ -162,7 +162,7 @@ namespace Wolfsun
             if (framed)
             {
                 // Busts have the face near the top: scale down and sit lower so the circle never clips it.
-                Backdrop(disc, 0, 0, d, d, new Color(.35f, .5f, .75f, 1f));
+                Backdrop(disc, 0, 0, d, d, new Color(.31f, .45f, .62f, 1f), true);
                 float s = d * 1.22f;
                 CoverSafe(disc, artPath, (d - s) / 2f, d * .03f, s, s, spentTint ?? Color.white);
                 Pic(holder, frameArt, 0, 0, size, size);

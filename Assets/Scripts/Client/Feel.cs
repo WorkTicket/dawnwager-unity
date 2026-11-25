@@ -52,6 +52,22 @@ namespace Wolfsun
             StartCoroutine(Pulse(graphic));
         }
 
+        /// <summary>Slow idle breathing for hero portraits.</summary>
+        private IEnumerator Breathe(RectTransform rect)
+        {
+            float phase = Random.value * 6f;
+            // Scale around the centre: move the pivot without moving the rect.
+            var half = rect.sizeDelta * .5f;
+            rect.pivot = new Vector2(.5f, .5f);
+            rect.anchoredPosition += new Vector2(half.x, -half.y);
+            while (rect != null)
+            {
+                float t = (Mathf.Sin(Time.unscaledTime * 1.5f + phase) + 1f) * .5f;
+                rect.localScale = Vector3.one * (1f + t * .018f);
+                yield return null;
+            }
+        }
+
         private IEnumerator Pulse(Graphic graphic)
         {
             while (graphic != null)
