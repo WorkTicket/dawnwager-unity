@@ -183,7 +183,7 @@ namespace Wolfsun
 
         private void Go(Page destination)
         {
-            if(page==Page.Battle&&destination!=Page.Battle)StopAllCoroutines();
+            if(page==Page.Battle&&destination!=Page.Battle){StopAllCoroutines();ClearEffects();}
             if(destination!=Page.Play){queueSearching=false;queueStatus="";}
             if(destination!=Page.Home&&menuAmbience!=null&&menuAmbience.isPlaying)menuAmbience.Stop();
             ai=false;presenting=false;showRules=false;page=destination;inspected=null;settings=false;status="";

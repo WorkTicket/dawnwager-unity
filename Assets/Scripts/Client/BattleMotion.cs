@@ -210,5 +210,12 @@ namespace Wolfsun
             if (delay > 0) yield return new WaitForSecondsRealtime(delay);
             if (layer) ShowPhaseBanner(layer, title, subtitle, accent, hold);
         }
+
+        /// <summary>Removes any floating text, ghosts or banners left on the effects layer (their coroutines were stopped).</summary>
+        private void ClearEffects()
+        {
+            if (!fxLayer) return;
+            for (int i = fxLayer.childCount - 1; i >= 0; i--) Destroy(fxLayer.GetChild(i).gameObject);
+        }
     }
 }
