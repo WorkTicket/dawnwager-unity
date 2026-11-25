@@ -121,6 +121,7 @@ namespace Wolfsun
             foreach (var pair in before.At)
             {
                 if (alive.Contains(pair.Key) || !before.Art.TryGetValue(pair.Key, out var art)) continue;
+                StartCoroutine(Shake(7f));
                 StartCoroutine(FallenGhost(layer, art, pair.Value));
             }
             for (int side = 0; side < 2; side++)
@@ -130,12 +131,26 @@ namespace Wolfsun
                 {
                     var at = CenterAnchored(heroBadges[side]) + new Vector2(70, side == 0 ? 20 : 40);
                     StartCoroutine(FloatText(layer, (delta > 0 ? "+" : "−") + Mathf.Abs(delta), delta > 0 ? AllySage : EnemyCopper, at));
-                    if (delta < 0) UiSound("hero-hit");
+                    if (delta < 0) { UiSound("hero-hit"); StartCoroutine(Shake(Mathf.Min(16f, 5f + -delta * 1.5f))); }
                 }
                 if (match.Players[side].Seals > before.Seals[side])
                     StartCoroutine(DelayedBanner(layer, "Seal claimed", (side == 0 ? "You hold" : "The enemy holds") + " the " + Lane(Mathf.Max(0, before.Contested)) + " lane",
                         side == 0 ? AllySage : EnemyCopper, 1.0f, match.Round != before.Round ? 1.2f : 0f));
             }
+        }
+
+        /// <summary>Short decaying screen shake; skipped when reduce-motion is on.</summary>
+        private IEnumerator Shake(float magnitude)
+        {
+            if (reduceMotion || stage == null) yield break;
+            Vector2 home = stage.anchoredPosition;
+            for (float t = 0; t < .28f && stage != null; t += Time.unscaledDeltaTime)
+            {
+                float k = 1f - t / .28f;
+                stage.anchoredPosition = home + new Vector2(Mathf.Sin(t * 90f), Mathf.Cos(t * 77f)) * magnitude * k;
+                yield return null;
+            }
+            if (stage != null) stage.anchoredPosition = home;
         }
 
         private IEnumerator FloatText(RectTransform layer, string text, Color color, Vector2 at)

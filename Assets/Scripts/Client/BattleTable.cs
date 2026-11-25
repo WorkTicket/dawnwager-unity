@@ -50,6 +50,7 @@ namespace Wolfsun
 
             Gradient(root, "Left shade", 0, 0, 300, 1080, new Color(0, 0, 0, .55f), new Color(0, 0, 0, 0f), false);
             Gradient(root, "Right shade", 1620, 0, 300, 1080, new Color(0, 0, 0, 0f), new Color(0, 0, 0, .55f), false);
+            Gradient(root, "Tray fade", 0, 700, 1920, 130, new Color(.02f, .03f, .05f, 0f), new Color(.02f, .03f, .05f, .7f), true);
             Pic(root, Foundry + "HandTray", 0, 800, 1920, 280);
 
             DrawEnemyHand();
@@ -105,7 +106,25 @@ namespace Wolfsun
         {
             int lx = LaneX[lane];
             bool contested = match.Contested == lane;
-            ColorBox(root, "Lane tint " + lane, lx, 204, LaneWidth, 548, new Color(0, 0, 0, contested ? .26f : .18f));
+            // Lane surface: dark stone with brass edge rules, inner sockets, and a centre divider.
+            Gradient(root, "Lane surface " + lane, lx, 204, LaneWidth, 548, new Color(.03f, .05f, .08f, .42f), new Color(.03f, .05f, .08f, .62f), true);
+            var edge = contested ? new Color(Gold.r, Gold.g, Gold.b, .7f) : new Color(Brass.r, Brass.g, Brass.b, .32f);
+            ColorBox(root, "Lane edge L", lx, 204, 2, 548, edge);
+            ColorBox(root, "Lane edge R", lx + LaneWidth - 2, 204, 2, 548, edge);
+            ColorBox(root, "Lane edge B", lx, 750, LaneWidth, 2, edge);
+            if (contested) Gradient(root, "Contested glow", lx, 204, LaneWidth, 548, new Color(Gold.r, Gold.g, Gold.b, .10f), new Color(Gold.r, Gold.g, Gold.b, 0f), true);
+            Pic(root, Foundry + "DividerOrnate", lx + 30, 468, LaneWidth - 60, 14, new Color(1, 1, 1, .85f));
+            for (int sd = 0; sd < 2; sd++)
+                for (int k = 0; k < 3; k++)
+                {
+                    float sx0 = SlotX(lane, k), sy0 = RowY(sd);
+                    var sock = ColorBox(root, "Socket", sx0 + 8, sy0 + 10, TileW - 16, TileH - 20, new Color(0, 0, 0, .22f));
+                    Pic(sock, Foundry + "DropRing", (sock.sizeDelta.x - 70) / 2f, (sock.sizeDelta.y - 70) / 2f, 70, 70, new Color(1, 1, 1, .16f));
+                    ColorBox(sock, "t", 0, 0, sock.sizeDelta.x, 1, new Color(Brass.r, Brass.g, Brass.b, .28f));
+                    ColorBox(sock, "b", 0, sock.sizeDelta.y - 1, sock.sizeDelta.x, 1, new Color(Brass.r, Brass.g, Brass.b, .28f));
+                    ColorBox(sock, "l", 0, 0, 1, sock.sizeDelta.y, new Color(Brass.r, Brass.g, Brass.b, .28f));
+                    ColorBox(sock, "r", sock.sizeDelta.x - 1, 0, 1, sock.sizeDelta.y, new Color(Brass.r, Brass.g, Brass.b, .28f));
+                }
             ChromePanel(root, "Lane header", lx, TableY, LaneWidth, 44, contested ? "PanelGold" : "Panel");
             int mine = match.SealPower(0, lane), theirs = match.SealPower(1, lane);
             SafeText(root, Lane(lane) + (contested ? " · Contested" : ""), lx + 20, TableY, 330, 44, 24, contested ? Gold : White, true, TextAnchor.MiddleLeft, 14);
