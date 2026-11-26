@@ -91,6 +91,7 @@ namespace Wolfsun
             Pic(node, icon, size * .25f, size * .25f, size * .5f, size * .5f, open ? Color.white : new Color(.6f, .6f, .6f, 1));
             if (cleared) Pic(node, Foundry + "SealLit", size * .58f, -8, size * .46f, size * .46f);
             string name = enc.Name;
+            ColorBox(root, "Label back", at.x - 118, at.y + size / 2 + 3, 236, 28, new Color(.016f, .024f, .04f, .6f));
             OutlinedText(root, name, at.x - 130, at.y + size / 2 + 2, 260, 30, 20, open ? White : Quiet, true, TextAnchor.MiddleCenter, 11);
             string id = enc.Id;
             Click(node, () => { mapFocus = id; UiSound("tab"); Render(); }).transition = UnityEngine.UI.Selectable.Transition.None;

@@ -228,9 +228,13 @@ namespace Wolfsun
         {
             var layer = CardAnimationLayer();
             var banner = Box(layer, "Match found", 0, 340, 1920, 400);
-            Pic(banner, Foundry + "MatchFound", 0, 0, 1920, 400);
-            OutlinedText(banner, "MATCH FOUND", 0, 130, 1920, 90, 80, Gold, true, TextAnchor.MiddleCenter, 40);
-            SafeText(banner, "Rival rating " + Mathf.RoundToInt((float)pair.B.Mmr), 0, 230, 1920, 44, 28, White, false, TextAnchor.MiddleCenter, 16);
+            Gradient(banner, "Band", 0, 0, 1920, 400, new Color(.016f, .024f, .04f, .85f), new Color(.016f, .024f, .04f, .85f), true);
+            var heroHolder = Box(banner, "Hero", 240, -40, 420, 440);
+            Shade(heroHolder, 40, 360, 340, 50, new Color(0, 0, 0, .8f));
+            CutFit(heroHolder, "Heroes/" + profile.hero, 420, 400, Color.white);
+            OutlinedText(banner, "VS", 1060, 120, 200, 150, 110, new Color32(244, 227, 180, 255), true, TextAnchor.MiddleCenter, 60);
+            OutlinedText(banner, "MATCH FOUND", 0, 20, 1920, 90, 72, Gold, true, TextAnchor.MiddleCenter, 40);
+            SafeText(banner, "Rival rating " + Mathf.RoundToInt((float)pair.B.Mmr), 1000, 280, 920, 44, 28, White, false, TextAnchor.MiddleCenter, 16);
             yield return new WaitForSecondsRealtime(1.5f);
             if (banner) Destroy(banner.gameObject);
             if (page == Page.Play) StartRankedSim(pair);

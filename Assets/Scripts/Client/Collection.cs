@@ -10,7 +10,7 @@ namespace Wolfsun
     public sealed partial class Game
     {
         private const string FilterLetters = "AMJHLN";
-        private const int GridCols = 8, GridRows = 3, GridW = 148, GridH = 210;
+        private const int GridCols = 6, GridRows = 2, GridW = 205, GridH = 290;
 
         private static bool CardMatchesQuery(Card card, string query)
         {
@@ -82,10 +82,12 @@ namespace Wolfsun
             for (int i = 0; i < labels.Length; i++)
             {
                 int f = i;
-                TableButton(labels[i], 40 + i * 132, 272, 124, 48, () => { filter = f; collectionPage = 0; UiSound("tab"); Render(); }, true, filter == f);
+                float tx = 50 + i * 150;
+                TextLink(labels[i], tx, 262, 140, 48, 25, filter == f ? Gold : Muted, () => { filter = f; collectionPage = 0; UiSound("tab"); Render(); });
+                if (filter == f) ColorBox(root, "Tab line", tx, 310, 100, 3, Gold);
             }
-            TableButton(ownedOnly ? "Owned only" : "Show all", 980, 272, 160, 48, () => { ownedOnly = !ownedOnly; collectionPage = 0; Render(); }, true, ownedOnly);
-            DrawSearchField(1152, 272, 220, 48);
+            TableButton(ownedOnly ? "Owned only" : "Show all", 1090, 266, 140, 44, () => { ownedOnly = !ownedOnly; collectionPage = 0; Render(); }, true, ownedOnly);
+            DrawSearchField(1244, 264, 130, 48);
 
             var cards = VisibleCards().ToList();
             int perPage = GridCols * GridRows;
@@ -97,7 +99,7 @@ namespace Wolfsun
                 if (index >= cards.Count) break;
                 var card = cards[index];
                 int col = i % GridCols, row = i / GridCols;
-                float x = 40 + col * (GridW + 12), y = 336 + row * (GridH + 12);
+                float x = 50 + col * (GridW + 14), y = 346 + row * (GridH + 30);
                 bool have = owned.Contains(card.Id);
                 string id = card.Id;
                 FullCard(id, x, y, GridW, GridH, () => AddDeck(id), have ? (Color?)null : new Color(0, 0, 0, .62f));
@@ -109,10 +111,10 @@ namespace Wolfsun
                 }
                 if (!have) Label(root, "Locked", x, y + GridH / 2f - 14, GridW, 28, 20, White, true, TextAnchor.MiddleCenter);
             }
-            if (cards.Count == 0) Label(root, "No cards match.", 40, 600, 1330, 60, 30, Muted, false, TextAnchor.MiddleCenter);
-            TableButton("◀", 520, 1000, 90, 52, () => { collectionPage = Mathf.Max(0, collectionPage - 1); UiSound("tab"); Render(); }, collectionPage > 0);
-            Label(root, "Page " + (collectionPage + 1) + " / " + pages, 620, 1000, 200, 52, 22, White, true, TextAnchor.MiddleCenter);
-            TableButton("▶", 830, 1000, 90, 52, () => { collectionPage = Mathf.Min(pages - 1, collectionPage + 1); UiSound("tab"); Render(); }, collectionPage < pages - 1);
+            if (cards.Count == 0) Label(root, "No cards match.", 50, 600, 1300, 60, 30, Muted, false, TextAnchor.MiddleCenter);
+            TableButton("◀", 480, 1000, 90, 52, () => { collectionPage = Mathf.Max(0, collectionPage - 1); UiSound("tab"); Render(); }, collectionPage > 0);
+            Label(root, "Page " + (collectionPage + 1) + " / " + pages, 580, 1000, 200, 52, 22, White, true, TextAnchor.MiddleCenter);
+            TableButton("▶", 790, 1000, 90, 52, () => { collectionPage = Mathf.Min(pages - 1, collectionPage + 1); UiSound("tab"); Render(); }, collectionPage < pages - 1);
             DrawDeckPanel();
         }
 
@@ -120,7 +122,7 @@ namespace Wolfsun
         {
             var box = Box(root, "Search", x, y, w, h);
             var back = box.gameObject.AddComponent<Image>();
-            var sprite = FoundrySprite("SearchField", new Vector4(16, 16, 16, 16));
+            var sprite = GeneratedSlice("Panel");
             if (sprite != null) { back.sprite = sprite; back.type = Image.Type.Sliced; } else back.color = SoftPlate;
             back.raycastTarget = true;
             var input = box.gameObject.AddComponent<InputField>();

@@ -136,8 +136,9 @@ namespace Wolfsun
             Label(root, name, 740, y, 220, 56, 26, White, true);
             float value = source != null ? source.volume : 0;
             TableButton("−", 980, y, 64, 56, () => AdjustVolume(source, key, -.1f));
-            ColorBox(root, name + " track", 1056, y + 20, 220, 16, new Color(0, 0, 0, .55f));
-            ColorBox(root, name + " fill", 1056, y + 20, 220 * Mathf.Clamp01(value), 16, Brass);
+            ColorBox(root, name + " track", 1056, y + 25, 220, 6, new Color(1, 1, 1, .14f));
+            ColorBox(root, name + " fill", 1056, y + 25, 220 * Mathf.Clamp01(value), 6, Gold);
+            Pic(root, Foundry + "Attack", 1056 + 220 * Mathf.Clamp01(value) - 14, y + 14, 28, 28);
             TableButton("+", 1288, y, 64, 56, () => AdjustVolume(source, key, .1f));
         }
 
@@ -155,7 +156,7 @@ namespace Wolfsun
         {
             ViewportShade("Settings shade", new Color(0, 0, 0, .66f));
             ChromeModal(root, "Settings", 660, 90, 600, 900);
-            OutlinedText(root, "Options", 660, 112, 600, 60, 44, Gold, true, TextAnchor.MiddleCenter, 24);
+            OutlinedText(root, page == Page.Battle ? "Paused" : "Options", 660, 112, 600, 60, 44, Gold, true, TextAnchor.MiddleCenter, 24);
             VolumeControl("Music", score, "wolfsun.music", 200);
             VolumeControl("Effects", sfx, "wolfsun.effects", 276);
             Label(root, "Reduce motion", 740, 352, 300, 56, 26, White, true);
@@ -187,7 +188,7 @@ namespace Wolfsun
                 });
             else if (page != Page.Home)
                 TableButton("Main Menu", 740, 778, 440, 60, () => Go(Page.Home));
-            TableButton("Close", 740, 850, 440, 70, () => { settings = false; PlayerPrefs.Save(); UiSound("close"); Render(); }, true, true);
+            TableButton(page == Page.Battle ? "Resume" : "Close", 740, 850, 440, 70, () => { settings = false; PlayerPrefs.Save(); UiSound("close"); Render(); }, true, true);
         }
 
         // ---------------------------------------------------------------- inspect
