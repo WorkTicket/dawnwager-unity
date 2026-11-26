@@ -14,11 +14,8 @@ namespace Wolfsun
 
         private void Nav()
         {
-            Pic(root, "Foundry/NavBar", 0, 0, 1920, 128);
-            var home = Box(root, "Home", 28, 22, 84, 84);
-            FitSafe(home, Identity + "Emblem", 0, 0, 84, 84);
-            Click(home, () => { UiSound("tab"); Go(Page.Home); });
-            HoverCue(home);
+            Gradient(root, "Nav shade", 0, 0, 1920, 130, new Color(.016f, .024f, .04f, .92f), new Color(.016f, .024f, .04f, 0f), true);
+            TableButton("‹  Home", 40, 24, 160, 52, () => { UiSound("tab"); Go(Page.Home); });
             (string label, Page target)[] tabs =
             {
                 ("Play", Page.Play), ("Campaign", Page.Story), ("Collection", Page.Collection),
@@ -28,20 +25,23 @@ namespace Wolfsun
             {
                 var tab = tabs[i];
                 bool current = page == tab.target;
-                TableButton(tab.label, 140 + i * 214, 30, 204, 68, () => { if (!current) { UiSound("tab"); Go(tab.target); } }, true, current);
+                float x = 250 + i * 170;
+                TextLink(tab.label, x, 26, 160, 52, 28, current ? Gold : Muted, () => { if (!current) { UiSound("tab"); Go(tab.target); } });
+                if (current) ColorBox(root, "Tab line", x, 78, 130, 3, Gold);
             }
-            Label(root, profile.embers + " Embers", 1290, 30, 250, 68, 26, Gold, true, TextAnchor.MiddleRight);
-            TableButton("Options", 1566, 30, 190, 68, () => { settings = true; UiSound("open"); Render(); });
-            TableButton("Menu", 1766, 30, 126, 68, () => Go(Page.Home));
+            ChromePanel(root, "Wallet", 1500, 22, 260, 56, "Panel");
+            Pic(root, Foundry + "Attack", 1514, 30, 40, 40);
+            Label(root, profile.embers + " Embers", 1562, 22, 190, 56, 24, Gold, true, TextAnchor.MiddleLeft);
+            TextLink("Options", 1780, 26, 120, 52, 24, new Color32(207, 213, 216, 255), () => { settings = true; UiSound("open"); Render(); });
         }
 
-        /// <summary>Page heading with an ornamental rule, drawn just below the navigation bar.</summary>
+        /// <summary>Page heading with a soft gold rule, drawn just below the navigation bar.</summary>
         private void Banner(string title, string subtitle)
         {
-            OutlinedText(root, title, 120, 140, 1100, 64, 52, Gold, true, TextAnchor.MiddleLeft, 28);
+            OutlinedText(root, title, 120, 116, 1100, 60, 48, Gold, true, TextAnchor.MiddleLeft, 28);
             if (!string.IsNullOrEmpty(subtitle))
-                SafeText(root, subtitle, 124, 204, 1500, 34, 22, Muted, false, TextAnchor.MiddleLeft, 14);
-            FitSafe(root, "Foundry/DividerOrnate", 120, 240, 1680, 24);
+                SafeText(root, subtitle, 124, 176, 1500, 30, 21, Muted, false, TextAnchor.MiddleLeft, 14);
+            Gradient(root, "Banner rule", 120, 222, 1100, 2, new Color(GoldEdge.r, GoldEdge.g, GoldEdge.b, .7f), new Color(GoldEdge.r, GoldEdge.g, GoldEdge.b, 0f), false);
         }
 
         // ---------------------------------------------------------------- home
@@ -72,26 +72,61 @@ namespace Wolfsun
 
         private void Home()
         {
-            ColorBox(root, "Vignette", 0, 0, 1920, 1080, new Color(0, 0, 0, .28f));
-            Gradient(root, "Bottom fade", 0, 480, 1920, 600, new Color(.04f, .06f, .09f, 0f), new Color(.04f, .06f, .09f, .92f), true);
-            FitSafe(root, Identity + "Wordmark", 360, 56, 1200, 111);
-            SafeText(root, "A card game of two lanes at the end of the world", 360, 172, 1200, 40, 26, White, false, TextAnchor.MiddleCenter, 16);
-            var foe = Campaign.Chapters[Campaign.ChapterAtProgress(profile.progress)];
+            Gradient(root, "Left shade", 0, 0, 1100, 1080, new Color(.016f, .024f, .04f, .9f), new Color(.016f, .024f, .04f, 0f), false);
+            Gradient(root, "Bottom shade", 0, 800, 1920, 280, new Color(.016f, .024f, .04f, 0f), new Color(.016f, .024f, .04f, .7f), true);
+            FitSafe(root, Identity + "Emblem", 110, 86, 92, 92);
+            FitSafe(root, Identity + "Wordmark", 216, 108, 560, 52);
+            Label(root, "RAGNARÖK · EARLY ACCESS", 220, 166, 560, 24, 15, Brass, false);
             bool finished = profile.progress >= Campaign.Chapters.Length;
-            string story = finished ? "All seven chapters cleared" : (profile.progress == 0 ? "Begin the story" : "Next: " + foe.Name);
-            const float x0 = 115;
-            ModeTile("Campaign", "Campaign", story, x0, 520, () => { chapter = Campaign.ChapterAtProgress(profile.progress); Go(Page.Story); });
-            ModeTile("Casual", "Casual Duel", "Unranked match against a rival", x0 + 430, 520, () => { pendingQueue = Net.QueueMode.Casual; Go(Page.Play); });
-            ModeTile("Ranked", "Ranked Ladder", Ladder.DisplayName(profile.ladderAbsolute, profile.legendPlace), x0 + 860, 520, () => { pendingQueue = Net.QueueMode.Ranked; Go(Page.Play); });
-            ModeTile("Collection", "Collection", owned.Count + " cards · build your deck", x0 + 1290, 520, () => Go(Page.Collection));
+            TableButton("Play", 110, 290, 360, 86, () => Go(Page.Play), true, true);
+            string[] names = { "Collection", "Campaign", "Career", "Options", "Quit" };
+            for (int i = 0; i < names.Length; i++)
+            {
+                float y = 408 + i * 76;
+                string n = names[i];
+                Action act = n == "Collection" ? (Action)(() => Go(Page.Collection))
+                    : n == "Campaign" ? () => { chapter = Campaign.ChapterAtProgress(profile.progress); Go(Page.Story); }
+                    : n == "Career" ? () => Go(Page.Career)
+                    : n == "Options" ? () => { settings = true; UiSound("open"); Render(); }
+                    : (Action)(() => Application.Quit());
+                TextLink(n, 120, y, 300, 56, 36, new Color32(232, 219, 182, 255), act);
+                Gradient(root, "Rule", 120, y + 58, 300, 2, new Color(GoldEdge.r, GoldEdge.g, GoldEdge.b, .6f), new Color(GoldEdge.r, GoldEdge.g, GoldEdge.b, 0f), false);
+                if (n == "Campaign")
+                {
+                    ColorBox(root, "Chapter tag", 330, y + 14, 110, 30, Gold);
+                    Label(root, finished ? "Cleared" : "Ch. " + (Campaign.ChapterAtProgress(profile.progress) + 1), 330, y + 14, 110, 30, 16, InkOnGold, true, TextAnchor.MiddleCenter);
+                }
+            }
             bool learn = !profile.tutorialDone;
-            TableButton(learn ? "Learn to Play" : "Practice Basics", 330, 940, 300, 72, () => StartTutorial(), true, learn);
-            TableButton("Options", 660, 940, 300, 72, () => { settings = true; UiSound("open"); Render(); });
-            TableButton("How It Works", 990, 940, 300, 72, () => OpenRules());
-            TableButton("Quit", 1320, 940, 270, 72, () => Application.Quit());
+            TextLink(learn ? "Learn to Play" : "Practice Basics", 120, 810, 240, 36, 20, learn ? Gold : Muted, () => StartTutorial(), false);
+            TextLink("How It Works", 370, 810, 200, 36, 20, Muted, () => OpenRules(), false);
+
+            // player plate and wallet (top right)
             var hero = Hero.Info(profile.hero);
-            Label(root, hero.Name + " · " + profile.wins + " wins · " + profile.losses + " losses", 40, 1030, 900, 40, 20, Quiet);
-            if (!string.IsNullOrEmpty(status)) Label(root, status, 960, 1030, 900, 40, 20, Gold, false, TextAnchor.MiddleRight);
+            ChromePanel(root, "Wallet", 1500, 22, 380, 56, "Panel");
+            Pic(root, Foundry + "Attack", 1516, 30, 40, 40);
+            Label(root, profile.embers + " Embers", 1564, 22, 300, 56, 24, Gold, true, TextAnchor.MiddleLeft);
+            CirclePortrait(root, HeroArt(profile.hero), 1418, 18, 64);
+            Label(root, hero.Name, 1170, 24, 232, 28, 21, White, true, TextAnchor.MiddleRight);
+            Label(root, Ladder.DisplayName(profile.ladderAbsolute, profile.legendPlace), 1170, 52, 232, 24, 15, Muted, false, TextAnchor.MiddleRight);
+
+            // daily quests (bottom right)
+            RefreshDailies();
+            ChromePanel(root, "Dailies", 1380, 640, 490, 300, "Panel");
+            OutlinedText(root, "Daily quests", 1408, 652, 300, 40, 26, Gold, true, TextAnchor.MiddleLeft, 16);
+            for (int i = 0; i < profile.dailies.Count && i < 3; i++)
+            {
+                var quest = profile.dailies[i];
+                float y = 704 + i * 70;
+                SafeText(root, quest.label, 1408, y, 330, 28, 20, quest.progress >= quest.target ? AllySage : White, false, TextAnchor.MiddleLeft, 12);
+                ColorBox(root, "bar", 1408, y + 38, 300, 10, new Color(1, 1, 1, .12f));
+                ColorBox(root, "bar fill", 1408, y + 38, 300 * Mathf.Clamp01((float)quest.progress / Mathf.Max(1, quest.target)), 10, quest.claimed ? AllySage : Brass);
+                Label(root, quest.progress + "/" + quest.target, 1722, y + 28, 60, 26, 16, Muted, false, TextAnchor.MiddleLeft);
+                Label(root, "+" + quest.rewardEmbers, 1766, y + 2, 90, 26, 20, Gold, true, TextAnchor.MiddleRight);
+            }
+            Label(root, profile.wins + " wins · " + profile.losses + " losses", 1380, 960, 490, 30, 18, Muted, false, TextAnchor.MiddleRight);
+            Label(root, "v0.9 early access", 40, 1040, 300, 24, 14, Quiet);
+            if (!string.IsNullOrEmpty(status)) Label(root, status, 120, 1000, 900, 40, 20, Gold, false, TextAnchor.MiddleLeft);
         }
 
         // ---------------------------------------------------------------- settings
@@ -234,61 +269,64 @@ namespace Wolfsun
         private void Outcome()
         {
             bool won = result == "Victory";
-            Gradient(root, "Fade", 0, 0, 1920, 1080, new Color(0, 0, 0, .1f), new Color(0, 0, 0, .55f), true);
-            OutlinedText(root, result.ToUpperInvariant(), 360, 60, 1200, 120, 100, won ? Gold : result == "Draw" ? White : EnemyCopper, true, TextAnchor.MiddleCenter, 48);
+            Gradient(root, "Fade", 0, 0, 1920, 1080, new Color(.016f, .024f, .04f, .1f), new Color(.016f, .024f, .04f, .45f), true);
+            Gradient(root, "Right shade", 700, 0, 1220, 1080, new Color(.016f, .024f, .04f, 0f), new Color(.016f, .024f, .04f, .85f), false);
             if (match != null)
             {
-                string line = "Seals " + match.Players[0].Seals + " – " + match.Players[1].Seals + " · Round " + match.Round;
-                SafeText(root, line, 360, 190, 1200, 40, 28, White, false, TextAnchor.MiddleCenter, 16);
+                var holder = Box(root, "Hero", 140, 220, 560, 700);
+                Shade(holder, 40, 640, 480, 70, new Color(0, 0, 0, .8f));
+                CutFit(holder, "Heroes/" + match.Players[0].Hero, 560, 660, won ? Color.white : new Color(.6f, .6f, .66f, 1f));
             }
-            float y = 260;
+            OutlinedText(root, result.ToUpperInvariant(), 900, 70, 920, 150, 120, won ? Gold : result == "Draw" ? White : EnemyCopper, true, TextAnchor.MiddleLeft, 60);
+            if (match != null)
+                SafeText(root, "Seals " + match.Players[0].Seals + " – " + match.Players[1].Seals + " · Round " + match.Round, 906, 224, 900, 36, 26, White, false, TextAnchor.MiddleLeft, 16);
+            float y = 280;
             if (!string.IsNullOrEmpty(status))
             {
-                SafeText(root, status, 360, y, 1200, 36, 24, Gold, false, TextAnchor.MiddleCenter, 14);
+                SafeText(root, status, 906, y, 900, 36, 22, Gold, false, TextAnchor.MiddleLeft, 14);
                 y += 44;
             }
             if (won && rewardCards.Length > 0)
             {
-                ChromePanel(root, "Reward panel", 260, y, 1400, 420, "Panel");
-                OutlinedText(root, "New cards unlocked", 260, y + 12, 1400, 50, 34, Gold, true, TextAnchor.MiddleCenter, 18);
+                ChromePanel(root, "Reward panel", 900, y, 920, 330, "Panel");
+                OutlinedText(root, "New cards unlocked", 930, y + 10, 600, 44, 30, Gold, true, TextAnchor.MiddleLeft, 18);
                 int shown = Mathf.Min(rewardCards.Length, 7);
-                float cw = 190, ch = cw * 590f / 416f;
-                float start = 960 - (shown * (cw + 14) - 14) / 2f;
-                for (int i = 0; i < shown; i++) FullCard(rewardCards[i], start + i * (cw + 14), y + 72, cw, ch, null);
+                float cw = 112, ch = cw * 590f / 416f;
+                for (int i = 0; i < shown; i++) FullCard(rewardCards[i], 926 + i * (cw + 10), y + 62, cw, ch, null);
                 if (rewardCards.Length > shown)
-                    Label(root, "+" + (rewardCards.Length - shown) + " more in your Collection", 260, y + 360, 1400, 40, 22, Muted, false, TextAnchor.MiddleCenter);
-                y += 440;
+                    Label(root, "+" + (rewardCards.Length - shown) + " more in your Collection", 930, y + 286, 860, 32, 19, Muted, false, TextAnchor.MiddleLeft);
+                y += 350;
             }
             else if (won && !duel && !tutorialMatch)
             {
-                SafeText(root, "Chapter replayed. First clears earn new cards, skill points and relics.", 360, y, 1200, 40, 24, Muted, false, TextAnchor.MiddleCenter, 14);
+                SafeText(root, "Chapter replayed. First clears earn new cards, skill points and relics.", 906, y, 900, 40, 22, Muted, false, TextAnchor.MiddleLeft, 14);
                 y += 50;
             }
             if (won && pendingRelicChoices != null && pendingRelicChoices.Length > 0)
             {
-                ChromePanel(root, "Relic panel", 260, y, 1400, 250, "Panel");
-                OutlinedText(root, "Choose a relic", 260, y + 8, 1400, 44, 32, Gold, true, TextAnchor.MiddleCenter, 18);
+                ChromePanel(root, "Relic panel", 900, y, 920, 260, "Panel");
+                OutlinedText(root, "Choose a relic", 930, y + 8, 600, 44, 30, Gold, true, TextAnchor.MiddleLeft, 18);
                 int n = pendingRelicChoices.Length;
                 for (int i = 0; i < n; i++)
                 {
                     var relic = CampaignMeta.Relic(pendingRelicChoices[i]);
                     if (relic == null) continue;
                     string id = relic.Id;
-                    float rx = 960 - (n * 420 - 20) / 2f + i * 420;
+                    float rx = 930 + i * 290;
                     int index = Array.FindIndex(CampaignMeta.Relics, r => r.Id == id);
-                    FitSafe(root, "Campaign/Relic" + (index + 1), rx, y + 56, 120, 120);
-                    Label(root, relic.Name, rx + 128, y + 58, 270, 36, 24, Gold, true);
-                    SafeText(root, relic.Summary, rx + 128, y + 94, 270, 70, 18, White, false, TextAnchor.UpperLeft, 12);
-                    TableButton("Take", rx + 128, y + 174, 150, 50, () => ChoosePendingRelic(id), true, true);
+                    FitSafe(root, "Campaign/Relic" + (index + 1), rx, y + 60, 90, 90);
+                    Label(root, relic.Name, rx + 96, y + 58, 190, 32, 21, Gold, true);
+                    SafeText(root, relic.Summary, rx + 96, y + 90, 190, 70, 16, White, false, TextAnchor.UpperLeft, 11);
+                    TableButton("Take", rx + 96, y + 190, 130, 46, () => ChoosePendingRelic(id), true, true);
                 }
-                TableButton("Skip", 1500, y + 190, 130, 46, () => SkipPendingRelic());
-                y += 270;
+                TableButton("Skip", 1700, y + 200, 100, 42, () => SkipPendingRelic());
+                y += 280;
             }
-            float by = Mathf.Min(y + 20, 920);
-            TableButton("Continue", 560, by, 380, 80, () => LeaveOutcome(), true, true);
-            if (duel && !tutorialMatch) TableButton("Play Again", 980, by, 380, 80, () => StartMatch(true));
-            else if (!won && !duel && !tutorialMatch) TableButton("Try Again", 980, by, 380, 80, () => StartMatch(false));
-            else if (tutorialMatch) TableButton("Replay Tutorial", 980, by, 380, 80, () => StartTutorial());
+            float by = Mathf.Min(y + 20, 900);
+            TableButton("Continue", 900, by, 360, 84, () => LeaveOutcome(), true, true);
+            if (duel && !tutorialMatch) TableButton("Play Again", 1290, by, 270, 84, () => StartMatch(true));
+            else if (!won && !duel && !tutorialMatch) TableButton("Try Again", 1290, by, 270, 84, () => StartMatch(false));
+            else if (tutorialMatch) TableButton("Replay Tutorial", 1290, by, 270, 84, () => StartTutorial());
         }
 
         private void LeaveOutcome()

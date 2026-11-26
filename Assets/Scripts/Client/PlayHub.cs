@@ -30,75 +30,92 @@ namespace Wolfsun
         private void PlayHub()
         {
             bool ranked = pendingQueue == QueueMode.Ranked;
-            Banner("Play", "Duel a rival, climb the Beacon Ladder and finish daily quests");
+            var foe = Campaign.Chapters[Campaign.ChapterAtProgress(profile.progress)];
+            bool finished = profile.progress >= Campaign.Chapters.Length;
+            (string art, string title, string sub, string meta, bool on, Action go)[] tiles =
+            {
+                ("Campaign", "Campaign", "Seven chapters of Ragnarök. Earn relics and grow your hero.", finished ? "All chapters cleared" : "Next: " + foe.Name, false,
+                    () => { chapter = Campaign.ChapterAtProgress(profile.progress); Go(Page.Story); }),
+                ("Ranked", "Ranked", "Climb ten ranks in six leagues. Stars are earned, not given.", Ladder.DisplayName(profile.ladderAbsolute, profile.legendPlace), ranked,
+                    () => { pendingQueue = QueueMode.Ranked; UiSound("tab"); Render(); }),
+                ("Casual", "Casual", "Unranked duels against players near your skill.", "No rank at stake", !ranked,
+                    () => { pendingQueue = QueueMode.Casual; UiSound("tab"); Render(); }),
+                ("Collection", "Collection", "Build decks and review every card you own.", owned.Count + " cards owned", false, () => Go(Page.Collection))
+            };
+            for (int i = 0; i < tiles.Length; i++)
+            {
+                var t = tiles[i];
+                float x = 110 + i * 430, y = 140 - (t.on ? 10 : 0);
+                var panel = ChromePanel(root, t.title, x, y, 400, 540, t.on ? "PanelGold" : "Panel", true);
+                Cover(root, Foundry + "Mode-" + t.art, x + 4, y + 4, 392, 330, Color.white);
+                Gradient(root, "Tile fade", x + 4, y + 250, 392, 84, new Color(.03f, .043f, .065f, 0f), new Color(.03f, .043f, .065f, .95f), true);
+                OutlinedText(root, t.title, x + 24, y + 336, 352, 50, 40, t.on ? Gold : new Color32(244, 227, 180, 255), true, TextAnchor.MiddleLeft, 24);
+                SafeText(root, t.sub, x + 24, y + 392, 352, 64, 19, new Color32(207, 214, 218, 255), false, TextAnchor.UpperLeft, 13);
+                Label(root, t.meta.ToUpperInvariant(), x + 24, y + 490, 352, 28, 15, Brass, false);
+                var go = t.go;
+                var button = panel.gameObject.AddComponent<Button>();
+                button.targetGraphic = panel.GetComponent<Graphic>();
+                button.transition = Selectable.Transition.None;
+                button.onClick.AddListener(() => { UiSound("click"); go(); });
+                HoverCue(panel);
+            }
 
-            // --- mode + ladder
-            TableButton("Casual", 60, 280, 280, 60, () => { pendingQueue = QueueMode.Casual; UiSound("tab"); Render(); }, true, !ranked);
-            TableButton("Ranked", 360, 280, 280, 60, () => { pendingQueue = QueueMode.Ranked; UiSound("tab"); Render(); }, true, ranked);
-            ChromePanel(root, "Ladder", 60, 356, 580, 520, ranked ? "PanelGold" : "Panel");
+            // --- deck bar
+            ChromePanel(root, "Deck bar", 110, 700, 1700, 190, "Panel");
+            var hero = Hero.Info(profile.hero);
+            CirclePortrait(root, HeroArt(profile.hero), 130, 716, 150);
+            OutlinedText(root, hero.Name + " · " + hero.Title, 300, 716, 600, 44, 30, Gold, true, TextAnchor.MiddleLeft, 16);
+            bool legal = Campaign.LegalDeck(profile.deck, owned);
+            Label(root, legal ? "Deck ready · 30 cards" : "Your deck is not legal", 300, 762, 500, 30, 20, legal ? AllySage : EnemyCopper, false);
+            SafeText(root, hero.Power + ": " + hero.Description, 300, 794, 520, 44, 17, Muted, false, TextAnchor.UpperLeft, 12);
+            TableButton("Edit deck", 300, 842, 170, 36, () => Go(Page.Collection));
+            TableButton("Change hero", 486, 842, 190, 36, () => Go(Page.Collection));
             if (ranked)
             {
-                FitSafe(root, Foundry + RankMedalPath(profile.ladderAbsolute), 190, 372, 280, 280);
-                OutlinedText(root, Ladder.DisplayName(profile.ladderAbsolute, profile.legendPlace), 60, 650, 580, 50, 38, Gold, true, TextAnchor.MiddleCenter, 20);
+                FitSafe(root, Foundry + RankMedalPath(profile.ladderAbsolute), 860, 712, 130, 130);
+                OutlinedText(root, Ladder.DisplayName(profile.ladderAbsolute, profile.legendPlace), 1000, 724, 420, 44, 32, Gold, true, TextAnchor.MiddleLeft, 18);
                 if (profile.ladderAbsolute < Ladder.LegendOrdinal)
-                    DrawRankStars(root, 60 + (580 - Ladder.StarsPerRank * 48) / 2f, 704, profile.ladderStars, Ladder.StarsPerRank);
-                Label(root, "Win streak " + profile.winStreak + " · Stars per win " + Ladder.StarsForWin(profile.starBonus, profile.winStreak, profile.ladderAbsolute),
-                    60, 760, 580, 30, 20, White, false, TextAnchor.MiddleCenter);
-                Label(root, "Rating " + Mathf.RoundToInt((float)profile.rankedMmr) + " · Peak " + Ladder.DisplayName(profile.peakAbsolute),
-                    60, 790, 580, 30, 18, Muted, false, TextAnchor.MiddleCenter);
+                    DrawRankStars(root, 1000, 770, profile.ladderStars, Ladder.StarsPerRank);
+                Label(root, "Streak " + profile.winStreak + " · Rating " + Mathf.RoundToInt((float)profile.rankedMmr), 1000, 820, 420, 26, 17, Muted, false);
                 if (profile.apprenticeLeft > 0)
-                    Label(root, profile.apprenticeLeft + " apprentice games: losses cost no stars", 60, 822, 580, 30, 18, Frost, false, TextAnchor.MiddleCenter);
+                    Label(root, profile.apprenticeLeft + " apprentice games: no star loss", 860, 850, 560, 26, 16, Frost, false);
             }
             else
             {
-                FitSafe(root, Foundry + "Icon-Casual", 220, 392, 200, 200);
-                OutlinedText(root, "Casual Duel", 60, 610, 580, 50, 38, Gold, true, TextAnchor.MiddleCenter, 20);
-                SafeText(root, "Unranked games against rivals of similar rating. No stars to lose.", 100, 670, 500, 60, 22, White, false, TextAnchor.MiddleCenter, 14);
-                Label(root, "Rating " + Mathf.RoundToInt((float)profile.casualMmr), 60, 750, 580, 30, 20, Muted, false, TextAnchor.MiddleCenter);
+                OutlinedText(root, "Casual duel", 860, 730, 420, 44, 32, Gold, true, TextAnchor.MiddleLeft, 18);
+                Label(root, "Rating " + Mathf.RoundToInt((float)profile.casualMmr), 860, 780, 420, 26, 18, Muted, false);
             }
-
-            // --- deck + find match
-            ChromePanel(root, "Deck", 680, 280, 560, 596, "Panel");
-            var hero = Hero.Info(profile.hero);
-            CirclePortrait(root, HeroArt(profile.hero), 850, 300, 220, Foundry + "HeroFrame");
-            OutlinedText(root, hero.Name + " · " + hero.Title, 680, 530, 560, 44, 30, Gold, true, TextAnchor.MiddleCenter, 16);
-            SafeText(root, hero.Power + ": " + hero.Description, 710, 576, 500, 56, 19, White, false, TextAnchor.MiddleCenter, 12);
-            bool legal = Campaign.LegalDeck(profile.deck, owned);
-            Label(root, legal ? "Deck ready · 30 cards" : "Your deck is not legal", 680, 640, 560, 34, 22, legal ? AllySage : EnemyCopper, true, TextAnchor.MiddleCenter);
-            TableButton("Edit Deck", 740, 688, 200, 56, () => Go(Page.Collection));
-            TableButton("Change Hero", 980, 688, 200, 56, () => Go(Page.Collection));
-            TableButton(ranked ? "Find Ranked Match" : "Find Casual Match", 720, 770, 480, 84, () => BeginQueue(pendingQueue), legal && !queueSearching, true);
-            TableButton("Practice Skirmish", 680, 890, 560, 62, () => StartMatch(true), legal);
-            if (!string.IsNullOrEmpty(status)) SafeText(root, status, 680, 960, 560, 40, 20, Gold, false, TextAnchor.MiddleCenter, 12);
+            TableButton(ranked ? "Play Ranked" : "Play Casual", 1450, 722, 330, 86, () => BeginQueue(pendingQueue), legal && !queueSearching, true);
+            TableButton("Practice skirmish", 1450, 828, 330, 44, () => StartMatch(true), legal);
+            if (!string.IsNullOrEmpty(status)) SafeText(root, status, 860, 868, 560, 22, 16, Gold, false, TextAnchor.MiddleLeft, 11);
 
             // --- daily quests + card backs
             RefreshDailies();
-            ChromePanel(root, "Dailies", 1280, 280, 580, 330, "Panel");
-            OutlinedText(root, "Daily quests", 1280, 292, 580, 44, 30, Gold, true, TextAnchor.MiddleCenter, 18);
+            ChromePanel(root, "Dailies", 110, 910, 860, 150, "Panel");
+            OutlinedText(root, "Daily quests", 136, 916, 300, 34, 22, Gold, true, TextAnchor.MiddleLeft, 14);
             for (int i = 0; i < profile.dailies.Count && i < 3; i++)
             {
                 var quest = profile.dailies[i];
-                float y = 346 + i * 84;
-                SafeText(root, quest.label, 1306, y, 530, 30, 20, quest.progress >= quest.target ? AllySage : White, false, TextAnchor.MiddleLeft, 12);
-                ColorBox(root, "bar", 1306, y + 38, 400, 14, new Color(0, 0, 0, .55f));
-                ColorBox(root, "bar fill", 1306, y + 38, 400 * Mathf.Clamp01((float)quest.progress / Mathf.Max(1, quest.target)), 14, quest.claimed ? AllySage : Brass);
-                Label(root, quest.progress + "/" + quest.target, 1716, y + 30, 70, 28, 18, Muted, false, TextAnchor.MiddleLeft);
-                Label(root, "+" + quest.rewardEmbers, 1760, y + 30, 90, 28, 18, Gold, true, TextAnchor.MiddleRight);
+                float qx = 136 + i * 280;
+                SafeText(root, quest.label, qx, 956, 262, 26, 17, quest.progress >= quest.target ? AllySage : White, false, TextAnchor.MiddleLeft, 11);
+                ColorBox(root, "bar", qx, 992, 200, 10, new Color(1, 1, 1, .12f));
+                ColorBox(root, "bar fill", qx, 992, 200 * Mathf.Clamp01((float)quest.progress / Mathf.Max(1, quest.target)), 10, quest.claimed ? AllySage : Brass);
+                Label(root, quest.progress + "/" + quest.target + "  +" + quest.rewardEmbers, qx, 1006, 262, 24, 15, Muted, false);
             }
-            ChromePanel(root, "Backs", 1280, 626, 580, 250, "Panel");
-            OutlinedText(root, "Card backs · " + profile.embers + " Embers", 1280, 636, 580, 40, 26, Gold, true, TextAnchor.MiddleCenter, 16);
+            ChromePanel(root, "Backs", 1000, 910, 810, 150, "Panel");
+            OutlinedText(root, "Card backs · " + profile.embers + " Embers", 1026, 916, 500, 34, 22, Gold, true, TextAnchor.MiddleLeft, 14);
             for (int i = 0; i < CardBackCatalog.Length; i++)
             {
                 string path = CardBackCatalog[i];
                 int index = i;
                 bool have = profile.unlockedCardBacks.Contains(path);
                 bool equipped = CardBackArt == path;
-                float x = 1304 + i * 140;
-                var back = Pic(root, path, x, 686, 84, 118);
+                float x = 1026 + i * 195;
+                var back = Pic(root, path, x, 956, 70, 98);
                 if (!have) back.color = new Color(.5f, .5f, .5f, 1f);
-                if (equipped) Pic(root, Foundry + "CardPlayableGlow", x - 8, 680, 100, 130, Gold);
+                if (equipped) Pic(root, Foundry + "CardPlayableGlow", x - 6, 952, 82, 106, Gold);
                 string label = equipped ? "Equipped" : have ? "Equip" : CardBackCost[index] + " Embers";
-                TableButton(label, x - 12, 812, 124, 44, () => BuyCardBack(path), !equipped && (have || profile.embers >= CardBackCost[index]));
+                TableButton(label, x + 78, 988, 106, 40, () => BuyCardBack(path), !equipped && (have || profile.embers >= CardBackCost[index]));
             }
             if (queueSearching) DrawQueueOverlay();
         }

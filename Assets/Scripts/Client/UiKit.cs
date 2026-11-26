@@ -33,7 +33,7 @@ namespace Wolfsun
         }
 
         /// <summary>A 9-sliced sprite from Art/Foundry, or null if the art is missing.</summary>
-        private Sprite Slice(string art) => FoundrySprite(art, BorderFor(art));
+        private Sprite Slice(string art) => GeneratedSlice(art) ?? FoundrySprite(art, BorderFor(art));
 
         /// <summary>Like Picture, but a missing texture draws nothing instead of a white box.</summary>
         private Texture2D gradientTex;
@@ -209,7 +209,7 @@ namespace Wolfsun
                 button.onClick.AddListener(() => { UiSound("click"); click(); });
             HoverCue(rect, () => enabled);
             int size = Mathf.Clamp(Mathf.RoundToInt(h * .36f), 15, 30);
-            Color ink = enabled ? (primary ? Gold : White) : Quiet;
+            Color ink = enabled ? (primary ? InkOnGold : new Color32(241, 223, 174, 255)) : Quiet;
             SafeText(rect, text, 16, 0, w - 32, h, size, ink, true, TextAnchor.MiddleCenter, 11);
             if (pulse && enabled) PulseEndTurn(rect, true);
         }
