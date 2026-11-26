@@ -12,8 +12,8 @@ namespace Wolfsun
 
         private void DrawPiles()
         {
-            DrawPile(1, 1650, 84, 76, 108);
-            DrawPile(0, 1650, 834, 76, 108);
+            DrawPile(1, 1652, 40, 40, 57);
+            DrawPile(0, 1652, 480, 40, 57);
         }
 
         private void DrawPile(int side, int x, int y, int w, int h)
@@ -28,9 +28,7 @@ namespace Wolfsun
                 Pic(pile, CardBackArt, 0, 0, w, h);
             }
             else ColorBox(pile, "Empty", 0, 0, w, h, new Color(0, 0, 0, .35f));
-            Label(root, count + " in deck", x + w + 10, y + 8, 150, 30, 20, count == 0 ? EnemyCopper : White, true);
-            Label(root, pilot.Hand.Count + " in hand", x + w + 10, y + 40, 150, 28, 17, Muted);
-            if (pilot.Fatigue > 0) Label(root, "Fatigue " + pilot.Fatigue, x + w + 10, y + 68, 150, 28, 17, EnemyCopper);
+            if (pilot.Fatigue > 0) Label(root, "Fatigue " + pilot.Fatigue, x - 40, y + h + 2, 120, 22, 14, EnemyCopper, false, TextAnchor.MiddleCenter);
         }
 
         private static CanvasGroup HideUntilLanding(RectTransform destination)

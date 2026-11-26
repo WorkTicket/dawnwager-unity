@@ -133,6 +133,7 @@ namespace Wolfsun
             scaler.screenMatchMode=CanvasScaler.ScreenMatchMode.Expand;
             if(FindAnyObjectByType<EventSystem>()==null)
                 new GameObject("Event System",typeof(EventSystem),typeof(InputSystemUIInputModule));
+            BuildBadgeTextures();
             CreateBackdrop(canvas.transform);
             var o=new GameObject("Stage",typeof(RectTransform));
             stage=o.GetComponent<RectTransform>();stage.SetParent(canvas.transform,false);

@@ -181,8 +181,7 @@ namespace Wolfsun
             var holder = Box(layer, "Fallen", at.x - TileW / 2f, -at.y - TileH / 2f, TileW, TileH);
             var group = holder.gameObject.AddComponent<CanvasGroup>();
             group.blocksRaycasts = false;
-            FitSafe(holder, art, TileW * .1f, TileH * .08f, TileW * .8f, TileH * .8f);
-            Pic(holder, Foundry + "UnitToken", 0, 0, TileW, TileH);
+            CutFit(holder, art, TileW, TileH * .84f, Color.white);
             float duration = reduceMotion ? .4f : .65f;
             for (float t = 0; t < duration && holder; t += Time.unscaledDeltaTime)
             {

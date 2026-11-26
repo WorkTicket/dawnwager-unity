@@ -35,7 +35,7 @@ namespace Wolfsun
         {
             Picture(parent, Foundry + type, x, y, size, size);
             // Dead-center the numeral in the gem — outlined for HS readability.
-            var num = Label(parent, value, x, y, size, size, fontSize, White, false, TextAnchor.MiddleCenter);
+            var num = Label(parent, value, x, y + (type == "Health" ? size * .08f : 0f), size, size, fontSize, White, false, TextAnchor.MiddleCenter);
             num.resizeTextForBestFit = true;
             num.resizeTextMinSize = Mathf.Max(8, fontSize - 8);
             num.resizeTextMaxSize = fontSize;

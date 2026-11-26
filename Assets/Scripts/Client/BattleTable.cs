@@ -22,20 +22,21 @@ namespace Wolfsun
         private static readonly Color AllySage = new Color32(180, 211, 193, 255);
         private static readonly Color Quiet = new Color32(179, 188, 180, 255);
 
-        private static readonly int[] LaneX = { 290, 990 };
+        private static readonly int[] LaneX = { 270, 990 };
         private readonly Dictionary<int, RectTransform> battlePieces = new Dictionary<int, RectTransform>();
         private readonly RectTransform[] heroBadges = new RectTransform[2];
         private bool showRules, presenting, reduceMotion, canAct;
-        private const int TableY = 160;
-        private const int LaneWidth = 620;
-        private const float HandBaseY = 815f;
-        private const int HandCardW = 180;
-        private const int HandCardH = 255;
+        private const int TableY = 158;
+        private const int LaneWidth = 660;
+        private const float HandBaseY = 777f;
+        private const int HandCardW = 204;
+        private const int HandCardH = 289;
         private const int TileW = 176, TileH = 220;
-        private const float EnemyRowY = 250f, AllyRowY = 482f, EnemySiteY = 206f, AllySiteY = 708f;
+        private const float EnemyRowY = 302f, AllyRowY = 530f, EnemySiteY = 262f, AllySiteY = 744f;
+        private const float EnemyFoot = 478f, AllyFoot = 742f, EnemyScale = .9f, AllyScale = 1f;
 
         private static float RowY(int side) => side == 1 ? EnemyRowY : AllyRowY;
-        private static float SlotX(int lane, int index) => LaneX[lane] + 32 + index * (TileW + 14);
+        private static float SlotCx(int lane, int index) => LaneX[lane] + 26 + (LaneWidth - 52) / 3f * (index + .5f);
         private Vector2 LanePoint(int side, int lane) => new Vector2(LaneX[lane] + LaneWidth / 2f, -(RowY(side) + TileH / 2f));
 
         private void Battle()
@@ -48,158 +49,115 @@ namespace Wolfsun
             if (!canAct && !match.Opening) { choosing = false; selected = ActionKind.Pass; cursor = -1; }
             var choices = PresentMoves(legal);
 
-            Gradient(root, "Left shade", 0, 0, 300, 1080, new Color(0, 0, 0, .55f), new Color(0, 0, 0, 0f), false);
-            Gradient(root, "Right shade", 1620, 0, 300, 1080, new Color(0, 0, 0, 0f), new Color(0, 0, 0, .55f), false);
-            Gradient(root, "Tray fade", 0, 700, 1920, 130, new Color(.02f, .03f, .05f, 0f), new Color(.02f, .03f, .05f, .7f), true);
-            Pic(root, Foundry + "HandTray", 0, 800, 1920, 280);
+            Gradient(root, "Vignette top", 0, 0, 1920, 220, new Color(.016f, .024f, .04f, .55f), new Color(.016f, .024f, .04f, 0f), true);
+            Gradient(root, "Tray fade", 0, 760, 1920, 320, new Color(.016f, .024f, .04f, 0f), new Color(.016f, .024f, .04f, .9f), true);
 
             DrawEnemyHand();
             DrawPiles();
-            DrawForecast();
             BoardLane(0, choices);
             BoardLane(1, choices);
-            PlayerBadge(1, 20, Hero.Info(match.Players[1].Hero).Name, choices);
-            PlayerBadge(0, 536, Hero.Info(match.Players[0].Hero).Name, choices);
+            PlayerBadge(1, 16, Hero.Info(match.Players[1].Hero).Name, choices);
+            PlayerBadge(0, 452, Hero.Info(match.Players[0].Hero).Name, choices);
+            DrawChargeRow();
+            DrawHeroPower();
+            DrawLeftHud();
             DrawHand(legal);
             DrawControls(legal, choices);
             if (match.Opening) OpeningPanel();
             if (tutorialMatch) DrawTutorialCoach();
         }
 
-        // ---------------------------------------------------------------- right rail
+        // ---------------------------------------------------------------- left HUD (text only)
 
-        private void DrawForecast()
+        private void DrawLeftHud()
         {
+            TextLink("Menu", 40, 26, 190, 30, 22, new Color32(207, 213, 216, 255), () => { settings = true; UiSound("open"); Render(); });
+            TextLink("Rules", 40, 60, 190, 26, 17, Muted, () => OpenRules(), false);
+            OutlinedText(root, "Round " + Mathf.Max(1, match.Round), 40, 350, 260, 50, 40, Gold, true, TextAnchor.MiddleLeft, 24);
             var fresh = match.Prophecies.FirstOrDefault(p => !p.Spent);
-            var plaque = Box(root, "Prophecy", 1650, 190, 240, 120);
-            Pic(plaque, Foundry + "ProphecyPlaque", 0, 0, 240, 120);
+            string line = fresh == null ? "All prophecies spent" : (match.Round == fresh.Round ? "Prophecy now" : "Prophecy, round " + fresh.Round);
+            var note = SafeText(root, line + (fresh != null ? "\n" + fresh.Card.Name : "") +
+                "\n" + (match.Contested < 0 ? "No contested lane" : Lane(match.Contested) + " lane contested"), 40, 402, 270, 80, 16, Muted, false, TextAnchor.UpperLeft, 11);
             if (fresh != null)
             {
-                bool due = match.Round == fresh.Round;
-                if (due) Pic(plaque, Foundry + "ProphecyDue", 0, 0, 240, 120);
-                SafeText(plaque, due ? "Prophecy now" : "Prophecy · round " + fresh.Round, 28, 18, 184, 26, 17, Gold, true, TextAnchor.MiddleCenter, 11);
-                SafeText(plaque, fresh.Card.Name, 28, 46, 184, 40, 22, White, true, TextAnchor.MiddleCenter, 12);
                 string id = fresh.Card.Id;
-                Click(plaque, () => { inspected = id; UiSound("open"); Render(); });
-                BindPreview(plaque, id, null);
+                Click(note.rectTransform, () => { inspected = id; UiSound("open"); Render(); }, true, note).transition = Selectable.Transition.None;
+                BindPreview(note.rectTransform, id, null);
             }
-            else SafeText(plaque, "All prophecies spent", 28, 30, 184, 60, 20, Muted, false, TextAnchor.MiddleCenter, 12);
-
-            string contested = match.Contested < 0 ? "No contested lane" : Lane(match.Contested) + " lane contested";
-            OutlinedText(root, "Round " + Mathf.Max(1, match.Round), 1650, 320, 240, 40, 32, Gold, true, TextAnchor.MiddleCenter, 18);
-            SafeText(root, contested, 1650, 358, 240, 28, 19, White, false, TextAnchor.MiddleCenter, 12);
             if (match.Winner < 0 && !match.Opening)
-            {
-                Pic(root, Foundry + (match.Turn == 0 ? "TurnGemAlly" : "TurnGemEnemy"), 1660, 392, 30, 30);
-                Label(root, match.Turn == 0 ? "Your turn" : "Enemy turn", 1698, 390, 190, 34, 22,
-                    match.Turn == 0 ? AllySage : EnemyCopper, true);
-            }
-            var rail = ChromePanel(root, "Log", 1650, 432, 240, 220, "HistoryRail");
-            var lines = match.Log.Skip(Mathf.Max(0, match.Log.Count - 6)).Select(b => b.Text).ToArray();
+                OutlinedText(root, match.Turn == 0 ? "Your turn" : "Enemy turn", 40, 496, 260, 34, 24, match.Turn == 0 ? AllySage : EnemyCopper, true, TextAnchor.MiddleLeft, 14);
+            var lines = match.Log.Skip(Mathf.Max(0, match.Log.Count - 4)).Select(b => b.Text).ToArray();
             for (int i = 0; i < lines.Length; i++)
-                SafeText(rail, lines[i], 22, 28 + i * 28, 200, 28, 15, i == lines.Length - 1 ? White : Muted, false, TextAnchor.MiddleLeft, 10);
+                SafeText(root, lines[i], 40, 826 + i * 24, 290, 24, 15, i == lines.Length - 1 ? White : Muted, false, TextAnchor.MiddleLeft, 10);
         }
 
-        // ---------------------------------------------------------------- lanes
+        // ---------------------------------------------------------------- lanes (text labels only)
 
         private void BoardLane(int lane, Move[] choices)
         {
             int lx = LaneX[lane];
             bool contested = match.Contested == lane;
-            // Lane surface: dark stone with brass edge rules, inner sockets, and a centre divider.
-            Gradient(root, "Lane surface " + lane, lx, 204, LaneWidth, 548, new Color(.03f, .05f, .08f, .42f), new Color(.03f, .05f, .08f, .62f), true);
-            var edge = contested ? new Color(Gold.r, Gold.g, Gold.b, .7f) : new Color(Brass.r, Brass.g, Brass.b, .32f);
-            ColorBox(root, "Lane edge L", lx, 204, 2, 548, edge);
-            ColorBox(root, "Lane edge R", lx + LaneWidth - 2, 204, 2, 548, edge);
-            ColorBox(root, "Lane edge B", lx, 750, LaneWidth, 2, edge);
-            if (contested) Gradient(root, "Contested glow", lx, 204, LaneWidth, 548, new Color(Gold.r, Gold.g, Gold.b, .10f), new Color(Gold.r, Gold.g, Gold.b, 0f), true);
-            Pic(root, Foundry + "DividerOrnate", lx + 30, 468, LaneWidth - 60, 14, new Color(1, 1, 1, .85f));
-            for (int sd = 0; sd < 2; sd++)
-                for (int k = 0; k < 3; k++)
-                {
-                    float sx0 = SlotX(lane, k), sy0 = RowY(sd);
-                    var sock = ColorBox(root, "Socket", sx0 + 8, sy0 + 10, TileW - 16, TileH - 20, new Color(0, 0, 0, .22f));
-                    Pic(sock, Foundry + "DropRing", (sock.sizeDelta.x - 70) / 2f, (sock.sizeDelta.y - 70) / 2f, 70, 70, new Color(1, 1, 1, .16f));
-                    ColorBox(sock, "t", 0, 0, sock.sizeDelta.x, 1, new Color(Brass.r, Brass.g, Brass.b, .28f));
-                    ColorBox(sock, "b", 0, sock.sizeDelta.y - 1, sock.sizeDelta.x, 1, new Color(Brass.r, Brass.g, Brass.b, .28f));
-                    ColorBox(sock, "l", 0, 0, 1, sock.sizeDelta.y, new Color(Brass.r, Brass.g, Brass.b, .28f));
-                    ColorBox(sock, "r", sock.sizeDelta.x - 1, 0, 1, sock.sizeDelta.y, new Color(Brass.r, Brass.g, Brass.b, .28f));
-                }
-            ChromePanel(root, "Lane header", lx, TableY, LaneWidth, 44, contested ? "PanelGold" : "Panel");
             int mine = match.SealPower(0, lane), theirs = match.SealPower(1, lane);
-            SafeText(root, Lane(lane) + (contested ? " · Contested" : ""), lx + 40, TableY, 310, 44, 24, contested ? Gold : White, true, TextAnchor.MiddleLeft, 14);
-            SafeText(root, "Seal Power  You " + mine + "  ·  Foe " + theirs, lx + 330, TableY, 246, 44, 17,
-                mine > theirs ? AllySage : mine < theirs ? EnemyCopper : Muted, false, TextAnchor.MiddleRight, 11);
+            var lead = mine > theirs ? AllySage : mine < theirs ? EnemyCopper : Muted;
+            OutlinedText(root, Lane(lane).ToUpperInvariant(), lx, 170, LaneWidth, 42, 32, contested ? Gold : new Color32(228, 232, 234, 255), true, TextAnchor.MiddleCenter, 20);
+            var site0 = match.Board.FirstOrDefault(p => p.Card.Kind == Kind.Site && p.Lane == lane && p.Side == 0);
+            var site1 = match.Board.FirstOrDefault(p => p.Card.Kind == Kind.Site && p.Lane == lane && p.Side == 1);
+            string extra = (contested ? " · Contested" : "");
+            var power = OutlinedText(root, "Seal power " + mine + " – " + theirs + extra, lx, 212, LaneWidth, 26, 17, lead, false, TextAnchor.MiddleCenter, 12);
             var zone = choices.FirstOrDefault(m => m.Target == 0 && m.Lane == lane && m.Kind != ActionKind.Attack);
             if (zone != null)
             {
                 string verb = zone.Kind == ActionKind.March ? "March to " : zone.Kind == ActionKind.Power ? "Invoke in " : "Play in ";
-                TableButton("▶ " + verb + Lane(lane), lx + 2, TableY - 2, LaneWidth - 4, 48, () => CommitMove(zone), true, true);
+                TableButton("▶ " + verb + Lane(lane), lx + (LaneWidth - 340) / 2f, 118, 340, 46, () => CommitMove(zone), true, true);
             }
             for (int side = 1; side >= 0; side--)
             {
+                float foot = side == 1 ? EnemyFoot : AllyFoot, sc = side == 1 ? EnemyScale : AllyScale;
                 var units = match.Units(side, lane).ToList();
                 for (int i = 0; i < units.Count && i < 3; i++)
-                    UnitTile(root, units[i], SlotX(lane, i), RowY(side), choices);
-                var site = match.Board.FirstOrDefault(p => p.Card.Kind == Kind.Site && p.Side == side && p.Lane == lane);
-                DrawSite(site, lx + 32, side == 1 ? EnemySiteY : AllySiteY, choices);
+                    UnitTile(root, units[i], SlotCx(lane, i), foot, sc, choices);
+                DrawSite(side == 0 ? site0 : site1, lx + (LaneWidth - 360) / 2f, side == 1 ? EnemySiteY : AllySiteY, choices);
             }
         }
 
         private void DrawSite(Piece site, float x, float y, Move[] choices)
         {
-            const float w = TileW * 3 + 28, h = 40;
-            if (site == null)
-            {
-                ColorBox(root, "Empty site", x, y + 14, w, 2, new Color(1, 1, 1, .08f));
-                return;
-            }
+            if (site == null) return;
+            const float w = 360, h = 34;
             bool target = choices.Any(m => m.Target == site.Key);
             var strip = ChromePanel(root, site.Card.Name, x, y, w, h, target ? "PanelGold" : "Panel");
             battlePieces[site.Key] = strip;
-            CirclePortrait(strip, "Places/" + site.Card.Id, 6, 3, 34);
-            SafeText(strip, "Site · " + site.Card.Name, 48, 0, 220, h, 19, target ? Gold : White, true, TextAnchor.MiddleLeft, 11);
-            SafeText(strip, CompactRules(RulesText.Describe(site.Card)), 270, 0, w - 280, h, 14, Muted, false, TextAnchor.MiddleLeft, 9);
+            SafeText(strip, "Site · " + site.Card.Name + " — " + CompactRules(RulesText.Describe(site.Card)), 14, 0, w - 28, h, 15, target ? Gold : White, false, TextAnchor.MiddleLeft, 9);
             CardTarget(strip, site.Card.Id, target ? (Action)(() => CommitMove(choices.First(m => m.Target == site.Key))) : null, false, site);
         }
 
-        private string UnitArt(string id) => Hero.All.Any(hero => hero.Id == id) ? HeroArt(id) : "Units/" + (id == "X11" ? "X02" : id);
+        private string UnitArt(string id) => Hero.All.Any(hero => hero.Id == id) ? "Heroes/" + id : "Units/" + (id == "X11" ? "X02" : id);
 
-        private void UnitTile(Transform parent, Piece unit, float x, float y, Move[] choices)
+        private void UnitTile(Transform parent, Piece unit, float cx, float foot, float sc, Move[] choices)
         {
-            var tile = Box(parent, unit.Card.Name + " " + unit.Key, x, y, TileW, TileH);
+            float tx = cx - 88 * sc, ty = foot - 200 * sc + 4;
+            var tile = Box(parent, unit.Card.Name + " " + unit.Key, tx, ty, TileW * sc, TileH * sc);
             battlePieces[unit.Key] = tile;
             bool mine = unit.Side == 0;
             bool target = choices.Any(m => m.Target == unit.Key);
             bool picked = choosing && selected == ActionKind.Attack && cursor == unit.Key;
             bool ready = mine && canAct && !unit.Spent && !choosing;
             Color tint = unit.Spent ? new Color(.62f, .62f, .68f, 1f) : Color.white;
-            if (picked || target || ready)
-            {
-                var glow = Pic(tile, Foundry + "UnitTokenGlow", -14, -14, TileW + 28, TileH + 28,
-                    target ? (mine ? AllySage : EnemyCopper) : picked ? Gold : new Color(Brass.r, Brass.g, Brass.b, .55f));
-            }
-            var disc = Box(tile, "Portrait", TileW * .16f, TileH * .155f, TileW * .68f, TileH * .69f);
-            var backing = disc.gameObject.AddComponent<Image>();
-            var circle = CircleSprite();
-            if (circle != null) backing.sprite = circle;
-            backing.color = new Color(.05f, .07f, .1f, 1f);
-            backing.raycastTarget = false;
-            disc.gameObject.AddComponent<Mask>().showMaskGraphic = true;
-            Backdrop(disc, 0, 0, disc.sizeDelta.x, disc.sizeDelta.y, unit.Side == 0 ? new Color(.31f, .54f, .42f, 1f) : new Color(.66f, .36f, .27f, 1f), true);
-            float art = disc.sizeDelta.x * 1.25f;
-            FitSafe(disc, UnitArt(unit.Card.Id), (disc.sizeDelta.x - art) / 2f, disc.sizeDelta.y * .02f, art, art, tint);
-            Pic(tile, Foundry + "UnitToken", 0, 0, TileW, TileH, tint);
-            int medal = 30;
-            Medal(tile, "Attack", unit.Attack.ToString(), -6, TileH - 62, 62, medal);
-            Medal(tile, "Health", unit.Hp.ToString(), TileW - 56, TileH - 62, 62, medal);
-            Pic(tile, Foundry + "UnitPlate", 44, 180, 88, 30, new Color(1, 1, 1, .92f));
-            OutlinedText(tile, unit.Card.Name, 50, 182, 76, 26, 14, unit.Card.Legendary ? Gold : White, true, TextAnchor.MiddleCenter, 8);
-            if (unit.Shield) Pic(tile, Foundry + "Shield", TileW - 44, 0, 44, 44);
+            Color glow = target ? (mine ? AllySage : EnemyCopper) : picked ? Gold : new Color(1f, .88f, .5f, 1f);
+            // Soft ground shadow, warmed when the unit can act.
+            Shade(tile, -12 * sc, 176 * sc - 4, 200 * sc, 46 * sc, new Color(0, 0, 0, .75f));
+            if (picked || target || ready) Shade(tile, -4 * sc, 150 * sc, 184 * sc, 52 * sc, new Color(glow.r, glow.g, glow.b, target || picked ? .85f : .5f));
+            var art = Box(tile, "Art", 0, 0, TileW * sc, 184 * sc);
+            CutFit(art, UnitArt(unit.Card.Id), TileW * sc, 184 * sc, tint);
+            Medal(tile, "Attack", unit.Attack.ToString(), -2 * sc, 156 * sc, 58 * sc, Mathf.RoundToInt(28 * sc));
+            Medal(tile, "Health", unit.Hp.ToString(), 120 * sc, 156 * sc, 58 * sc, Mathf.RoundToInt(28 * sc));
+            Pic(tile, Foundry + "UnitPlate", 44 * sc, 180 * sc, 88 * sc, 30 * sc, new Color(1, 1, 1, .92f));
+            OutlinedText(tile, unit.Card.Name, 50 * sc, 182 * sc, 76 * sc, 26 * sc, Mathf.RoundToInt(14 * sc), unit.Card.Legendary ? Gold : White, true, TextAnchor.MiddleCenter, 8);
+            if (unit.Shield) Pic(tile, Foundry + "Shield", (TileW - 44) * sc, 0, 44 * sc, 44 * sc);
             if (unit.Guard) OutlinedText(tile, "Guard", 2, 2, 62, 22, 14, Frost, true, TextAnchor.MiddleLeft, 9);
             else if (unit.Card.Rush) OutlinedText(tile, "Rush", 2, 2, 62, 22, 14, Gold, true, TextAnchor.MiddleLeft, 9);
-            if (unit.Spent) OutlinedText(tile, "zzz", TileW / 2f - 30, 4, 60, 22, 15, Muted, false, TextAnchor.MiddleCenter, 9);
-            if (target) Pic(tile, Foundry + "TargetNode", TileW / 2f - 36, TileH / 2f - 36, 72, 72);
+            if (unit.Spent) OutlinedText(tile, "zzz", TileW * sc / 2f - 30, 4, 60, 22, 15, Muted, false, TextAnchor.MiddleCenter, 9);
+            if (target) Pic(tile, Foundry + "TargetNode", TileW * sc / 2f - 36, TileH * sc / 2f - 56, 72, 72);
             Action act = null;
             if (target) act = () => CommitMove(choices.First(m => m.Target == unit.Key));
             else if (mine) act = () => SelectPiece(unit);
@@ -207,45 +165,53 @@ namespace Wolfsun
             if (mine && ready) BindUnitDrag(tile, unit);
         }
 
-        // ---------------------------------------------------------------- heroes
+        // ---------------------------------------------------------------- heroes (cut-outs on the right)
 
         private void PlayerBadge(int side, float y, string name, Move[] choices)
         {
             var pilot = match.Players[side];
-            var badge = Box(root, "Hero " + side, 30, y, 240, 330);
+            var badge = Box(root, "Hero " + side, 1700, y, 210, 270);
             heroBadges[side] = badge;
             bool strike = side == 1 && choices.Any(m => m.Kind == ActionKind.Attack && m.Target == 0);
-            var portrait = CirclePortrait(badge, HeroArt(pilot.Hero), 35, 0, 170, Foundry + "HeroFrame");
+            Shade(badge, 10, 176, 170, 34, new Color(0, 0, 0, .8f));
+            var portrait = Box(badge, "Portrait", 0, 0, 190, 190);
+            CutFit(portrait, "Heroes/" + pilot.Hero, 190, 190, Color.white);
             if (!reduceMotion) StartCoroutine(Breathe(portrait));
             if (strike)
             {
-                Pic(badge, Foundry + "TargetNode", 70, 35, 100, 100);
+                Pic(badge, Foundry + "TargetNode", 45, 45, 100, 100);
                 var move = choices.First(m => m.Kind == ActionKind.Attack && m.Target == 0);
                 Click(portrait, () => CommitMove(move)).transition = Selectable.Transition.None;
-                SafeText(badge, "Strike the Bastion", 0, -22, 240, 24, 19, EnemyCopper, true, TextAnchor.MiddleCenter, 11);
+                SafeText(badge, "Strike the Bastion", 0, 150, 190, 24, 19, EnemyCopper, true, TextAnchor.MiddleCenter, 11);
             }
-            else if (side == 1)
-            {
-                Click(portrait, null).transition = Selectable.Transition.None;
-            }
-            Medal(badge, "Health", pilot.Hp.ToString(), 148, 108, 70, 30);
-            Pic(badge, Foundry + "Nameplate", 10, 172, 220, 32);
-            OutlinedText(badge, name, 14, 172, 212, 32, 20, White, true, TextAnchor.MiddleCenter, 11);
-            int cap = Mathf.Min(10, match.Round);
-            for (int i = 0; i < cap; i++)
-                Pic(badge, Foundry + (i < pilot.Charge ? "ChargePipOn" : "ChargePipOff"), 18 + i * 20.5f, 212, 20, 20);
-            Label(badge, "Charge " + pilot.Charge + "/" + cap, 0, 234, 240, 24, 17, Frost, false, TextAnchor.MiddleCenter);
+            else if (side == 1) Click(portrait, null).transition = Selectable.Transition.None;
+            Medal(badge, "Health", pilot.Hp.ToString(), 122, 126, 78, 38);
+            OutlinedText(badge, name, 0, 204, 190, 32, 24, White, true, TextAnchor.MiddleCenter, 14);
             for (int i = 0; i < 6; i++)
-                Pic(badge, Foundry + (i < pilot.Seals ? "SealLit" : "SealDim"), 18 + i * 35, 262, 33, 33);
-            if (side == 0) DrawHeroPower(badge, 0, 300);
+            {
+                var d = ColorBox(badge, "Seal", 52 + i * 17 + (i * 0), 245, 10, 10, i < pilot.Seals ? Gold : new Color(1, 1, 1, .18f));
+                d.pivot = new Vector2(.5f, .5f);
+                d.localRotation = Quaternion.Euler(0, 0, 45);
+            }
+            SafeText(badge, "Deck " + pilot.Pile.Count + " · Hand " + pilot.Hand.Count, 0, 256, 190, 20, 14, Muted, false, TextAnchor.MiddleCenter, 10);
         }
 
-        private void DrawHeroPower(RectTransform badge, float x, float y)
+        private void DrawChargeRow()
+        {
+            var pilot = match.Players[0];
+            int cap = Mathf.Max(1, Mathf.Min(10, match.Round));
+            float size = Mathf.Min(34f, (210f - 6f * (cap - 1)) / cap);
+            for (int i = 0; i < cap; i++)
+                Pic(root, Foundry + (i < pilot.Charge ? "ChargePipOn" : "ChargePipOff"), 1700 + i * (size + 6), 764, size, size);
+            SafeText(root, "CHARGE  " + pilot.Charge + " / " + cap, 1700, 764 + size + 6, 220, 24, 17, Frost, true, TextAnchor.MiddleLeft, 11);
+        }
+
+        private void DrawHeroPower()
         {
             var info = Hero.Info(match.Players[0].Hero);
             bool usable = canAct && match.Legal(0).Any(m => m.Kind == ActionKind.Power);
             bool picked = choosing && selected == ActionKind.Power;
-            var rect = Box(root, "Hero power", 30 + x, 536 + y + 4, 86, 86);
+            var rect = Box(root, "Hero power", 1760, 860, 74, 74);
             var image = rect.gameObject.AddComponent<RawImage>();
             string baseArt = usable ? "HeroPower" : "HeroPowerDisabled";
             image.texture = Texture(Foundry + baseArt);
@@ -260,11 +226,10 @@ namespace Wolfsun
                 UiSound("hover");
             };
             relay.Exit = () => { var t = Texture(Foundry + baseArt); if (t != null) image.texture = t; };
-            if (picked) Pic(root, Foundry + "UnitTokenGlow", 20 + x, 536 + y - 6, 106, 106, Gold);
-            Pic(root, Foundry + "HeroPowerCost", 30 + x + 52, 536 + y + 56, 40, 40);
-            Label(root, "2", 30 + x + 52, 536 + y + 56, 40, 40, 20, White, true, TextAnchor.MiddleCenter);
-            SafeText(root, info.Power, 126 + x, 536 + y + 4, 140, 40, 18, usable ? Gold : Quiet, true, TextAnchor.MiddleLeft, 10);
-            SafeText(root, info.Description, 126 + x, 536 + y + 42, 150, 52, 13, Muted, false, TextAnchor.UpperLeft, 9);
+            if (picked) Pic(root, Foundry + "UnitTokenGlow", 1750, 850, 94, 94, Gold);
+            Medal(root, "Cost", "2", 1810, 910, 34, 18);
+            SafeText(root, info.Power, 1700, 938, 210, 26, 19, usable ? Gold : Quiet, true, TextAnchor.MiddleCenter, 11);
+            SafeText(root, info.Description, 1700, 964, 210, 52, 13, Muted, false, TextAnchor.UpperCenter, 9);
         }
 
         // ---------------------------------------------------------------- selection
@@ -357,7 +322,7 @@ namespace Wolfsun
             var hand = match.Players[0].Hand;
             int n = hand.Count;
             handPoints.Clear();
-            float step = n <= 1 ? 0 : Mathf.Min(150f, (1160f - HandCardW) / (n - 1));
+            float step = n <= 1 ? 0 : Mathf.Min(212f, 1060f / (n - 1));
             float x0 = 960 - (HandCardW + step * Mathf.Max(0, n - 1)) / 2f;
             for (int i = 0; i < n; i++)
             {
@@ -366,8 +331,8 @@ namespace Wolfsun
                 bool playable = canAct && legal.Any(m => m.Kind == ActionKind.Play && m.Slot == slot);
                 bool picked = choosing && selected == ActionKind.Play && cursor == slot;
                 float t = n == 1 ? 0 : i - (n - 1) / 2f;
-                float tilt = -t * 2.3f;
-                float y = HandBaseY + t * t * 3.2f - (picked ? 46 : 0);
+                float tilt = -t * 2.2f;
+                float y = HandBaseY + t * t * 5f - (picked ? 46 : 0);
                 var rect = PaperCard(card, x0 + i * step, y, HandCardW, HandCardH, match.Cost(0, card), playable || picked, root, false);
                 if (!playable && canAct) Pic(rect, Foundry + "CardShadow", 0, 0, rect.sizeDelta.x, rect.sizeDelta.y, new Color(0, 0, 0, .45f));
                 var size = rect.sizeDelta;
@@ -385,15 +350,14 @@ namespace Wolfsun
         {
             var relay = card.gameObject.GetComponent<PointerRelay>() ?? card.gameObject.AddComponent<PointerRelay>();
             Vector2 rest = card.anchoredPosition;
-            float height = card.sizeDelta.y;
             relay.Enter = () =>
             {
                 UiSound("hover");
                 if (pinned || dragLayer != null) return;
                 card.SetAsLastSibling();
                 card.localRotation = Quaternion.identity;
-                card.localScale = Vector3.one * 1.55f;
-                card.anchoredPosition = new Vector2(rest.x, -(1076 - height * 1.55f / 2f));
+                card.localScale = Vector3.one * 1.18f;
+                card.anchoredPosition = rest + new Vector2(0, 34);
             };
             relay.Exit = () =>
             {
@@ -411,26 +375,23 @@ namespace Wolfsun
 
         private void DrawControls(List<Move> legal, Move[] choices)
         {
-            TableButton("Menu", 1650, 16, 240, 54, () => { settings = true; UiSound("open"); Render(); });
-            TableButton("?", 1580, 16, 56, 54, () => OpenRules());
             if (choosing)
             {
                 string hint = selected == ActionKind.Play ? "Choose where to play it" : selected == ActionKind.Power ? "Choose a target for your hero power" : "Choose a target, or a lane to march to";
-                ChromePanel(root, "Hint", 560, 100, 800, 44, "Panel");
-                SafeText(root, hint + " · right-click to cancel", 560, 100, 800, 44, 22, Gold, true, TextAnchor.MiddleCenter, 13);
-                TableButton("Cancel", 1650, 664, 240, 54, () => CancelSelection());
+                SafeText(root, hint + " · right-click to cancel", 40, 534, 270, 56, 18, Gold, true, TextAnchor.UpperLeft, 12);
+                TableButton("Cancel", 40, 728, 200, 44, () => CancelSelection());
                 if (choices.Any(m => m.Target == 0 && m.Lane < 0 && m.Kind != ActionKind.Attack))
                 {
                     var confirm = choices.First(m => m.Target == 0 && m.Lane < 0 && m.Kind != ActionKind.Attack);
-                    TableButton(selected == ActionKind.Power ? "Invoke now" : "Play without target", 760, 740, 400, 58, () => CommitMove(confirm), true, true);
+                    TableButton(selected == ActionKind.Power ? "Invoke now" : "Play without target", 40, 598, 260, 46, () => CommitMove(confirm), true, true);
                 }
             }
             else if (!string.IsNullOrEmpty(status) && canAct)
-                SafeText(root, status, 560, 100, 800, 44, 20, Muted, false, TextAnchor.MiddleCenter, 12);
+                SafeText(root, status, 40, 534, 270, 56, 17, Muted, false, TextAnchor.UpperLeft, 12);
             bool idle = canAct && !legal.Any(m => m.Kind != ActionKind.Pass);
             string label = !canAct ? (match.Winner >= 0 ? "Finished" : "Enemy Turn") : match.AwaitingSecondPass ? "End Round" : (idle ? "End Turn" : "Pass");
-            if (canAct) SafeText(root, "Space pass · 1-8 cards · Q power · R rules", 1640, 806, 260, 22, 13, Quiet, false, TextAnchor.MiddleCenter, 9);
-            EndTurnButton(label, 1650, 726, 240, 75, () => { if (choosing) CancelSelection(false); Command(new Move(ActionKind.Pass)); }, canAct, idle, root);
+            GoldPill(label, 40, 660, 200, 58, () => { if (choosing) CancelSelection(false); Command(new Move(ActionKind.Pass)); }, canAct, idle);
+            if (canAct) SafeText(root, "Space pass · 1-8 cards · Q power · R rules", 40, 786, 320, 22, 13, Quiet, false, TextAnchor.MiddleLeft, 9);
         }
 
         private void EndTurnWithAutoCombat()
@@ -464,15 +425,15 @@ namespace Wolfsun
             OutlinedText(root, "Your opening hand", 360, 120, 1200, 70, 54, Gold, true, TextAnchor.MiddleCenter, 28);
             SafeText(root, "Click any cards you want to replace, then keep the rest.", 360, 190, 1200, 40, 26, White, false, TextAnchor.MiddleCenter, 16);
             var hand = match.Players[0].Hand;
-            const int w = 250;
+            const int w = 330;
             int h = Mathf.RoundToInt(w * 590f / 416f);
-            float total = hand.Count * (w + 28) - 28;
+            float total = hand.Count * (w + 40) - 40;
             float x0 = 960 - total / 2f;
             for (int i = 0; i < hand.Count; i++)
             {
                 int slot = i;
                 bool swap = mulligan.Contains(i);
-                var rect = PaperCard(Catalog.Get(hand[i]), x0 + i * (w + 28), swap ? 270 : 250, w, h, Catalog.Get(hand[i]).Cost, !swap, root, false, null, swap);
+                var rect = PaperCard(Catalog.Get(hand[i]), x0 + i * (w + 40), swap ? 250 : 220, w, h, Catalog.Get(hand[i]).Cost, !swap, root, false, null, swap);
                 Click(rect, () =>
                 {
                     UiSound("card-select");
@@ -482,7 +443,7 @@ namespace Wolfsun
                 BindPreview(rect, hand[i], null);
             }
             string keep = mulligan.Count == 0 ? "Keep Hand" : "Replace " + mulligan.Count + (mulligan.Count == 1 ? " Card" : " Cards");
-            TableButton(keep, 760, 900, 400, 80, () => FinishOpening(), true, true);
+            TableButton(keep, 760, 940, 400, 80, () => FinishOpening(), true, true);
         }
 
         private void FinishOpening()
