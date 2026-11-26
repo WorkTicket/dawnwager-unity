@@ -250,7 +250,8 @@ namespace Wolfsun
             float y = 0;
             foreach (string line in HowToPlay)
             {
-                SafeText(scroll, "• " + line, 8, y, 1240, 66, 25, White, false, TextAnchor.MiddleLeft, 15);
+                Label(scroll, (y / 70 + 1).ToString(), 8, y + 8, 46, 46, 28, Gold, true, TextAnchor.MiddleCenter);
+                SafeText(scroll, line, 70, y, 1180, 66, 25, White, false, TextAnchor.MiddleLeft, 15);
                 y += 70;
             }
             y += 20;

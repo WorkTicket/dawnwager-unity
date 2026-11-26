@@ -69,7 +69,7 @@ namespace Wolfsun
             Label(root, legal ? "Deck ready · 30 cards" : "Your deck is not legal", 300, 762, 500, 30, 20, legal ? AllySage : EnemyCopper, false);
             SafeText(root, hero.Power + ": " + hero.Description, 300, 794, 520, 44, 17, Muted, false, TextAnchor.UpperLeft, 12);
             TableButton("Edit deck", 300, 842, 170, 36, () => Go(Page.Collection));
-            TableButton("Change hero", 486, 842, 190, 36, () => Go(Page.Collection));
+            TableButton("Change hero", 486, 842, 190, 36, () => Go(Page.Career));
             if (ranked)
             {
                 FitSafe(root, Foundry + RankMedalPath(profile.ladderAbsolute), 860, 712, 130, 130);
@@ -281,48 +281,56 @@ namespace Wolfsun
         {
             Banner("Career", "Your record, heroes and achievements");
             int games = profile.wins + profile.losses;
-            ChromePanel(root, "Record", 60, 280, 560, 440, "Panel");
-            OutlinedText(root, "Record", 60, 292, 560, 44, 32, Gold, true, TextAnchor.MiddleCenter, 18);
-            string[] left = { "Wins", "Losses", "Win rate", "Seals claimed", "Campaign", "Ranked games", "Peak rank", "Embers" };
-            string[] right =
+            var hero = Hero.Info(profile.hero);
+            // profile card
+            ChromePanel(root, "Profile", 60, 260, 480, 780, "Panel");
+            var holder = Box(root, "Hero", 80, 276, 440, 430);
+            Shade(holder, 50, 360, 340, 56, new Color(0, 0, 0, .8f));
+            CutFit(holder, "Heroes/" + profile.hero, 440, 400, Color.white);
+            OutlinedText(root, hero.Name, 60, 712, 480, 54, 42, Gold, true, TextAnchor.MiddleCenter, 24);
+            Label(root, hero.Title, 60, 766, 480, 28, 20, Muted, false, TextAnchor.MiddleCenter);
+            FitSafe(root, Foundry + RankMedalPath(profile.ladderAbsolute), 90, 820, 130, 130);
+            OutlinedText(root, Ladder.DisplayName(profile.ladderAbsolute, profile.legendPlace), 230, 836, 300, 40, 30, Gold, true, TextAnchor.MiddleLeft, 16);
+            Label(root, "Peak: " + Ladder.DisplayName(profile.peakAbsolute), 230, 880, 300, 26, 18, Muted, false);
+            Label(root, profile.embers + " Embers", 230, 912, 300, 26, 18, Gold, false);
+            // stat cards
+            string[] top = { profile.wins.ToString(), games == 0 ? "—" : Mathf.RoundToInt(100f * profile.wins / games) + "%", profile.sealsClaimed.ToString(), profile.rankedGames.ToString() };
+            string[] cap = { "Wins", "Win rate", "Seals claimed", "Ranked games" };
+            for (int i = 0; i < 4; i++)
             {
-                profile.wins.ToString(), profile.losses.ToString(), games == 0 ? "—" : Mathf.RoundToInt(100f * profile.wins / games) + "%",
-                profile.sealsClaimed.ToString(), Mathf.Min(profile.progress, Campaign.Chapters.Length) + " / " + Campaign.Chapters.Length + " chapters",
-                profile.rankedGames.ToString(), Ladder.DisplayName(profile.peakAbsolute), profile.embers.ToString()
-            };
-            for (int i = 0; i < left.Length; i++)
-            {
-                Label(root, left[i], 96, 350 + i * 44, 240, 40, 24, Muted, false);
-                Label(root, right[i], 340, 350 + i * 44, 250, 40, 24, White, true, TextAnchor.MiddleRight);
+                float x = 580 + i * 322;
+                ChromePanel(root, "Stat", x, 260, 304, 120, "Panel");
+                OutlinedText(root, top[i], x, 270, 304, 66, 54, Gold, true, TextAnchor.MiddleCenter, 28);
+                Label(root, cap[i].ToUpperInvariant(), x, 340, 304, 26, 15, Muted, false, TextAnchor.MiddleCenter);
             }
-            ChromePanel(root, "Heroes", 640, 280, 1220, 440, "Panel");
-            OutlinedText(root, "Heroes", 640, 292, 1220, 44, 32, Gold, true, TextAnchor.MiddleCenter, 18);
+            // heroes
+            ChromePanel(root, "Heroes", 580, 400, 1280, 330, "Panel");
+            OutlinedText(root, "Heroes · " + Mathf.Min(profile.progress, Campaign.Chapters.Length) + " / " + Campaign.Chapters.Length + " chapters cleared", 610, 408, 900, 40, 26, Gold, true, TextAnchor.MiddleLeft, 16);
             for (int i = 0; i < Hero.All.Length; i++)
             {
-                var hero = Hero.All[i];
-                bool unlocked = UnlockedHero(hero.Id);
-                string id = hero.Id;
-                float x = 668 + i * 236;
-                var portrait = CirclePortrait(root, HeroArt(id), x + 14, 350, 180, Foundry + "HeroFrame", unlocked ? Color.white : new Color(.28f, .28f, .32f, 1f));
-                Click(portrait, () => { ChooseHero(id); }, unlocked).transition = Selectable.Transition.None;
-                if (profile.hero == id) Pic(root, Foundry + "UnitTokenGlow", x + 4, 340, 200, 200, Gold);
-                OutlinedText(root, hero.Name, x, 540, 208, 36, 26, unlocked ? Gold : Quiet, true, TextAnchor.MiddleCenter, 14);
-                SafeText(root, unlocked ? hero.Title : "Locked", x, 576, 208, 28, 18, Muted, false, TextAnchor.MiddleCenter, 11);
-                SafeText(root, unlocked ? hero.Power : "Beat the matching chapter", x, 606, 208, 30, 17, unlocked ? White : Quiet, false, TextAnchor.MiddleCenter, 10);
-                if (unlocked && profile.hero != id) TableButton("Play as", x + 34, 646, 140, 44, () => ChooseHero(id));
-                else if (profile.hero == id) Label(root, "Selected", x, 646, 208, 44, 20, AllySage, true, TextAnchor.MiddleCenter);
+                var h = Hero.All[i];
+                bool unlocked = UnlockedHero(h.Id);
+                string id = h.Id;
+                float x = 600 + i * 250;
+                var art = Box(root, "Hero " + id, x, 450, 230, 190);
+                CutFit(art, "Heroes/" + id, 230, 190, unlocked ? Color.white : new Color(.25f, .25f, .3f, 1f));
+                Click(art, () => ChooseHero(id), unlocked).transition = Selectable.Transition.None;
+                OutlinedText(root, h.Name, x, 640, 230, 30, 24, profile.hero == id ? Gold : unlocked ? White : Quiet, true, TextAnchor.MiddleCenter, 14);
+                SafeText(root, unlocked ? h.Power : "Beat the matching chapter", x, 668, 230, 24, 16, unlocked ? Muted : Quiet, false, TextAnchor.MiddleCenter, 10);
+                if (profile.hero == id) Label(root, "Selected", x, 694, 230, 26, 17, AllySage, true, TextAnchor.MiddleCenter);
+                else if (unlocked) TextLink("Play as", x + 70, 692, 100, 30, 18, Gold, () => ChooseHero(id), false);
             }
-            ChromePanel(root, "Achievements", 60, 740, 1800, 300, "Panel");
-            OutlinedText(root, "Achievements", 60, 750, 1800, 44, 30, Gold, true, TextAnchor.MiddleCenter, 18);
+            // achievements
+            ChromePanel(root, "Achievements", 580, 750, 1280, 290, "Panel");
+            OutlinedText(root, "Achievements · " + AchievementList.Count(a2 => profile.unlockedAchievements.Contains(a2.id)) + " of " + AchievementList.Length, 610, 758, 900, 40, 26, Gold, true, TextAnchor.MiddleLeft, 16);
             for (int i = 0; i < AchievementList.Length; i++)
             {
                 var a = AchievementList[i];
                 bool got = profile.unlockedAchievements.Contains(a.id);
-                float x = 90 + (i % 4) * 440, y = 806 + (i / 4) * 110;
-                ColorBox(root, "badge", x, y, 420, 96, new Color(0, 0, 0, got ? .32f : .16f));
-                Pic(root, Foundry + (got ? "SealLit" : "SealDim"), x + 12, y + 24, 48, 48);
-                SafeText(root, a.name, x + 70, y + 8, 340, 34, 24, got ? Gold : Muted, true, TextAnchor.MiddleLeft, 14);
-                SafeText(root, a.text, x + 70, y + 44, 340, 44, 17, got ? White : Quiet, false, TextAnchor.UpperLeft, 11);
+                float x = 606 + (i % 4) * 312, y = 806 + (i / 4) * 112;
+                Pic(root, Foundry + (got ? "SealLit" : "SealDim"), x, y + 10, 64, 64);
+                SafeText(root, a.name, x + 72, y + 6, 230, 30, 22, got ? Gold : Muted, true, TextAnchor.MiddleLeft, 13);
+                SafeText(root, a.text, x + 72, y + 38, 230, 50, 16, got ? White : Quiet, false, TextAnchor.UpperLeft, 11);
             }
         }
     }
