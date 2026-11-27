@@ -133,13 +133,28 @@ namespace Wolfsun
 
         private void VolumeControl(string name, AudioSource source, string key, int y)
         {
-            Label(root, name, 740, y, 220, 56, 26, White, true);
-            float value = source != null ? source.volume : 0;
-            TableButton("−", 980, y, 64, 56, () => AdjustVolume(source, key, -.1f));
-            ColorBox(root, name + " track", 1056, y + 25, 220, 6, new Color(1, 1, 1, .14f));
-            ColorBox(root, name + " fill", 1056, y + 25, 220 * Mathf.Clamp01(value), 6, Gold);
-            Pic(root, Foundry + "Attack", 1056 + 220 * Mathf.Clamp01(value) - 14, y + 14, 28, 28);
-            TableButton("+", 1288, y, 64, 56, () => AdjustVolume(source, key, .1f));
+            // Everything sits inside the modal frame (x 660-1260): label, minus, ten clickable notches, plus.
+            Label(root, name, 740, y, 130, 56, 26, White, true);
+            int level = source != null ? Mathf.RoundToInt(Mathf.Clamp01(source.volume) * 10f) : 0;
+            TableButton("−", 872, y, 56, 56, () => AdjustVolume(source, key, -.1f));
+            for (int i = 0; i < 10; i++)
+            {
+                int target = i + 1;
+                var notch = Box(root, name + " notch " + target, 940 + i * 19, y + 12, 17, 32);
+                ColorBox(notch, "bar", 0, 30 - (10 + i * 2), 17, 10 + i * 2, i < level ? Gold : new Color(1, 1, 1, .16f));
+                Click(notch, () => SetVolume(source, key, target / 10f)).transition = Selectable.Transition.None;
+            }
+            TableButton("+", 1140, y, 66, 56, () => AdjustVolume(source, key, .1f));
+        }
+
+        private void SetVolume(AudioSource source, string key, float value)
+        {
+            if (source == null) return;
+            source.volume = Mathf.Clamp01(value);
+            PlayerPrefs.SetFloat(key, source.volume);
+            PlayerPrefs.Save();
+            UiSound("click");
+            Render();
         }
 
         private void AdjustVolume(AudioSource source, string key, float delta)
