@@ -1,10 +1,10 @@
 Card ID,Card name,Kind,Card face,Board art,Face/board identity reviewed,Unique pose reviewed,Human-style art QA,Status
-P01,Fimbulwinter,Prophecy,Assets/Resources/Art/CardFaces/P01.png,,Pending,Pending,Pending,Pending review
-P02,The Sun Goes Out,Prophecy,Assets/Resources/Art/CardFaces/P02.png,,Pending,Pending,Pending,Pending review
-P03,The Sea Walks Inland,Prophecy,Assets/Resources/Art/CardFaces/P03.png,,Pending,Pending,Pending,Pending review
-P04,The Dead Knock,Prophecy,Assets/Resources/Art/CardFaces/P04.png,,Pending,Pending,Pending,Pending review
-P05,Bifröst Breaks,Prophecy,Assets/Resources/Art/CardFaces/P05.png,,Pending,Pending,Pending,Pending review
-P06,The Gates Burn,Prophecy,Assets/Resources/Art/CardFaces/P06.png,,Pending,Pending,Pending,Pending review
+P01,Fimbulwinter,Prophecy,Assets/Resources/Art/CardFaces/P01.png,,N/A - Prophecy,N/A - omen illustration,Pending - needs human art director review,First-pass painted draft installed; final review pending
+P02,The Sun Goes Out,Prophecy,Assets/Resources/Art/CardFaces/P02.png,,N/A - Prophecy,N/A - omen illustration,Pending - needs human art director review,First-pass painted draft installed; final review pending
+P03,The Sea Walks Inland,Prophecy,Assets/Resources/Art/CardFaces/P03.png,,N/A - Prophecy,N/A - omen illustration,Pending - needs human art director review,First-pass painted draft installed; final review pending
+P04,The Dead Knock,Prophecy,Assets/Resources/Art/CardFaces/P04.png,,N/A - Prophecy,N/A - omen illustration,Pending - needs human art director review,First-pass painted draft installed; final review pending
+P05,Bifröst Breaks,Prophecy,Assets/Resources/Art/CardFaces/P05.png,,N/A - Prophecy,N/A - omen illustration,Pending - needs human art director review,First-pass painted draft installed; final review pending
+P06,The Gates Burn,Prophecy,Assets/Resources/Art/CardFaces/P06.png,,N/A - Prophecy,N/A - omen illustration,Pending - needs human art director review,First-pass painted draft installed; final review pending
 A01,Bridge Squire,Unit,Assets/Resources/Art/CardFaces/A01.png,Assets/Resources/Art/BoardPortraits/A01.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn draft installed; final review pending
 A02,Goldsmith’s Apprentice,Unit,Assets/Resources/Art/CardFaces/A02.png,Assets/Resources/Art/BoardPortraits/A02.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn draft installed; final review pending
 A03,Raise the Shield,Order,Assets/Resources/Art/CardFaces/A03.png,,N/A - Order,Pass - distinct card scene,Pending - needs human art director review,Redrawn draft installed; art review pending
