@@ -74,16 +74,28 @@ namespace Wolfsun
             backing.raycastTarget = false;
             var mask = MaskedContent(well, "Portrait", 0, 0, 348 * sx, 296 * sy);
             string art = CardArt(card);
-            if (card.Kind == Kind.Unit)
+            string facePath = "CardFaces/" + card.Id;
+            bool hasFace = Texture(facePath) != null;
+            string foilPath = "Foil/Faces/" + card.Id;
+            if (hasFace)
+                CoverSafe(mask, facePath, 0, 0, 348 * sx, 296 * sy, Color.white);
+            else if (card.Kind == Kind.Unit)
             {
                 Backdrop(mask, 0, 0, 348 * sx, 296 * sy, CardAccent(card));
                 float ua = 348 * sx * 1.04f;
                 FitSafe(mask, art, (348 * sx - ua) / 2f, 4 * sy, ua, ua);
             }
             else CoverSafe(mask, art, 0, 0, 348 * sx, 296 * sy, Color.white);
-            var foil = Pic(mask, Foundry + "Foil-" + card.Faction, 0, 0, 88 * sx, 296 * sy);
-            if (foil.texture != null && !reduceMotion) StartCoroutine(FoilSweep(foil, card, 348 * sx, 0));
-            else foil.color = Color.clear;
+            if (hasFace && card.Kind == Kind.Unit && Texture(foilPath) != null)
+            {
+                var layer = CoverSafe(mask, foilPath, 0, 0, 348 * sx, 296 * sy, new Color(1f, 1f, 1f, .8f));
+                if (!reduceMotion) StartCoroutine(PortraitFoil(layer, card));
+            }
+            else if (!hasFace || card.Kind != Kind.Unit)
+            {
+                var foil = Pic(mask, Foundry + "Foil-" + card.Faction, 0, 0, 88 * sx, 296 * sy, Color.clear);
+                if (foil.texture != null && !reduceMotion) StartCoroutine(FoilSweep(foil, card, 348 * sx, 0));
+            }
             Pic(rect, FramePath(card), 0, 0, w, h);
             Pic(rect, Foundry + "Nameplate", 40 * sx, 330 * sy, 336 * sx, 44 * sy);
             var name = OutlinedText(rect, card.Name, 58 * sx, 330 * sy, 300 * sx, 44 * sy, Mathf.Max(11, Mathf.RoundToInt(26 * sx)),
@@ -113,6 +125,19 @@ namespace Wolfsun
                 Pic(rect, Foundry + "DenyX", w * .25f, h * .3f, w * .5f, w * .5f);
             }
             return rect;
+        }
+
+        private System.Collections.IEnumerator PortraitFoil(RawImage layer, Card card)
+        {
+            float offset = Motif(card.Id) % 31 * .19f;
+            float period = card.Legendary ? 3.6f : 4.6f;
+            while (layer && !reduceMotion)
+            {
+                float phase = (Time.unscaledTime + offset) * (2f * Mathf.PI / period);
+                layer.color = new Color(1f, 1f, 1f, .72f + .27f * Mathf.Cos(phase));
+                yield return null;
+            }
+            if (layer) layer.color = new Color(1f, 1f, 1f, .80f);
         }
 
         /// <summary>Full-size card as a clickable control (collection grid, rewards, inspect).</summary>

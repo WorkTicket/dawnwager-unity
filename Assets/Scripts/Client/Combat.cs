@@ -67,7 +67,7 @@ namespace Wolfsun
             group.blocksRaycasts = false;
             Shade(holder, -12, 176, 200, 46, new Color(0, 0, 0, .6f));
             var body = Box(holder, "Art", 0, 0, TileW, 184);
-            CutFit(body, art, TileW, 184, Color.white);
+            DrawBoardUnit(body, art, 1f, Color.white);
             // Pivot at the centre so scale and tilt look natural; anchored y is negative downwards.
             holder.pivot = new Vector2(.5f, .5f);
             Vector2 dir = to - from;
@@ -148,7 +148,9 @@ namespace Wolfsun
                 group.alpha = 1f - k * .6f;
                 yield return null;
             }
-            StartCoroutine(Burst(layer, to, accent, 8, 220f));
+            if (card.Kind == Kind.Order && Texture("ResolveEffects/" + card.Id) != null)
+                StartCoroutine(ResolveArt(layer, card.Id, to, 290));
+            else StartCoroutine(Burst(layer, to, accent, 8, 220f));
             StartCoroutine(Shake(4f));
             UiSound("card-slam");
             for (float t = 0; t < .12f && ghost; t += Time.unscaledDeltaTime)

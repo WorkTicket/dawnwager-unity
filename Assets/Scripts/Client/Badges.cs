@@ -247,6 +247,15 @@ namespace Wolfsun
         /// <summary>Places a transparent cut-out bust so its opaque pixels fill W x H, centred, with a soft bottom fade.</summary>
         private RawImage CutFit(Transform parent, string key, float W, float H, Color tint, bool fade = true)
         {
+            if (key.StartsWith("Heroes/", System.StringComparison.Ordinal))
+            {
+                string bust = "HeroBusts/" + key.Substring("Heroes/".Length);
+                if (Texture(bust) != null)
+                {
+                    key = bust;
+                    fade = false;
+                }
+            }
             var tex = Texture(key);
             if (tex == null) return FitSafe(parent, key, 0, 0, W, H, tint);
             int[] b;

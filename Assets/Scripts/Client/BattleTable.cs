@@ -127,11 +127,29 @@ namespace Wolfsun
             bool target = choices.Any(m => m.Target == site.Key);
             var strip = ChromePanel(root, site.Card.Name, x, y, w, h, target ? "PanelGold" : "Panel");
             battlePieces[site.Key] = strip;
-            SafeText(strip, "Site · " + site.Card.Name + " — " + CompactRules(RulesText.Describe(site.Card)), 14, 0, w - 28, h, 15, target ? Gold : White, false, TextAnchor.MiddleLeft, 9);
+            string portrait = "BoardPortraits/" + site.Card.Id;
+            bool hasPortrait = Texture(portrait) != null;
+            if (hasPortrait) Pic(strip, portrait, 5, 1, h - 2, h - 2);
+            float inset = hasPortrait ? h + 8 : 14;
+            SafeText(strip, "Site · " + site.Card.Name + " — " + CompactRules(RulesText.Describe(site.Card)), inset, 0, w - inset - 14, h, 15, target ? Gold : White, false, TextAnchor.MiddleLeft, 9);
             CardTarget(strip, site.Card.Id, target ? (Action)(() => CommitMove(choices.First(m => m.Target == site.Key))) : null, false, site);
         }
 
-        private string UnitArt(string id) => Hero.All.Any(hero => hero.Id == id) ? "Heroes/" + id : "Units/" + (id == "X11" ? "X02" : id);
+        private string UnitArt(string id)
+        {
+            string portrait = "BoardPortraits/" + id;
+            if (Texture(portrait) != null) return portrait;
+            if (Hero.All.Any(hero => hero.Id == id)) return "Heroes/" + id;
+            return "Units/" + (id == "X11" ? "X02" : id);
+        }
+
+        private void DrawBoardUnit(Transform parent, string art, float scale, Color tint)
+        {
+            if (art.StartsWith("BoardPortraits/", StringComparison.Ordinal))
+                FitSafe(parent, art, 6 * scale, 0, (TileW - 12) * scale, 176 * scale, tint);
+            else
+                CutFit(parent, art, TileW * scale, 184 * scale, tint);
+        }
 
         private void UnitTile(Transform parent, Piece unit, float cx, float foot, float sc, Move[] choices)
         {
@@ -148,7 +166,7 @@ namespace Wolfsun
             Shade(tile, -12 * sc, 176 * sc - 4, 200 * sc, 46 * sc, new Color(0, 0, 0, .75f));
             if (picked || target || ready) Shade(tile, -4 * sc, 150 * sc, 184 * sc, 52 * sc, new Color(glow.r, glow.g, glow.b, target || picked ? .85f : .5f));
             var art = Box(tile, "Art", 0, 0, TileW * sc, 184 * sc);
-            CutFit(art, UnitArt(unit.Card.Id), TileW * sc, 184 * sc, tint);
+            DrawBoardUnit(art, UnitArt(unit.Card.Id), sc, tint);
             if (!reduceMotion && !unit.Spent) StartCoroutine(Breathe(art));
             Medal(tile, "Attack", unit.Attack.ToString(), -2 * sc, 156 * sc, 58 * sc, Mathf.RoundToInt(28 * sc));
             Medal(tile, "Health", unit.Hp.ToString(), 120 * sc, 156 * sc, 58 * sc, Mathf.RoundToInt(28 * sc));
@@ -176,7 +194,10 @@ namespace Wolfsun
             bool strike = side == 1 && choices.Any(m => m.Kind == ActionKind.Attack && m.Target == 0);
             Shade(badge, 10, 176, 170, 34, new Color(0, 0, 0, .8f));
             var portrait = Box(badge, "Portrait", 0, 0, 190, 190);
-            CutFit(portrait, "Heroes/" + pilot.Hero, 190, 190, Color.white);
+            string heroPortrait = "HeroPortraits/" + pilot.Hero;
+            if (Texture(heroPortrait) != null)
+                FitSafe(portrait, heroPortrait, 3, 0, 184, 184);
+            else CutFit(portrait, "Heroes/" + pilot.Hero, 190, 190, Color.white);
             if (!reduceMotion) StartCoroutine(Breathe(portrait));
             if (strike)
             {

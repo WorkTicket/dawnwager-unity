@@ -56,6 +56,7 @@ namespace Wolfsun
             Vector2? handFrom = null;
             if (move.Kind == ActionKind.Play && side == 0 && handPoints.TryGetValue(move.Slot, out var handRect) && handRect) handFrom = CenterAnchored(handRect);
             else if (move.Kind == ActionKind.Play && side == 1) handFrom = new Vector2(960, -60);
+            var pendingProphecies = match.Prophecies.Where(prophecy => !prophecy.Spent).ToArray();
             if (!match.Apply(side, move))
             {
                 UiSound("deny");
@@ -66,6 +67,9 @@ namespace Wolfsun
             Render();
             var layer = CardAnimationLayer();
             QueuePhaseFeedback(layer, oldRound, oldTurn, move);
+            foreach (var prophecy in pendingProphecies)
+                if (prophecy.Spent)
+                    StartCoroutine(ResolveArt(layer, prophecy.Card.Id, new Vector2(960, -520), 650));
             Color accent = side == 0 ? Gold : EnemyCopper;
             float feedbackDelay = 0f;
             if (played != null && handFrom.HasValue && !reduceMotion)
@@ -76,7 +80,8 @@ namespace Wolfsun
                     foreach (var fresh in match.Units().Where(u => !snap.Hp.ContainsKey(u.Key)))
                         if (battlePieces.TryGetValue(fresh.Key, out var freshTile) && freshTile) StartCoroutine(SpawnReveal(freshTile, .66f));
             }
-            else if (played != null && handFrom.HasValue) { }
+            else if (played != null && played.Kind == Kind.Order)
+                StartCoroutine(ResolveArt(layer, played.Id, impactAt, 290));
             if (strike && actorFrom.HasValue && actorArt != null && !reduceMotion)
             {
                 battlePieces.TryGetValue(actor.Key, out var realTile);
@@ -216,7 +221,7 @@ namespace Wolfsun
             var holder = Box(layer, "Fallen", at.x - TileW / 2f, -at.y - TileH / 2f, TileW, TileH);
             var group = holder.gameObject.AddComponent<CanvasGroup>();
             group.blocksRaycasts = false;
-            CutFit(holder, art, TileW, TileH * .84f, Color.white);
+            DrawBoardUnit(holder, art, 1f, Color.white);
             float duration = reduceMotion ? .4f : .65f;
             for (float t = 0; t < duration && holder; t += Time.unscaledDeltaTime)
             {
