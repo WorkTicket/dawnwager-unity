@@ -1,0 +1,162 @@
+Card ID,Card name,Kind,Card face,Board art,Face/board identity reviewed,Unique pose reviewed,Human-style art QA,Status
+P01,Fimbulwinter,Prophecy,Assets/Resources/Art/CardFaces/P01.png,,Pending,Pending,Pending,Pending review
+P02,The Sun Goes Out,Prophecy,Assets/Resources/Art/CardFaces/P02.png,,Pending,Pending,Pending,Pending review
+P03,The Sea Walks Inland,Prophecy,Assets/Resources/Art/CardFaces/P03.png,,Pending,Pending,Pending,Pending review
+P04,The Dead Knock,Prophecy,Assets/Resources/Art/CardFaces/P04.png,,Pending,Pending,Pending,Pending review
+P05,Bifröst Breaks,Prophecy,Assets/Resources/Art/CardFaces/P05.png,,Pending,Pending,Pending,Pending review
+P06,The Gates Burn,Prophecy,Assets/Resources/Art/CardFaces/P06.png,,Pending,Pending,Pending,Pending review
+A01,Bridge Squire,Unit,Assets/Resources/Art/CardFaces/A01.png,Assets/Resources/Art/BoardPortraits/A01.png,Pending,Pending,Pending,Pending review
+A02,Goldsmith’s Apprentice,Unit,Assets/Resources/Art/CardFaces/A02.png,Assets/Resources/Art/BoardPortraits/A02.png,Pending,Pending,Pending,Pending review
+A03,Raise the Shield,Order,Assets/Resources/Art/CardFaces/A03.png,,Pending,Pending,Pending,Pending review
+A04,Trumpet Call,Order,Assets/Resources/Art/CardFaces/A04.png,,Pending,Pending,Pending,Pending review
+A05,Hall Spear,Unit,Assets/Resources/Art/CardFaces/A05.png,Assets/Resources/Art/BoardPortraits/A05.png,Pending,Pending,Pending,Pending review
+A06,Ringkeeper,Unit,Assets/Resources/Art/CardFaces/A06.png,Assets/Resources/Art/BoardPortraits/A06.png,Pending,Pending,Pending,Pending review
+A07,Sworn Formation,Order,Assets/Resources/Art/CardFaces/A07.png,,Pending,Pending,Pending,Pending review
+A08,Heimdall’s Lookout,Site,Assets/Resources/Art/CardFaces/A08.png,Assets/Resources/Art/BoardPortraits/A08.png,Pending,Pending,Pending,Pending review
+A09,Raven Standard,Unit,Assets/Resources/Art/CardFaces/A09.png,Assets/Resources/Art/BoardPortraits/A09.png,Pending,Pending,Pending,Pending review
+A10,Hall Healer,Unit,Assets/Resources/Art/CardFaces/A10.png,Assets/Resources/Art/BoardPortraits/A10.png,Pending,Pending,Pending,Pending review
+A11,Hold the Span,Order,Assets/Resources/Art/CardFaces/A11.png,,Pending,Pending,Pending,Pending review
+A12,Gleaming Bolt,Order,Assets/Resources/Art/CardFaces/A12.png,,Pending,Pending,Pending,Pending review
+A13,Valkyrie Escort,Unit,Assets/Resources/Art/CardFaces/A13.png,Assets/Resources/Art/BoardPortraits/A13.png,Pending,Pending,Pending,Pending review
+A14,Einherjar Muster,Order,Assets/Resources/Art/CardFaces/A14.png,,Pending,Pending,Pending,Pending review
+A15,Bridge Tollhouse,Site,Assets/Resources/Art/CardFaces/A15.png,Assets/Resources/Art/BoardPortraits/A15.png,Pending,Pending,Pending,Pending review
+A16,Standing Sentence,Order,Assets/Resources/Art/CardFaces/A16.png,,Pending,Pending,Pending,Pending review
+A17,White-Hall Veteran,Unit,Assets/Resources/Art/CardFaces/A17.png,Assets/Resources/Art/BoardPortraits/A17.png,Pending,Pending,Pending,Pending review
+A18,Shieldwheel,Order,Assets/Resources/Art/CardFaces/A18.png,,Pending,Pending,Pending,Pending review
+A19,Hammer Retainer,Unit,Assets/Resources/Art/CardFaces/A19.png,Assets/Resources/Art/BoardPortraits/A19.png,Pending,Pending,Pending,Pending review
+A20,The Allfather’s Price,Order,Assets/Resources/Art/CardFaces/A20.png,,Pending,Pending,Pending,Pending review
+A21,Gate of Horn,Unit,Assets/Resources/Art/CardFaces/A21.png,Assets/Resources/Art/BoardPortraits/A21.png,Pending,Pending,Pending,Pending review
+A22,Bifröst Cavalry,Unit,Assets/Resources/Art/CardFaces/A22.png,Assets/Resources/Art/BoardPortraits/A22.png,Pending,Pending,Pending,Pending review
+A23,"Thor, Last Light",Unit,Assets/Resources/Art/CardFaces/A23.png,Assets/Resources/Art/BoardPortraits/A23.png,Pending,Pending,Pending,Pending review
+A24,"Týr, the Open Hand",Unit,Assets/Resources/Art/CardFaces/A24.png,Assets/Resources/Art/BoardPortraits/A24.png,Pending,Pending,Pending,Pending review
+M01,Beacon Child,Unit,Assets/Resources/Art/CardFaces/M01.png,Assets/Resources/Art/BoardPortraits/M01.png,Pending,Pending,Pending,Pending review
+M02,Fjord Runner,Unit,Assets/Resources/Art/CardFaces/M02.png,Assets/Resources/Art/BoardPortraits/M02.png,Pending,Pending,Pending,Pending review
+M03,Find the Ford,Order,Assets/Resources/Art/CardFaces/M03.png,,Pending,Pending,Pending,Pending review
+M04,Borrowed Lantern,Order,Assets/Resources/Art/CardFaces/M04.png,,Pending,Pending,Pending,Pending review
+M05,Pier Carpenter,Unit,Assets/Resources/Art/CardFaces/M05.png,Assets/Resources/Art/BoardPortraits/M05.png,Pending,Pending,Pending,Pending review
+M06,Ice Ferry Pilot,Unit,Assets/Resources/Art/CardFaces/M06.png,Assets/Resources/Art/BoardPortraits/M06.png,Pending,Pending,Pending,Pending review
+M07,Lantern Line,Order,Assets/Resources/Art/CardFaces/M07.png,,Pending,Pending,Pending,Pending review
+M08,Eastbound Refuge,Site,Assets/Resources/Art/CardFaces/M08.png,Assets/Resources/Art/BoardPortraits/M08.png,Pending,Pending,Pending,Pending review
+M09,Ferry Militia,Unit,Assets/Resources/Art/CardFaces/M09.png,Assets/Resources/Art/BoardPortraits/M09.png,Pending,Pending,Pending,Pending review
+M10,First Across,Unit,Assets/Resources/Art/CardFaces/M10.png,Assets/Resources/Art/BoardPortraits/M10.png,Pending,Pending,Pending,Pending review
+M11,The Last Longship,Order,Assets/Resources/Art/CardFaces/M11.png,,Pending,Pending,Pending,Pending review
+M12,Two Shore Signal,Order,Assets/Resources/Art/CardFaces/M12.png,,Pending,Pending,Pending,Pending review
+M13,Run to the Beacon,Order,Assets/Resources/Art/CardFaces/M13.png,,Pending,Pending,Pending,Pending review
+M14,Hunger March,Unit,Assets/Resources/Art/CardFaces/M14.png,Assets/Resources/Art/BoardPortraits/M14.png,Pending,Pending,Pending,Pending review
+M15,Flotilla Captain,Unit,Assets/Resources/Art/CardFaces/M15.png,Assets/Resources/Art/BoardPortraits/M15.png,Pending,Pending,Pending,Pending review
+M16,Thaw the Ropes,Order,Assets/Resources/Art/CardFaces/M16.png,,Pending,Pending,Pending,Pending review
+M17,Rooftop Slingers,Unit,Assets/Resources/Art/CardFaces/M17.png,Assets/Resources/Art/BoardPortraits/M17.png,Pending,Pending,Pending,Pending review
+M18,Stop at the Causeway,Order,Assets/Resources/Art/CardFaces/M18.png,,Pending,Pending,Pending,Pending review
+M19,Longboat Landing,Site,Assets/Resources/Art/CardFaces/M19.png,Assets/Resources/Art/BoardPortraits/M19.png,Pending,Pending,Pending,Pending review
+M20,Signal Both Shores,Order,Assets/Resources/Art/CardFaces/M20.png,,Pending,Pending,Pending,Pending review
+M21,People of the Beacon,Unit,Assets/Resources/Art/CardFaces/M21.png,Assets/Resources/Art/BoardPortraits/M21.png,Pending,Pending,Pending,Pending review
+M22,Hold Until Morning,Order,Assets/Resources/Art/CardFaces/M22.png,,Pending,Pending,Pending,Pending review
+M23,"Runa, the Ice Ferrier",Unit,Assets/Resources/Art/CardFaces/M23.png,Assets/Resources/Art/BoardPortraits/M23.png,Pending,Pending,Pending,Pending review
+M24,"Eydis, Beacon Keeper",Unit,Assets/Resources/Art/CardFaces/M24.png,Assets/Resources/Art/BoardPortraits/M24.png,Pending,Pending,Pending,Pending review
+J01,Crag Rat,Unit,Assets/Resources/Art/CardFaces/J01.png,Assets/Resources/Art/BoardPortraits/J01.png,Pending,Pending,Pending,Pending review
+J02,Frost-Born Porter,Unit,Assets/Resources/Art/CardFaces/J02.png,Assets/Resources/Art/BoardPortraits/J02.png,Pending,Pending,Pending,Pending review
+J03,Test the Chain,Order,Assets/Resources/Art/CardFaces/J03.png,,Pending,Pending,Pending,Pending review
+J04,Split Stone,Order,Assets/Resources/Art/CardFaces/J04.png,,Pending,Pending,Pending,Pending review
+J05,Basalt Whelp,Unit,Assets/Resources/Art/CardFaces/J05.png,Assets/Resources/Art/BoardPortraits/J05.png,Pending,Pending,Pending,Pending review
+J06,Outcrop Hunter,Unit,Assets/Resources/Art/CardFaces/J06.png,Assets/Resources/Art/BoardPortraits/J06.png,Pending,Pending,Pending,Pending review
+J07,Mead for the March,Order,Assets/Resources/Art/CardFaces/J07.png,,Pending,Pending,Pending,Pending review
+J08,Feast of the Crags,Site,Assets/Resources/Art/CardFaces/J08.png,Assets/Resources/Art/BoardPortraits/J08.png,Pending,Pending,Pending,Pending review
+J09,Ice-Maw Bruiser,Unit,Assets/Resources/Art/CardFaces/J09.png,Assets/Resources/Art/BoardPortraits/J09.png,Pending,Pending,Pending,Pending review
+J10,Gorge Keeper,Unit,Assets/Resources/Art/CardFaces/J10.png,Assets/Resources/Art/BoardPortraits/J10.png,Pending,Pending,Pending,Pending review
+J11,Crack the Pier,Order,Assets/Resources/Art/CardFaces/J11.png,,Pending,Pending,Pending,Pending review
+J12,Winterborn Calf,Unit,Assets/Resources/Art/CardFaces/J12.png,Assets/Resources/Art/BoardPortraits/J12.png,Pending,Pending,Pending,Pending review
+J13,Granite Mother,Unit,Assets/Resources/Art/CardFaces/J13.png,Assets/Resources/Art/BoardPortraits/J13.png,Pending,Pending,Pending,Pending review
+J14,Snowline Ambush,Order,Assets/Resources/Art/CardFaces/J14.png,,Pending,Pending,Pending,Pending review
+J15,Slopes of Élivágar,Site,Assets/Resources/Art/CardFaces/J15.png,Assets/Resources/Art/BoardPortraits/J15.png,Pending,Pending,Pending,Pending review
+J16,Raider of the Old Road,Unit,Assets/Resources/Art/CardFaces/J16.png,Assets/Resources/Art/BoardPortraits/J16.png,Pending,Pending,Pending,Pending review
+J17,Boulder Cast,Order,Assets/Resources/Art/CardFaces/J17.png,,Pending,Pending,Pending,Pending review
+J18,Mountain-Back Bear,Unit,Assets/Resources/Art/CardFaces/J18.png,Assets/Resources/Art/BoardPortraits/J18.png,Pending,Pending,Pending,Pending review
+J19,Ironwood Brood,Unit,Assets/Resources/Art/CardFaces/J19.png,Assets/Resources/Art/BoardPortraits/J19.png,Pending,Pending,Pending,Pending review
+J20,The Avalanche Comes,Order,Assets/Resources/Art/CardFaces/J20.png,,Pending,Pending,Pending,Pending review
+J21,Hrim’s Hammer,Unit,Assets/Resources/Art/CardFaces/J21.png,Assets/Resources/Art/BoardPortraits/J21.png,Pending,Pending,Pending,Pending review
+J22,Fire on the Snow,Order,Assets/Resources/Art/CardFaces/J22.png,,Pending,Pending,Pending,Pending review
+J23,"Fenrir, Chainbreaker",Unit,Assets/Resources/Art/CardFaces/J23.png,Assets/Resources/Art/BoardPortraits/J23.png,Pending,Pending,Pending,Pending review
+J24,"Surtr, the Coming Fire",Unit,Assets/Resources/Art/CardFaces/J24.png,Assets/Resources/Art/BoardPortraits/J24.png,Pending,Pending,Pending,Pending review
+H01,Grave Candle Bearer,Unit,Assets/Resources/Art/CardFaces/H01.png,Assets/Resources/Art/BoardPortraits/H01.png,Pending,Pending,Pending,Pending review
+H02,Knock Once,Order,Assets/Resources/Art/CardFaces/H02.png,,Pending,Pending,Pending,Pending review
+H03,Record of the Dead,Site,Assets/Resources/Art/CardFaces/H03.png,Assets/Resources/Art/BoardPortraits/H03.png,Pending,Pending,Pending,Pending review
+H04,A Seat for the Lost,Order,Assets/Resources/Art/CardFaces/H04.png,,Pending,Pending,Pending,Pending review
+H05,Lamp-Tender,Unit,Assets/Resources/Art/CardFaces/H05.png,Assets/Resources/Art/BoardPortraits/H05.png,Pending,Pending,Pending,Pending review
+H06,Threshold Warden,Unit,Assets/Resources/Art/CardFaces/H06.png,Assets/Resources/Art/BoardPortraits/H06.png,Pending,Pending,Pending,Pending review
+H07,Pay the Ferrier,Order,Assets/Resources/Art/CardFaces/H07.png,,Pending,Pending,Pending,Pending review
+H08,House of Names,Site,Assets/Resources/Art/CardFaces/H08.png,Assets/Resources/Art/BoardPortraits/H08.png,Pending,Pending,Pending,Pending review
+H09,The Kindly Dead,Unit,Assets/Resources/Art/CardFaces/H09.png,Assets/Resources/Art/BoardPortraits/H09.png,Pending,Pending,Pending,Pending review
+H10,Bone Listener,Unit,Assets/Resources/Art/CardFaces/H10.png,Assets/Resources/Art/BoardPortraits/H10.png,Pending,Pending,Pending,Pending review
+H11,Call by Name,Order,Assets/Resources/Art/CardFaces/H11.png,,Pending,Pending,Pending,Pending review
+H12,Take the Empty Seat,Order,Assets/Resources/Art/CardFaces/H12.png,,Pending,Pending,Pending,Pending review
+H13,Mound-Crossing Guide,Unit,Assets/Resources/Art/CardFaces/H13.png,Assets/Resources/Art/BoardPortraits/H13.png,Pending,Pending,Pending,Pending review
+H14,Unfinished Work,Order,Assets/Resources/Art/CardFaces/H14.png,,Pending,Pending,Pending,Pending review
+H15,Witness to Winter,Unit,Assets/Resources/Art/CardFaces/H15.png,Assets/Resources/Art/BoardPortraits/H15.png,Pending,Pending,Pending,Pending review
+H16,Quiet Hall,Site,Assets/Resources/Art/CardFaces/H16.png,Assets/Resources/Art/BoardPortraits/H16.png,Pending,Pending,Pending,Pending review
+H17,Barrow Bailiff,Unit,Assets/Resources/Art/CardFaces/H17.png,Assets/Resources/Art/BoardPortraits/H17.png,Pending,Pending,Pending,Pending review
+H18,Gates Open Below,Order,Assets/Resources/Art/CardFaces/H18.png,,Pending,Pending,Pending,Pending review
+H19,Procession of Names,Unit,Assets/Resources/Art/CardFaces/H19.png,Assets/Resources/Art/BoardPortraits/H19.png,Pending,Pending,Pending,Pending review
+H20,Death Takes Attendance,Order,Assets/Resources/Art/CardFaces/H20.png,,Pending,Pending,Pending,Pending review
+H21,Guest of the Barrow,Unit,Assets/Resources/Art/CardFaces/H21.png,Assets/Resources/Art/BoardPortraits/H21.png,Pending,Pending,Pending,Pending review
+H22,A Door Left Open,Order,Assets/Resources/Art/CardFaces/H22.png,,Pending,Pending,Pending,Pending review
+H23,"Hel, Keeper of the Names",Unit,Assets/Resources/Art/CardFaces/H23.png,Assets/Resources/Art/BoardPortraits/H23.png,Pending,Pending,Pending,Pending review
+H24,"Garmr, Door of the Dead",Unit,Assets/Resources/Art/CardFaces/H24.png,Assets/Resources/Art/BoardPortraits/H24.png,Pending,Pending,Pending,Pending review
+L01,Ice-Road Pickpocket,Unit,Assets/Resources/Art/CardFaces/L01.png,Assets/Resources/Art/BoardPortraits/L01.png,Pending,Pending,Pending,Pending review
+L02,False Lantern,Order,Assets/Resources/Art/CardFaces/L02.png,,Pending,Pending,Pending,Pending review
+L03,A Knot Undone,Order,Assets/Resources/Art/CardFaces/L03.png,,Pending,Pending,Pending,Pending review
+L04,Rabbit in the Snow,Unit,Assets/Resources/Art/CardFaces/L04.png,Assets/Resources/Art/BoardPortraits/L04.png,Pending,Pending,Pending,Pending review
+L05,Wandering Double,Unit,Assets/Resources/Art/CardFaces/L05.png,Assets/Resources/Art/BoardPortraits/L05.png,Pending,Pending,Pending,Pending review
+L06,Mouth of Rumor,Unit,Assets/Resources/Art/CardFaces/L06.png,Assets/Resources/Art/BoardPortraits/L06.png,Pending,Pending,Pending,Pending review
+L07,Wrong Footprints,Order,Assets/Resources/Art/CardFaces/L07.png,,Pending,Pending,Pending,Pending review
+L08,Rune-Market Stall,Site,Assets/Resources/Art/CardFaces/L08.png,Assets/Resources/Art/BoardPortraits/L08.png,Pending,Pending,Pending,Pending review
+L09,Stolen Passage,Order,Assets/Resources/Art/CardFaces/L09.png,,Pending,Pending,Pending,Pending review
+L10,Ash-Mask Performer,Unit,Assets/Resources/Art/CardFaces/L10.png,Assets/Resources/Art/BoardPortraits/L10.png,Pending,Pending,Pending,Pending review
+L11,Change the Subject,Order,Assets/Resources/Art/CardFaces/L11.png,,Pending,Pending,Pending,Pending review
+L12,Raven in Borrowed Feathers,Unit,Assets/Resources/Art/CardFaces/L12.png,Assets/Resources/Art/BoardPortraits/L12.png,Pending,Pending,Pending,Pending review
+L13,Promise Thief,Unit,Assets/Resources/Art/CardFaces/L13.png,Assets/Resources/Art/BoardPortraits/L13.png,Pending,Pending,Pending,Pending review
+L14,Runes in Reverse,Order,Assets/Resources/Art/CardFaces/L14.png,,Pending,Pending,Pending,Pending review
+L15,The Unlit Stage,Site,Assets/Resources/Art/CardFaces/L15.png,Assets/Resources/Art/BoardPortraits/L15.png,Pending,Pending,Pending,Pending review
+L16,A Borrowed Face,Order,Assets/Resources/Art/CardFaces/L16.png,,Pending,Pending,Pending,Pending review
+L17,Contract in Ash,Order,Assets/Resources/Art/CardFaces/L17.png,,Pending,Pending,Pending,Pending review
+L18,Bellows Under Ice,Unit,Assets/Resources/Art/CardFaces/L18.png,Assets/Resources/Art/BoardPortraits/L18.png,Pending,Pending,Pending,Pending review
+L19,Read Between the Runes,Order,Assets/Resources/Art/CardFaces/L19.png,,Pending,Pending,Pending,Pending review
+L20,Broken Pact,Order,Assets/Resources/Art/CardFaces/L20.png,,Pending,Pending,Pending,Pending review
+L21,The Wrong Army,Order,Assets/Resources/Art/CardFaces/L21.png,,Pending,Pending,Pending,Pending review
+L22,Winter Envoy,Unit,Assets/Resources/Art/CardFaces/L22.png,Assets/Resources/Art/BoardPortraits/L22.png,Pending,Pending,Pending,Pending review
+L23,"Loki, Oathbreaker",Unit,Assets/Resources/Art/CardFaces/L23.png,Assets/Resources/Art/BoardPortraits/L23.png,Pending,Pending,Pending,Pending review
+L24,"Angrboða, Who Warned Us",Unit,Assets/Resources/Art/CardFaces/L24.png,Assets/Resources/Art/BoardPortraits/L24.png,Pending,Pending,Pending,Pending review
+N01,Cold Hearth Keeper,Unit,Assets/Resources/Art/CardFaces/N01.png,Assets/Resources/Art/BoardPortraits/N01.png,Pending,Pending,Pending,Pending review
+N02,Barley Runner,Unit,Assets/Resources/Art/CardFaces/N02.png,Assets/Resources/Art/BoardPortraits/N02.png,Pending,Pending,Pending,Pending review
+N03,Hot Broth,Order,Assets/Resources/Art/CardFaces/N03.png,,Pending,Pending,Pending,Pending review
+N04,Raven Pole,Site,Assets/Resources/Art/CardFaces/N04.png,Assets/Resources/Art/BoardPortraits/N04.png,Pending,Pending,Pending,Pending review
+N05,Shield Cart,Unit,Assets/Resources/Art/CardFaces/N05.png,Assets/Resources/Art/BoardPortraits/N05.png,Pending,Pending,Pending,Pending review
+N06,Fisher of the Sound,Unit,Assets/Resources/Art/CardFaces/N06.png,Assets/Resources/Art/BoardPortraits/N06.png,Yes — male Fisher identity corrected,Yes — card/board poses differ,N06 pair sample; remaining art pending,Reworked sample
+N07,Ice Steps,Order,Assets/Resources/Art/CardFaces/N07.png,,Pending,Pending,Pending,Pending review
+N08,Flint Arrow,Order,Assets/Resources/Art/CardFaces/N08.png,,Pending,Pending,Pending,Pending review
+N09,Rooftop Lookout,Unit,Assets/Resources/Art/CardFaces/N09.png,Assets/Resources/Art/BoardPortraits/N09.png,Pending,Pending,Pending,Pending review
+N10,Caravan Pilot,Unit,Assets/Resources/Art/CardFaces/N10.png,Assets/Resources/Art/BoardPortraits/N10.png,Pending,Pending,Pending,Pending review
+N11,Mule-Drawn Sled,Unit,Assets/Resources/Art/CardFaces/N11.png,Assets/Resources/Art/BoardPortraits/N11.png,Pending,Pending,Pending,Pending review
+N12,Call the Village,Order,Assets/Resources/Art/CardFaces/N12.png,,Pending,Pending,Pending,Pending review
+N13,Travelers’ Cookfire,Site,Assets/Resources/Art/CardFaces/N13.png,Assets/Resources/Art/BoardPortraits/N13.png,Pending,Pending,Pending,Pending review
+N14,Warming Hut,Site,Assets/Resources/Art/CardFaces/N14.png,Assets/Resources/Art/BoardPortraits/N14.png,Pending,Pending,Pending,Pending review
+N15,Timber Giant,Unit,Assets/Resources/Art/CardFaces/N15.png,Assets/Resources/Art/BoardPortraits/N15.png,Pending,Pending,Pending,Pending review
+N16,Roadside Storyteller,Unit,Assets/Resources/Art/CardFaces/N16.png,Assets/Resources/Art/BoardPortraits/N16.png,Pending,Pending,Pending,Pending review
+N17,Pull Down the Crane,Order,Assets/Resources/Art/CardFaces/N17.png,,Pending,Pending,Pending,Pending review
+N18,Clear the Dock,Order,Assets/Resources/Art/CardFaces/N18.png,,Pending,Pending,Pending,Pending review
+N19,Runestone Hauler,Unit,Assets/Resources/Art/CardFaces/N19.png,Assets/Resources/Art/BoardPortraits/N19.png,Pending,Pending,Pending,Pending review
+N20,Shelter for the Night,Order,Assets/Resources/Art/CardFaces/N20.png,,Pending,Pending,Pending,Pending review
+N21,Crossing Guide,Unit,Assets/Resources/Art/CardFaces/N21.png,Assets/Resources/Art/BoardPortraits/N21.png,Pending,Pending,Pending,Pending review
+N22,Stormbreak Ox,Unit,Assets/Resources/Art/CardFaces/N22.png,Assets/Resources/Art/BoardPortraits/N22.png,Pending,Pending,Pending,Pending review
+N23,Drag Below the Ice,Order,Assets/Resources/Art/CardFaces/N23.png,,Pending,Pending,Pending,Pending review
+N24,Carrier of the Last Ember,Unit,Assets/Resources/Art/CardFaces/N24.png,Assets/Resources/Art/BoardPortraits/N24.png,Pending,Pending,Pending,Pending review
+X01,Oathguard,Unit,Assets/Resources/Art/CardFaces/X01.png,Assets/Resources/Art/BoardPortraits/X01.png,Pending,Pending,Pending,Pending review
+X02,Ferryhand,Unit,Assets/Resources/Art/CardFaces/X02.png,Assets/Resources/Art/BoardPortraits/X02.png,Pending,Pending,Pending,Pending review
+X03,Rime Brute,Unit,Assets/Resources/Art/CardFaces/X03.png,Assets/Resources/Art/BoardPortraits/X03.png,Pending,Pending,Pending,Pending review
+X04,Wolf Pup,Unit,Assets/Resources/Art/CardFaces/X04.png,Assets/Resources/Art/BoardPortraits/X04.png,Pending,Pending,Pending,Pending review
+X05,Restless Soul,Unit,Assets/Resources/Art/CardFaces/X05.png,Assets/Resources/Art/BoardPortraits/X05.png,Pending,Pending,Pending,Pending review
+X06,Hallkeeper,Unit,Assets/Resources/Art/CardFaces/X06.png,Assets/Resources/Art/BoardPortraits/X06.png,Pending,Pending,Pending,Pending review
+X07,Masked Double,Unit,Assets/Resources/Art/CardFaces/X07.png,Assets/Resources/Art/BoardPortraits/X07.png,Pending,Pending,Pending,Pending review
+X08,False Trail,Order,Assets/Resources/Art/CardFaces/X08.png,,Pending,Pending,Pending,Pending review
+X09,Cinder Rune,Order,Assets/Resources/Art/CardFaces/X09.png,,Pending,Pending,Pending,Pending review
+X10,Spare Oar,Order,Assets/Resources/Art/CardFaces/X10.png,,Pending,Pending,Pending,Pending review
+X11,Hearth Volunteer,Unit,Assets/Resources/Art/CardFaces/X11.png,Assets/Resources/Art/BoardPortraits/X11.png,Pending,Pending,Pending,Pending review
