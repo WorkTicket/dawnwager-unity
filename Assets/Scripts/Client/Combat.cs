@@ -152,7 +152,7 @@ namespace Wolfsun
                 StartCoroutine(ResolveArt(layer, card.Id, to, 290));
             else StartCoroutine(Burst(layer, to, accent, 8, 220f));
             StartCoroutine(Shake(4f));
-            UiSound("card-slam");
+            UiSound("card-play-unit");
             for (float t = 0; t < .12f && ghost; t += Time.unscaledDeltaTime)
             {
                 group.alpha = .4f * (1f - t / .12f);

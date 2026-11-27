@@ -125,7 +125,7 @@ namespace Wolfsun
                 Label(root, "+" + quest.rewardEmbers, 1766, y + 2, 90, 26, 20, Gold, true, TextAnchor.MiddleRight);
             }
             Label(root, profile.wins + " wins · " + profile.losses + " losses", 1380, 960, 490, 30, 18, Muted, false, TextAnchor.MiddleRight);
-            Label(root, "v0.9 early access", 40, 1040, 300, 24, 14, Quiet);
+            Label(root, "v" + Application.version + " early access", 40, 1040, 300, 24, 14, Quiet);
             if (!string.IsNullOrEmpty(status)) Label(root, status, 120, 1000, 900, 40, 20, Gold, false, TextAnchor.MiddleLeft);
         }
 
