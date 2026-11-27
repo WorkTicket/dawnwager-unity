@@ -71,6 +71,7 @@ namespace Wolfsun
                 if (prophecy.Spent)
                 {
                     StartCoroutine(ProphecyFx(layer, prophecy.Card.Id));
+                    TryStartCardVfx(layer, prophecy.Card.Id, new Vector2(960f, -540f), new Vector2(1020f, 640f));
                     StartCoroutine(DelayedBanner(layer, "Prophecy", prophecy.Card.Name, Gold, 1.4f, 0f));
                     StartCoroutine(ResolveArt(layer, prophecy.Card.Id, new Vector2(960, -520), 650));
                 }
@@ -101,8 +102,12 @@ namespace Wolfsun
                         if (battlePieces.TryGetValue(fresh.Key, out var freshTile) && freshTile)
                         {
                             StartCoroutine(SpawnReveal(freshTile, .66f));
-                            StartCoroutine(DelayedEntrance(layer, played, CenterAnchored(freshTile), .66f));
+                            // Use the arriving piece's identity: summon effects can create a different card
+                            // from the card that was played, and each board arrival gets its own mapped VFX.
+                            StartCoroutine(DelayedEntrance(layer, fresh.Card, CenterAnchored(freshTile), .66f));
                         }
+                    if (played.Kind == Kind.Site)
+                        StartCoroutine(DelayedEntrance(layer, played, impactAt, .66f));
                 }
             }
             else if (played != null && played.Kind == Kind.Order)

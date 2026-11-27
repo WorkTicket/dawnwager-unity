@@ -208,6 +208,7 @@ namespace Wolfsun
             else if (page != Page.Home)
                 TableButton("Main Menu", 740, 778, 440, 60, () => Go(Page.Home));
             TableButton(page == Page.Battle ? "Resume" : "Close", 740, 850, 440, 70, () => { settings = false; concedeArmed = false; PlayerPrefs.Save(); UiSound("close"); Render(); }, true, true);
+            SafeText(root, "VFX: vinish.dev (https://vinish.dev/free-vfx), CC BY 4.0", 740, 936, 440, 28, 13, Quiet, false, TextAnchor.MiddleCenter, 10);
         }
 
         // ---------------------------------------------------------------- inspect
