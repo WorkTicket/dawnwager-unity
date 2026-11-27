@@ -180,17 +180,30 @@ namespace Wolfsun
         }
 
         /// <summary>Short decaying screen shake; skipped when reduce-motion is on.</summary>
+        private float shakeEnergy;
+        private bool shaking;
+        private float shakeTick;
+
         private IEnumerator Shake(float magnitude)
         {
             if (reduceMotion || stage == null) yield break;
-            Vector2 home = stage.anchoredPosition;
-            for (float t = 0; t < .28f && stage != null; t += Time.unscaledDeltaTime)
+            // One shaker at a time, always returning to the true origin. Overlapping shakes used to
+            // capture a displaced "home" and leave the whole screen permanently offset.
+            shakeEnergy = Mathf.Max(shakeEnergy, magnitude);
+            if (shaking && Time.unscaledTime - shakeTick < .25f) yield break; // a stopped coroutine leaves the flag stale
+            shaking = true;
+            float t = 0f;
+            while (stage != null && shakeEnergy > .25f)
             {
-                float k = 1f - t / .28f;
-                stage.anchoredPosition = home + new Vector2(Mathf.Sin(t * 90f), Mathf.Cos(t * 77f)) * magnitude * k;
+                t += Time.unscaledDeltaTime;
+                shakeTick = Time.unscaledTime;
+                stage.anchoredPosition = new Vector2(Mathf.Sin(t * 90f), Mathf.Cos(t * 77f)) * shakeEnergy;
+                shakeEnergy *= Mathf.Pow(.0004f, Time.unscaledDeltaTime);
                 yield return null;
             }
-            if (stage != null) stage.anchoredPosition = home;
+            shakeEnergy = 0f;
+            shaking = false;
+            if (stage != null) stage.anchoredPosition = Vector2.zero;
         }
 
         private IEnumerator FloatText(RectTransform layer, string text, Color color, Vector2 at)

@@ -187,7 +187,7 @@ namespace Wolfsun
 
         private void Go(Page destination)
         {
-            if(page==Page.Battle&&destination!=Page.Battle){StopAllCoroutines();ClearEffects();}
+            if(page==Page.Battle&&destination!=Page.Battle){StopAllCoroutines();ClearEffects();shaking=false;shakeEnergy=0f;if(stage)stage.anchoredPosition=Vector2.zero;}
             if(destination!=Page.Play){queueSearching=false;queueStatus="";}
             if(destination!=Page.Home&&menuAmbience!=null&&menuAmbience.isPlaying)menuAmbience.Stop();
             ai=false;presenting=false;concedeArmed=false;refundArmed=false;showRules=false;page=destination;inspected=null;settings=false;status="";
@@ -225,6 +225,7 @@ namespace Wolfsun
             CancelDrag();
             ClearCardPreview();
             viewportShades.Clear();
+            if(stage)stage.anchoredPosition=Vector2.zero;
             if(root)
             {
                 root.gameObject.SetActive(false);
