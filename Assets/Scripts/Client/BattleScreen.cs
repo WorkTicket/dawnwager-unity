@@ -53,6 +53,7 @@ namespace Wolfsun
 
         private void Command(Move move, Vector2? dragOrigin = null)
         {
+            endTurnArmed=false;
             if(presenting || !ResolveWithMotion(0,move,dragOrigin))return;
             Schedule();
         }

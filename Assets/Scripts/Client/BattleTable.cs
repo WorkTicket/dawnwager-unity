@@ -283,6 +283,7 @@ namespace Wolfsun
 
         private void SelectHand(int slot)
         {
+            endTurnArmed = false;
             if (!canAct) return;
             var options = match.Legal(0).Where(m => m.Kind == ActionKind.Play && m.Slot == slot).ToArray();
             if (options.Length == 0) { UiSound("deny"); status = "Not enough Charge or no legal target."; Render(); return; }
@@ -295,6 +296,7 @@ namespace Wolfsun
 
         private void SelectPower()
         {
+            endTurnArmed = false;
             if (!canAct) return;
             if (choosing && selected == ActionKind.Power) { CancelSelection(); return; }
             if (!match.Legal(0).Any(m => m.Kind == ActionKind.Power)) { UiSound("deny"); return; }
@@ -412,7 +414,8 @@ namespace Wolfsun
                 SafeText(root, status, 40, 534, 270, 56, 17, Muted, false, TextAnchor.UpperLeft, 12);
             bool idle = canAct && !legal.Any(m => m.Kind != ActionKind.Pass);
             string label = !canAct ? (match.Winner >= 0 ? "Finished" : "Enemy Turn") : match.AwaitingSecondPass ? "End Round" : (idle ? "End Turn" : "Pass");
-            GoldPill(label, 40, 660, 200, 58, () => { if (choosing) CancelSelection(false); Command(new Move(ActionKind.Pass)); }, canAct, idle);
+            if (canAct && endTurnArmed && !idle) label = "Confirm End";
+            GoldPill(label, 40, 660, 200, 58, EndTurnPressed, canAct, idle);
             if (canAct) SafeText(root, "Space pass · 1-8 cards · Q power · R rules", 40, 786, 320, 22, 13, Quiet, false, TextAnchor.MiddleLeft, 9);
         }
 
@@ -506,9 +509,28 @@ namespace Wolfsun
             if (keyboard.qKey.wasPressedThisFrame) { SelectPower(); return; }
             if (keyboard.spaceKey.wasPressedThisFrame || keyboard.enterKey.wasPressedThisFrame)
             {
-                if (choosing) CancelSelection(false);
-                Command(new Move(ActionKind.Pass));
+                EndTurnPressed();
             }
+        }
+
+        private bool endTurnArmed;
+
+        /// <summary>Ending the turn while moves remain asks for one confirming press so a stray click cannot throw a turn away.</summary>
+        private void EndTurnPressed()
+        {
+            if (!canAct) return;
+            bool movesLeft = !match.AwaitingSecondPass && match.Legal(0).Any(m => m.Kind != ActionKind.Pass);
+            if (movesLeft && !endTurnArmed)
+            {
+                endTurnArmed = true;
+                if (choosing) CancelSelection(false);
+                status = "You still have moves. Press again to end your turn.";
+                UiSound("deny");
+                Render();
+                return;
+            }
+            if (choosing) CancelSelection(false);
+            Command(new Move(ActionKind.Pass));
         }
     }
 }
