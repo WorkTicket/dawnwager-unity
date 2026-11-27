@@ -167,6 +167,8 @@ namespace Wolfsun
             Render();
         }
 
+        private bool concedeArmed, refundArmed;
+
         private void Settings()
         {
             ViewportShade("Settings shade", new Color(0, 0, 0, .66f));
@@ -194,8 +196,10 @@ namespace Wolfsun
             TableButton("How It Works", 740, 704, 440, 60, () => { settings = false; OpenRules(); });
             bool inMatch = page == Page.Battle && match != null && match.Winner < 0;
             if (inMatch)
-                TableButton("Concede Match", 740, 778, 440, 60, () =>
+                TableButton(concedeArmed ? "Really concede?" : "Concede Match", 740, 778, 440, 60, () =>
                 {
+                    if (!concedeArmed) { concedeArmed = true; UiSound("deny"); Render(); return; }
+                    concedeArmed = false;
                     settings = false;
                     match.Surrender(0);
                     Schedule();
@@ -203,7 +207,7 @@ namespace Wolfsun
                 });
             else if (page != Page.Home)
                 TableButton("Main Menu", 740, 778, 440, 60, () => Go(Page.Home));
-            TableButton(page == Page.Battle ? "Resume" : "Close", 740, 850, 440, 70, () => { settings = false; PlayerPrefs.Save(); UiSound("close"); Render(); }, true, true);
+            TableButton(page == Page.Battle ? "Resume" : "Close", 740, 850, 440, 70, () => { settings = false; concedeArmed = false; PlayerPrefs.Save(); UiSound("close"); Render(); }, true, true);
         }
 
         // ---------------------------------------------------------------- inspect

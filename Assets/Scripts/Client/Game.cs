@@ -179,7 +179,7 @@ namespace Wolfsun
             if (keyboard == null || !keyboard.escapeKey.wasPressedThisFrame || presenting) return;
             if(dragLayer){CancelDrag();return;}
             if(showRules){showRules=false;Render();return;}
-            if(settings){settings=false;PlayerPrefs.Save();Render();return;}
+            if(settings){settings=false;concedeArmed=false;PlayerPrefs.Save();Render();return;}
             if(inspected!=null||choosing){inspected=null;choosing=false;selected=ActionKind.Pass;Render();return;}
             if(page==Page.Home||page==Page.Battle){settings=true;Render();}
             else Go(Page.Home);
@@ -190,7 +190,7 @@ namespace Wolfsun
             if(page==Page.Battle&&destination!=Page.Battle){StopAllCoroutines();ClearEffects();}
             if(destination!=Page.Play){queueSearching=false;queueStatus="";}
             if(destination!=Page.Home&&menuAmbience!=null&&menuAmbience.isPlaying)menuAmbience.Stop();
-            ai=false;presenting=false;showRules=false;page=destination;inspected=null;settings=false;status="";
+            ai=false;presenting=false;concedeArmed=false;refundArmed=false;showRules=false;page=destination;inspected=null;settings=false;status="";
             if(destination!=Page.Battle&&destination!=Page.Outcome){tutorialMatch=false;onlineDuel=null;}
             if(destination!=Page.Battle)ResetPhaseAnnouncements();
             Render();

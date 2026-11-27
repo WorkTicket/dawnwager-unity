@@ -11,7 +11,7 @@ namespace Wolfsun
         private static Color BranchColor(string branch) =>
             branch == "Bastion" ? new Color32(150, 196, 232, 255) : branch == "Warcraft" ? new Color32(236, 150, 120, 255) : new Color32(190, 160, 236, 255);
 
-        private static Vector2 NodeCenter(CampaignPassive node) => new Vector2(130 + node.Column * 190, 372 + node.Row * 118);
+        private static Vector2 NodeCenter(CampaignPassive node) => new Vector2(130 + node.Column * 190, 362 + node.Row * 100);
 
         private void SkillTree()
         {
@@ -20,13 +20,19 @@ namespace Wolfsun
             int unspent = UnspentSkillPoints(hero);
             Pic(root, "Campaign/PointToken", 1360, 150, 48, 48);
             Label(root, unspent + " points · " + SpentSkillPoints(hero) + " spent", 1416, 146, 360, 56, 26, Gold, true);
-            TableButton("Refund all", 1696, 146, 190, 56, () => { if (NodesForHero(hero).Length > 0) RefundHeroSkills(); }, NodesForHero(hero).Length > 0);
+            TableButton(refundArmed ? "Confirm refund" : "Refund all", 1696, 146, 190, 56, () =>
+            {
+                if (NodesForHero(hero).Length == 0) return;
+                if (!refundArmed) { refundArmed = true; UiSound("deny"); Render(); return; }
+                refundArmed = false;
+                RefundHeroSkills();
+            }, NodesForHero(hero).Length > 0);
             SafeText(root, Hero.Info(hero).Name + "'s build", 700, 140, 600, 56, 24, White, true, TextAnchor.MiddleRight, 14);
 
             ChromePanel(root, "Tree", 40, 280, 1840, 500, "Panel");
             string[] branches = { "Bastion", "Warcraft", "Runecraft" };
             for (int i = 0; i < 3; i++)
-                OutlinedText(root, branches[i], 40 + 130 + i * 570 - 95 + 95, 290, 380, 36, 28, BranchColor(branches[i]), true, TextAnchor.MiddleCenter, 16);
+                OutlinedText(root, branches[i], 130 + i * 570, 290, 380, 36, 28, BranchColor(branches[i]), true, TextAnchor.MiddleCenter, 16);
             var owned = NodesForHero(hero);
             var passives = CampaignMeta.Passives;
             foreach (var node in passives)
