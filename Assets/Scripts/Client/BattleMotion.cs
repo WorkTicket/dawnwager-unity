@@ -35,6 +35,24 @@ namespace Wolfsun
                 else if (move.Lane >= 0) impactAt = LanePoint(side, move.Lane);
             }
             var snap = TakeSnap();
+            Vector2? actorFrom = null;
+            string actorArt = null;
+            if (strike && actor != null)
+            {
+                if (battlePieces.TryGetValue(actor.Key, out var actorTile) && actorTile) actorFrom = CenterAnchored(actorTile);
+                actorArt = UnitArt(actor.Card.Id);
+                if (victim == null && heroBadges[1 - side]) impactAt = CenterAnchored(heroBadges[1 - side]) + new Vector2(-20, 40);
+            }
+            if (side == 1)
+            {
+                string line = null;
+                if (played != null) line = "The enemy plays " + played.Name;
+                else if (actor != null && strike) line = actor.Card.Name + " attacks " + (victim != null ? victim.Card.Name : "your Bastion");
+                else if (actor != null) line = actor.Card.Name + " moves lanes";
+                else if (move.Kind == ActionKind.Power) line = "The enemy uses their hero power";
+                else if (move.Kind == ActionKind.Pass) line = "The enemy passes";
+                if (line != null) Callout(line, EnemyCopper);
+            }
             Vector2? handFrom = null;
             if (move.Kind == ActionKind.Play && side == 0 && handPoints.TryGetValue(move.Slot, out var handRect) && handRect) handFrom = CenterAnchored(handRect);
             else if (move.Kind == ActionKind.Play && side == 1) handFrom = new Vector2(960, -60);
@@ -48,9 +66,26 @@ namespace Wolfsun
             Render();
             var layer = CardAnimationLayer();
             QueuePhaseFeedback(layer, oldRound, oldTurn, move);
-            if (played != null && handFrom.HasValue) StartCoroutine(GhostFlight(layer, played, handFrom.Value, impactAt));
-            if (impactCard != null) StartCoroutine(CardImpact(layer, impactCard, impactAt, strike));
-            PlayFeedback(layer, snap);
+            Color accent = side == 0 ? Gold : EnemyCopper;
+            float feedbackDelay = 0f;
+            if (played != null && handFrom.HasValue && !reduceMotion)
+            {
+                StartCoroutine(CardSlam(layer, played, handFrom.Value, impactAt, accent));
+                feedbackDelay = .66f;
+                if (played.Kind == Kind.Unit || played.Kind == Kind.Site)
+                    foreach (var fresh in match.Units().Where(u => !snap.Hp.ContainsKey(u.Key)))
+                        if (battlePieces.TryGetValue(fresh.Key, out var freshTile) && freshTile) StartCoroutine(SpawnReveal(freshTile, .66f));
+            }
+            else if (played != null && handFrom.HasValue) { }
+            if (strike && actorFrom.HasValue && actorArt != null && !reduceMotion)
+            {
+                battlePieces.TryGetValue(actor.Key, out var realTile);
+                StartCoroutine(StrikeLunge(layer, actorArt, actorFrom.Value, impactAt, realTile, accent));
+                feedbackDelay = .21f;
+            }
+            else if (impactCard != null && played == null) StartCoroutine(CardImpact(layer, impactCard, impactAt, strike));
+            if (feedbackDelay > 0f) StartCoroutine(DelayedFeedback(layer, snap, feedbackDelay));
+            else PlayFeedback(layer, snap);
             return true;
         }
 

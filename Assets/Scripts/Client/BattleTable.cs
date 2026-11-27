@@ -149,6 +149,7 @@ namespace Wolfsun
             if (picked || target || ready) Shade(tile, -4 * sc, 150 * sc, 184 * sc, 52 * sc, new Color(glow.r, glow.g, glow.b, target || picked ? .85f : .5f));
             var art = Box(tile, "Art", 0, 0, TileW * sc, 184 * sc);
             CutFit(art, UnitArt(unit.Card.Id), TileW * sc, 184 * sc, tint);
+            if (!reduceMotion && !unit.Spent) StartCoroutine(Breathe(art));
             Medal(tile, "Attack", unit.Attack.ToString(), -2 * sc, 156 * sc, 58 * sc, Mathf.RoundToInt(28 * sc));
             Medal(tile, "Health", unit.Hp.ToString(), 120 * sc, 156 * sc, 58 * sc, Mathf.RoundToInt(28 * sc));
             Pic(tile, Foundry + "UnitPlate", 44 * sc, 180 * sc, 88 * sc, 30 * sc, new Color(1, 1, 1, .92f));
