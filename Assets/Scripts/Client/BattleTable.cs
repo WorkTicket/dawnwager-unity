@@ -364,7 +364,16 @@ namespace Wolfsun
                 float t = n == 1 ? 0 : i - (n - 1) / 2f;
                 float tilt = -t * 2.2f;
                 float y = HandBaseY + t * t * 5f - (picked ? 46 : 0);
-                var rect = PaperCard(card, x0 + i * step, y, HandCardW, HandCardH, match.Cost(0, card), playable || picked, root, false);
+                var rect = PaperCard(card, x0 + i * step, y, HandCardW, HandCardH, match.Cost(0, card), picked, root, false);
+                // No standing glow on the hand: a playable card only lights up while hovered (or while picked up).
+                RawImage hoverGlow = null;
+                if (playable && !picked)
+                {
+                    hoverGlow = Pic(rect, Foundry + "CardPlayableGlow", 0, 0, rect.sizeDelta.x, rect.sizeDelta.y);
+                    hoverGlow.transform.SetSiblingIndex(1);
+                    hoverGlow.raycastTarget = false;
+                    hoverGlow.enabled = false;
+                }
                 if (!playable && canAct) Pic(rect, Foundry + "CardShadow", 0, 0, rect.sizeDelta.x, rect.sizeDelta.y, new Color(0, 0, 0, .45f));
                 var size = rect.sizeDelta;
                 rect.pivot = new Vector2(.5f, .5f);
@@ -372,12 +381,12 @@ namespace Wolfsun
                 rect.localRotation = Quaternion.Euler(0, 0, picked ? 0 : tilt);
                 handPoints[slot] = rect;
                 Click(rect, () => SelectHand(slot)).transition = Selectable.Transition.None;
-                BindHandHover(rect, card.Id, tilt, picked);
+                BindHandHover(rect, card.Id, tilt, picked, hoverGlow);
                 if (playable) BindCardDrag(rect, slot);
             }
         }
 
-        private void BindHandHover(RectTransform card, string id, float restTilt, bool pinned)
+        private void BindHandHover(RectTransform card, string id, float restTilt, bool pinned, RawImage hoverGlow = null)
         {
             var relay = card.gameObject.GetComponent<PointerRelay>() ?? card.gameObject.AddComponent<PointerRelay>();
             Vector2 rest = card.anchoredPosition;
@@ -385,6 +394,7 @@ namespace Wolfsun
             {
                 UiSound("hover");
                 if (pinned || dragLayer != null) return;
+                if (hoverGlow) hoverGlow.enabled = true;
                 card.SetAsLastSibling();
                 card.localRotation = Quaternion.identity;
                 card.localScale = Vector3.one * 1.18f;
@@ -392,6 +402,7 @@ namespace Wolfsun
             };
             relay.Exit = () =>
             {
+                if (hoverGlow) hoverGlow.enabled = false;
                 if (pinned) return;
                 card.localScale = Vector3.one;
                 card.anchoredPosition = rest;
