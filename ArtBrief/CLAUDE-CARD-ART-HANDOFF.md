@@ -1,10 +1,18 @@
 # Dawnwager card art handoff
 
-Use [Hel-Art-Direction.png](Hel-Art-Direction.png) as the visual reference for new illustrations. The target is opaque matte gouache on toned paper, with broad painted forms, wool and iron that feel tactile, natural anatomy, charcoal shadows, and restrained color. Give each card a single recognizable subject and keep the sharpest edges near the face or defining prop. Hel's plum palette belongs to Hel. Use the same painting technique across factions while retaining their individual colors.
+Use [Hel-Art-Direction.png](Hel-Art-Direction.png) as a **technique reference only**: opaque matte gouache on toned paper, broad painted forms, tactile wool and iron, natural anatomy, charcoal shadows, and restrained color. Do not copy Hel's face, mask, hair, silhouette, clothing, or plum palette onto another character. Prefer written style direction over passing Hel's portrait as an image reference for unrelated cards; that caused unrelated characters to inherit her mask and wardrobe in early drafts. Give every card a specific identity, one readable action, and a distinct silhouette. Keep the sharpest edges near the face or defining prop.
 
-The card redesign applies the same shared frame system and finish across the 161-card catalog. The Legendary portraits and visibly mismatched card art were replaced or recomposed. The remaining illustrations use reworked tonal and brush-texture treatment on the existing artwork.
+The 161-card catalog is **not yet art-complete**. Redrawn entries currently include A01–A10, A13, A17 and A19. The Unit/Site pairs were checked side by side for matching identity and distinct action. The other catalog entries remain pending; do not describe them as final or mark their checklist rows complete. N06 Fisher of the Sound remains the regression check for the earlier male-card/female-board mismatch.
 
-Review [assembled cards](Dawnwager-Final-Card-Design.jpg) and the [full catalog](Dawnwager-Full-Card-Catalog.jpg) alongside the reference. These are static previews assembled from game textures.
+Review the [first four paired illustrations](Art-Pair-Review-A01-A02-A05-A06.jpg) and the [full catalog](Dawnwager-Full-Card-Catalog.jpg) alongside the reference. The paired review is a static preview; it does not replace checking the sprites in Unity. Refresh both full-catalog previews only after the complete art pass.
+
+## Character consistency protocol
+
+1. Write a short identity line for the character before drawing either view: age, face, hair, skin tone, clothing palette, and one signature object.
+2. Design the card illustration as an environmental scene whose action communicates the card. Keep it in the card art well's landscape crop.
+3. Design the board portrait as a separate pose of the same individual. Preserve face, age, hair, clothing, and props; change camera angle and action. Keep the complete silhouette inside the transparent canvas.
+4. Compare the card and board images at full size and at board scale. Reject identity drift, repeated poses, clipped hands/weapons, and details that disappear at board scale.
+5. Preserve each Unity `.meta` file. Update the matching checklist row only after both views have passed inspection. Human art-direction approval remains a separate status from identity/pose checks.
 
 ## Runtime paths
 

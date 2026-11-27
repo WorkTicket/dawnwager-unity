@@ -4,4 +4,4 @@ When working on card-play animations or battle-board visual effects, read and fo
 
 For card illustration work, also follow [`ArtBrief/CLAUDE-CARD-ART-HANDOFF.md`](ArtBrief/CLAUDE-CARD-ART-HANDOFF.md).
 
-For the requested full illustration rework, read [`ArtBrief/CARD-ART-PRODUCTION-DIRECTION.md`](ArtBrief/CARD-ART-PRODUCTION-DIRECTION.md) and work through [`ArtBrief/Card-Art-Consistency-Checklist.csv`](ArtBrief/Card-Art-Consistency-Checklist.csv). The new N06 Fisher pair is the identity-match regression check. Do not mark the catalog complete based on a few samples; all 161 rows and both runtime views need review.
+For the requested full illustration rework, read [`ArtBrief/CARD-ART-PRODUCTION-DIRECTION.md`](ArtBrief/CARD-ART-PRODUCTION-DIRECTION.md), [`ArtBrief/CHARACTER-IDENTITY-BIBLE.md`](ArtBrief/CHARACTER-IDENTITY-BIBLE.md), and work through [`ArtBrief/Card-Art-Consistency-Checklist.csv`](ArtBrief/Card-Art-Consistency-Checklist.csv). N06 Fisher and the four reviewed A-series pairs are identity-match checks. Do not mark the catalog complete based on a few samples; all 161 rows and both runtime views need review.

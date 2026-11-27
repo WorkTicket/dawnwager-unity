@@ -5,25 +5,25 @@ P03,The Sea Walks Inland,Prophecy,Assets/Resources/Art/CardFaces/P03.png,,Pendin
 P04,The Dead Knock,Prophecy,Assets/Resources/Art/CardFaces/P04.png,,Pending,Pending,Pending,Pending review
 P05,Bifröst Breaks,Prophecy,Assets/Resources/Art/CardFaces/P05.png,,Pending,Pending,Pending,Pending review
 P06,The Gates Burn,Prophecy,Assets/Resources/Art/CardFaces/P06.png,,Pending,Pending,Pending,Pending review
-A01,Bridge Squire,Unit,Assets/Resources/Art/CardFaces/A01.png,Assets/Resources/Art/BoardPortraits/A01.png,Pending,Pending,Pending,Pending review
-A02,Goldsmith’s Apprentice,Unit,Assets/Resources/Art/CardFaces/A02.png,Assets/Resources/Art/BoardPortraits/A02.png,Pending,Pending,Pending,Pending review
-A03,Raise the Shield,Order,Assets/Resources/Art/CardFaces/A03.png,,Pending,Pending,Pending,Pending review
-A04,Trumpet Call,Order,Assets/Resources/Art/CardFaces/A04.png,,Pending,Pending,Pending,Pending review
-A05,Hall Spear,Unit,Assets/Resources/Art/CardFaces/A05.png,Assets/Resources/Art/BoardPortraits/A05.png,Pending,Pending,Pending,Pending review
-A06,Ringkeeper,Unit,Assets/Resources/Art/CardFaces/A06.png,Assets/Resources/Art/BoardPortraits/A06.png,Pending,Pending,Pending,Pending review
-A07,Sworn Formation,Order,Assets/Resources/Art/CardFaces/A07.png,,Pending,Pending,Pending,Pending review
-A08,Heimdall’s Lookout,Site,Assets/Resources/Art/CardFaces/A08.png,Assets/Resources/Art/BoardPortraits/A08.png,Pending,Pending,Pending,Pending review
-A09,Raven Standard,Unit,Assets/Resources/Art/CardFaces/A09.png,Assets/Resources/Art/BoardPortraits/A09.png,Pending,Pending,Pending,Pending review
-A10,Hall Healer,Unit,Assets/Resources/Art/CardFaces/A10.png,Assets/Resources/Art/BoardPortraits/A10.png,Pending,Pending,Pending,Pending review
+A01,Bridge Squire,Unit,Assets/Resources/Art/CardFaces/A01.png,Assets/Resources/Art/BoardPortraits/A01.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn draft installed; final review pending
+A02,Goldsmith’s Apprentice,Unit,Assets/Resources/Art/CardFaces/A02.png,Assets/Resources/Art/BoardPortraits/A02.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn draft installed; final review pending
+A03,Raise the Shield,Order,Assets/Resources/Art/CardFaces/A03.png,,N/A - Order,Pass - distinct card scene,Pending - needs human art director review,Redrawn draft installed; art review pending
+A04,Trumpet Call,Order,Assets/Resources/Art/CardFaces/A04.png,,N/A - Order,Pass - distinct card scene,Pending - needs human art director review,Redrawn draft installed; art review pending
+A05,Hall Spear,Unit,Assets/Resources/Art/CardFaces/A05.png,Assets/Resources/Art/BoardPortraits/A05.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn draft installed; final review pending
+A06,Ringkeeper,Unit,Assets/Resources/Art/CardFaces/A06.png,Assets/Resources/Art/BoardPortraits/A06.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn draft installed; final review pending
+A07,Sworn Formation,Order,Assets/Resources/Art/CardFaces/A07.png,,N/A - Order,Pass - distinct card scene,Pending - needs human art director review,Redrawn draft installed; art review pending
+A08,Heimdall’s Lookout,Site,Assets/Resources/Art/CardFaces/A08.png,Assets/Resources/Art/BoardPortraits/A08.png,Pass - same site/character,Pass - distinct card scene,Pending - needs human art director review,Redrawn site pair installed; art review pending
+A09,Raven Standard,Unit,Assets/Resources/Art/CardFaces/A09.png,Assets/Resources/Art/BoardPortraits/A09.png,Pass - same site/character,Pass - distinct card scene,Pending - needs human art director review,Redrawn pair installed; final review pending
+A10,Hall Healer,Unit,Assets/Resources/Art/CardFaces/A10.png,Assets/Resources/Art/BoardPortraits/A10.png,Pass - same site/character,Pass - distinct card scene,Pending - needs human art director review,Redrawn pair installed; final review pending
 A11,Hold the Span,Order,Assets/Resources/Art/CardFaces/A11.png,,Pending,Pending,Pending,Pending review
 A12,Gleaming Bolt,Order,Assets/Resources/Art/CardFaces/A12.png,,Pending,Pending,Pending,Pending review
-A13,Valkyrie Escort,Unit,Assets/Resources/Art/CardFaces/A13.png,Assets/Resources/Art/BoardPortraits/A13.png,Pending,Pending,Pending,Pending review
+A13,Valkyrie Escort,Unit,Assets/Resources/Art/CardFaces/A13.png,Assets/Resources/Art/BoardPortraits/A13.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn pair installed; final review pending
 A14,Einherjar Muster,Order,Assets/Resources/Art/CardFaces/A14.png,,Pending,Pending,Pending,Pending review
 A15,Bridge Tollhouse,Site,Assets/Resources/Art/CardFaces/A15.png,Assets/Resources/Art/BoardPortraits/A15.png,Pending,Pending,Pending,Pending review
 A16,Standing Sentence,Order,Assets/Resources/Art/CardFaces/A16.png,,Pending,Pending,Pending,Pending review
-A17,White-Hall Veteran,Unit,Assets/Resources/Art/CardFaces/A17.png,Assets/Resources/Art/BoardPortraits/A17.png,Pending,Pending,Pending,Pending review
+A17,White-Hall Veteran,Unit,Assets/Resources/Art/CardFaces/A17.png,Assets/Resources/Art/BoardPortraits/A17.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn pair installed; final review pending
 A18,Shieldwheel,Order,Assets/Resources/Art/CardFaces/A18.png,,Pending,Pending,Pending,Pending review
-A19,Hammer Retainer,Unit,Assets/Resources/Art/CardFaces/A19.png,Assets/Resources/Art/BoardPortraits/A19.png,Pending,Pending,Pending,Pending review
+A19,Hammer Retainer,Unit,Assets/Resources/Art/CardFaces/A19.png,Assets/Resources/Art/BoardPortraits/A19.png,Pass - same character,Pass - distinct compositions,Pending - needs human art director review,Redrawn pair installed; final review pending
 A20,The Allfather’s Price,Order,Assets/Resources/Art/CardFaces/A20.png,,Pending,Pending,Pending,Pending review
 A21,Gate of Horn,Unit,Assets/Resources/Art/CardFaces/A21.png,Assets/Resources/Art/BoardPortraits/A21.png,Pending,Pending,Pending,Pending review
 A22,Bifröst Cavalry,Unit,Assets/Resources/Art/CardFaces/A22.png,Assets/Resources/Art/BoardPortraits/A22.png,Pending,Pending,Pending,Pending review
