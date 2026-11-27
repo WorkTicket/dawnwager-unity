@@ -53,7 +53,7 @@ namespace Wolfsun
         }
 
         /// <summary>The attacker leaves its tile, winds up, lunges at the target, freezes a beat on impact, then returns.</summary>
-        private IEnumerator StrikeLunge(RectTransform layer, string art, Vector2 from, Vector2 to, RectTransform realTile, Color accent)
+        private IEnumerator StrikeLunge(RectTransform layer, string art, Vector2 from, Vector2 to, RectTransform realTile, Color accent, Card striker = null, RectTransform victimTile = null)
         {
             if (!layer || reduceMotion) yield break;
             CanvasGroup realGroup = null;
@@ -92,8 +92,7 @@ namespace Wolfsun
                 holder.localRotation = Quaternion.Euler(0, 0, -dir.x * 9f * k);
                 yield return null;
             }
-            StartCoroutine(Burst(layer, to, accent, 9, 260f));
-            StartCoroutine(Shake(7f));
+            StartCoroutine(StrikeImpact(layer, to, accent, striker, dir, victimTile));
             UiSound("unit-hit");
             yield return new WaitForSecondsRealtime(.06f); // hit-stop
             for (float t = 0; t < .26f && holder; t += Time.unscaledDeltaTime)
@@ -203,6 +202,70 @@ namespace Wolfsun
                 yield return null;
             }
             if (holder) Destroy(holder.gameObject);
+        }
+
+        /// <summary>The moment of contact: a weapon slash across the target, a shockwave, faction sparks and a recoil on the victim.</summary>
+        private IEnumerator StrikeImpact(RectTransform layer, Vector2 at, Color accent, Card striker, Vector2 dir, RectTransform victimTile)
+        {
+            if (!layer || reduceMotion) yield break;
+            int power = striker != null ? Mathf.Clamp(striker.Attack, 1, 9) : 3;
+            float weight = Mathf.Lerp(7f, 15f, power / 9f);
+            StartCoroutine(Shake(weight));
+            StartCoroutine(Burst(layer, at, accent, 8 + power, 240f + power * 25f));
+            StartCoroutine(RingFx(layer, at, 30f, 180f + power * 14f, accent, .32f, 0f));
+            StartCoroutine(Flash(layer, at, 240f + power * 18f, Color.white, .16f));
+            // Two crossing slash arcs, angled along the line of attack.
+            float baseAngle = Mathf.Atan2(dir.y, dir.x);
+            var bars = new List<RectTransform>();
+            for (int i = 0; i < 2; i++)
+            {
+                float a = baseAngle + (i == 0 ? .9f : -.9f);
+                var d = new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * (110f + power * 8f);
+                bars.Add(Bar(layer, at - d, at + d, 10f, new Color(accent.r, accent.g, accent.b, .75f)));
+                bars.Add(Bar(layer, at - d, at + d, 3f, Color.white));
+            }
+            StartCoroutine(FadeBars(bars, .03f, .2f));
+            if (victimTile) StartCoroutine(Recoil(victimTile, dir, weight));
+            // Faction flavour on top of the generic spark burst.
+            if (striker != null)
+            {
+                var list = new List<Spark>();
+                StartCoroutine(RunSparks(list, .9f));
+                var pal = Pal(striker.Faction);
+                for (int i = 0; i < 8; i++)
+                {
+                    Vector2 v = Random.insideUnitCircle * 260f + dir * 160f;
+                    switch (striker.Faction)
+                    {
+                        case 'J': Emit(list, layer, at, v, .5f, 24f, 4f, pal[1], pal[0], -200f, 0f, true); break;
+                        case 'H': Emit(list, layer, at, new Vector2(v.x * .3f, Mathf.Abs(v.y) * .6f + 40f), .8f, 34f, 8f, pal[0], new Color(pal[1].r, pal[1].g, pal[1].b, 0f)); break;
+                        case 'L': Emit(list, layer, at, v, .55f, 26f, 5f, pal[0], pal[1], 0f, 0f, true); break;
+                        case 'A': Emit(list, layer, at, v * 1.2f, .3f, 28f, 3f, Color.white, pal[1], 0f, 0f, true); break;
+                        default: Emit(list, layer, at, v, .5f, 22f, 4f, pal[1], pal[0], -420f, 0f, true); break;
+                    }
+                }
+            }
+        }
+
+        /// <summary>The struck tile is knocked back along the blow, flashes red, and settles.</summary>
+        private IEnumerator Recoil(RectTransform tile, Vector2 dir, float weight)
+        {
+            if (!tile) yield break;
+            Vector2 home = tile.anchoredPosition;
+            var flash = ColorBox(tile, "Hit flash", 0, 0, tile.rect.width, tile.rect.height, new Color(1f, .15f, .1f, .45f));
+            var image = flash.GetComponent<Image>();
+            if (image) image.raycastTarget = false;
+            const float duration = .3f;
+            for (float t = 0; t < duration && tile; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                float kick = Mathf.Sin(k * Mathf.PI) * (1f - k);
+                tile.anchoredPosition = home + new Vector2(dir.x, dir.y) * weight * 2.4f * kick + new Vector2(Mathf.Sin(t * 70f), 0f) * weight * .35f * (1f - k);
+                if (image) image.color = new Color(1f, .15f, .1f, .45f * (1f - k));
+                yield return null;
+            }
+            if (tile) tile.anchoredPosition = home;
+            if (flash) Destroy(flash.gameObject);
         }
     }
 }

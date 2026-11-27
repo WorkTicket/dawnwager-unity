@@ -113,7 +113,7 @@ namespace Wolfsun
                 if (Contains(target.Area, at)) return target.Move;
             foreach (var target in dragTargets.Where(t => t.Move.Target == 0))
                 if (Contains(target.Area, at)) return target.Move;
-            if (dropMove != null && at.y < 780 && at.y > 150 && at.x > 280 && at.x < 1640) return dropMove;
+            if (dropMove != null && at.y < 780 && at.y > 150 && at.x > 290 && at.x < 1630) return dropMove;
             return null;
         }
 

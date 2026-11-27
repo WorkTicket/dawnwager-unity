@@ -22,12 +22,12 @@ namespace Wolfsun
         private static readonly Color AllySage = new Color32(180, 211, 193, 255);
         private static readonly Color Quiet = new Color32(179, 188, 180, 255);
 
-        private static readonly int[] LaneX = { 270, 990 };
+        private static readonly int[] LaneX = { 300, 1040 };
         private readonly Dictionary<int, RectTransform> battlePieces = new Dictionary<int, RectTransform>();
         private readonly RectTransform[] heroBadges = new RectTransform[2];
         private bool showRules, presenting, reduceMotion, canAct;
         private const int TableY = 158;
-        private const int LaneWidth = 660;
+        private const int LaneWidth = 580;
         private const float HandBaseY = 777f;
         private const int HandCardW = 204;
         private const int HandCardH = 289;
@@ -56,8 +56,8 @@ namespace Wolfsun
             DrawPiles();
             BoardLane(0, choices);
             BoardLane(1, choices);
-            PlayerBadge(1, 16, Hero.Info(match.Players[1].Hero).Name, choices);
-            PlayerBadge(0, 452, Hero.Info(match.Players[0].Hero).Name, choices);
+            PlayerBadge(1, 112, Hero.Info(match.Players[1].Hero).Name, choices);
+            PlayerBadge(0, 524, Hero.Info(match.Players[0].Hero).Name, choices);
             DrawChargeRow();
             DrawHeroPower();
             DrawLeftHud();
@@ -189,7 +189,8 @@ namespace Wolfsun
         private void PlayerBadge(int side, float y, string name, Move[] choices)
         {
             var pilot = match.Players[side];
-            var badge = Box(root, "Hero " + side, 1700, y, 210, 270);
+            var badge = Box(root, "Hero " + side, 880, y, 210, 270);
+            badge.localScale = Vector3.one * .78f; // heroes face each other down the centre of the table
             heroBadges[side] = badge;
             bool strike = side == 1 && choices.Any(m => m.Kind == ActionKind.Attack && m.Target == 0);
             Shade(badge, 10, 176, 170, 34, new Color(0, 0, 0, .8f));

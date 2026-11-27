@@ -69,23 +69,50 @@ namespace Wolfsun
             QueuePhaseFeedback(layer, oldRound, oldTurn, move);
             foreach (var prophecy in pendingProphecies)
                 if (prophecy.Spent)
+                {
+                    StartCoroutine(ProphecyFx(layer, prophecy.Card.Id));
+                    StartCoroutine(DelayedBanner(layer, "Prophecy", prophecy.Card.Name, Gold, 1.4f, 0f));
                     StartCoroutine(ResolveArt(layer, prophecy.Card.Id, new Vector2(960, -520), 650));
+                }
             Color accent = side == 0 ? Gold : EnemyCopper;
             float feedbackDelay = 0f;
             if (played != null && handFrom.HasValue && !reduceMotion)
             {
-                StartCoroutine(CardSlam(layer, played, handFrom.Value, impactAt, accent));
-                feedbackDelay = .66f;
-                if (played.Kind == Kind.Unit || played.Kind == Kind.Site)
+                if (played.Kind == Kind.Order)
+                {
+                    var kind = PickFx(played);
+                    Vector2 caster = heroBadges[side] ? CenterAnchored(heroBadges[side]) : handFrom.Value;
+                    Vector2 spellAt = impactAt;
+                    int foe = 1 - side;
+                    if (move.Target == 0 && move.Lane < 0)
+                    {
+                        int owner = WantsOwnHero(kind) ? side : foe;
+                        if (heroBadges[owner]) spellAt = CenterAnchored(heroBadges[owner]);
+                    }
+                    StartCoroutine(CardSlam(layer, played, handFrom.Value, spellAt, accent));
+                    StartCoroutine(DelayedSpell(layer, played, caster, spellAt, .46f));
+                    feedbackDelay = .46f + ImpactDelay(kind) + .06f;
+                }
+                else
+                {
+                    StartCoroutine(CardSlam(layer, played, handFrom.Value, impactAt, accent));
+                    feedbackDelay = .66f;
                     foreach (var fresh in match.Units().Where(u => !snap.Hp.ContainsKey(u.Key)))
-                        if (battlePieces.TryGetValue(fresh.Key, out var freshTile) && freshTile) StartCoroutine(SpawnReveal(freshTile, .66f));
+                        if (battlePieces.TryGetValue(fresh.Key, out var freshTile) && freshTile)
+                        {
+                            StartCoroutine(SpawnReveal(freshTile, .66f));
+                            StartCoroutine(DelayedEntrance(layer, played, CenterAnchored(freshTile), .66f));
+                        }
+                }
             }
             else if (played != null && played.Kind == Kind.Order)
                 StartCoroutine(ResolveArt(layer, played.Id, impactAt, 290));
             if (strike && actorFrom.HasValue && actorArt != null && !reduceMotion)
             {
                 battlePieces.TryGetValue(actor.Key, out var realTile);
-                StartCoroutine(StrikeLunge(layer, actorArt, actorFrom.Value, impactAt, realTile, accent));
+                RectTransform victimTile = null;
+                if (victim != null) battlePieces.TryGetValue(victim.Key, out victimTile);
+                StartCoroutine(StrikeLunge(layer, actorArt, actorFrom.Value, impactAt, realTile, Pal(actor.Card.Faction)[0], actor.Card, victimTile));
                 feedbackDelay = .21f;
             }
             else if (impactCard != null && played == null) StartCoroutine(CardImpact(layer, impactCard, impactAt, strike));

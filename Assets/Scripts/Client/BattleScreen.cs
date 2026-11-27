@@ -143,7 +143,7 @@ namespace Wolfsun
                 while((settings||showRules||presenting)&&page==Page.Battle)yield return null;
                 var move=match.ChooseAI(1, tutorialMatch ? 0 : Mathf.Clamp(profile.aiDifficulty, 0, 2));
                 bool resolved=move!=null&&ResolveWithMotion(1,move);
-                if(resolved)yield return new WaitForSecondsRealtime(move.Kind==ActionKind.Play?1.0f:move.Kind==ActionKind.Attack?.7f:.45f);
+                if(resolved)yield return new WaitForSecondsRealtime(move.Kind==ActionKind.Play?1.5f:move.Kind==ActionKind.Attack?.7f:.45f);
                 if(!resolved)
                 {
                     // Never leave the match stuck on the enemy's turn: fall back to passing.
