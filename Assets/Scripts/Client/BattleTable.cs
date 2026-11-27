@@ -423,7 +423,7 @@ namespace Wolfsun
         {
             ViewportShade("Opening shade", new Color(0, 0, 0, .72f));
             OutlinedText(root, "Your opening hand", 360, 120, 1200, 70, 54, Gold, true, TextAnchor.MiddleCenter, 28);
-            SafeText(root, "Click any cards you want to replace, then keep the rest.", 360, 190, 1200, 40, 26, White, false, TextAnchor.MiddleCenter, 16);
+            SafeText(root, "Click the cards you want to replace, then confirm.", 360, 190, 1200, 40, 26, White, false, TextAnchor.MiddleCenter, 16);
             var hand = match.Players[0].Hand;
             const int w = 330;
             int h = Mathf.RoundToInt(w * 590f / 416f);
@@ -433,14 +433,21 @@ namespace Wolfsun
             {
                 int slot = i;
                 bool swap = mulligan.Contains(i);
-                var rect = PaperCard(Catalog.Get(hand[i]), x0 + i * (w + 40), swap ? 250 : 220, w, h, Catalog.Get(hand[i]).Cost, !swap, root, false, null, swap);
+                float cx = x0 + i * (w + 40), cy = 220;
+                var rect = PaperCard(Catalog.Get(hand[i]), cx, cy, w, h, Catalog.Get(hand[i]).Cost, false, root, false);
+                if (swap)
+                {
+                    Pic(root, Foundry + "CardShadow", cx, cy, w, h, new Color(.5f, .05f, .08f, .62f));
+                    OutlinedText(root, "REPLACE", cx, cy + h / 2f - 40, w, 80, 44, new Color32(255, 170, 156, 255), true, TextAnchor.MiddleCenter, 24);
+                }
+                OutlinedText(root, swap ? "Click to keep" : "Keep", cx, cy + h + 12, w, 40, 28, swap ? Muted : AllySage, true, TextAnchor.MiddleCenter, 16);
                 Click(rect, () =>
                 {
                     UiSound("card-select");
                     if (!mulligan.Remove(slot)) mulligan.Add(slot);
                     Render();
                 }).transition = Selectable.Transition.None;
-                BindPreview(rect, hand[i], null);
+                HoverCue(rect);
             }
             string keep = mulligan.Count == 0 ? "Keep Hand" : "Replace " + mulligan.Count + (mulligan.Count == 1 ? " Card" : " Cards");
             TableButton(keep, 760, 940, 400, 80, () => FinishOpening(), true, true);

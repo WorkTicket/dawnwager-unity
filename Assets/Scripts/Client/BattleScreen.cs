@@ -141,9 +141,17 @@ namespace Wolfsun
                 yield return new WaitForSecondsRealtime(.64f);
                 while((settings||showRules||presenting)&&page==Page.Battle)yield return null;
                 var move=match.ChooseAI(1, tutorialMatch ? 0 : Mathf.Clamp(profile.aiDifficulty, 0, 2));
-                if(move==null||!ResolveWithMotion(1,move))break;
+                if(move==null||!ResolveWithMotion(1,move))
+                {
+                    // Never leave the match stuck on the enemy's turn: fall back to passing.
+                    if(match.Turn==1&&match.Winner<0)match.Apply(1,new Move(ActionKind.Pass));
+                    break;
+                }
             }
             ai=false;
+            presenting=false;
+            // The last enemy move re-rendered while ai was still set, so redraw now that it is the player's turn.
+            if(page==Page.Battle&&match!=null)Render();
             if(match.Winner>=0)Schedule();
         }
         private IEnumerator ShowResult()
