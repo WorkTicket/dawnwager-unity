@@ -71,6 +71,7 @@ namespace Wolfsun
                 quest.claimed = true;
                 profile.embers += quest.rewardEmbers;
                 status = "Daily complete · +" + quest.rewardEmbers + " Embers";
+                Toast("Quest complete", quest.label + " · +" + quest.rewardEmbers + " Embers", Gold);
                 UnlockAchievement("daily_" + id);
             }
         }
@@ -79,6 +80,8 @@ namespace Wolfsun
         {
             if (profile.unlockedAchievements.Contains(id)) return;
             profile.unlockedAchievements = profile.unlockedAchievements.Concat(new[] { id }).ToArray();
+            var named = AchievementList.FirstOrDefault(a => a.id == id);
+            if (named.id != null) Toast("Achievement", named.name + " — " + named.text, AllySage);
         }
 
         private void RecordMatchEnd(bool won, bool wasDuel, int sealsDelta)
