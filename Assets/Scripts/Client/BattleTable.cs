@@ -310,7 +310,13 @@ namespace Wolfsun
             if (piece == null || piece.Side != 0 || !canAct) return;
             if (choosing && selected == ActionKind.Attack && cursor == piece.Key) { CancelSelection(); return; }
             bool any = match.Legal(0).Any(m => (m.Kind == ActionKind.Attack || m.Kind == ActionKind.March) && m.Slot == piece.Key);
-            if (!any) { UiSound("deny"); return; }
+            if (!any)
+            {
+                UiSound("deny");
+                status = piece.Card.Name + (piece.Spent ? " has already acted this round." : " cannot act yet.");
+                Render();
+                return;
+            }
             selected = ActionKind.Attack; cursor = piece.Key; choosing = true;
             UiSound("card-select");
             Render();

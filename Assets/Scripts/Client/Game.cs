@@ -175,6 +175,7 @@ namespace Wolfsun
             var keyboard = Keyboard.current;
             if (keyboard != null && keyboard.f11Key.wasPressedThisFrame) ToggleFullscreen();
             if (keyboard != null) BattleKeys(keyboard);
+            if (dragLayer != null) RefreshDrag();
             if (keyboard == null || !keyboard.escapeKey.wasPressedThisFrame || presenting) return;
             if(dragLayer){CancelDrag();return;}
             if(showRules){showRules=false;Render();return;}

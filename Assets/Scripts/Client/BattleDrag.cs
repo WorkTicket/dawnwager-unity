@@ -69,20 +69,41 @@ namespace Wolfsun
             carriedCard.pivot = new Vector2(.5f, .5f);
             var at = PointerInRoot(root, e);
             carriedCard.anchoredPosition = new Vector2(at.x, -at.y);
+            lastDragAt = at;
             UiSound("card-select");
         }
+
+        private Vector2 lastDragAt;
 
         private void ContinueHandDrag(PointerEventData e)
         {
             if (dragLayer == null || e.pointerId != dragPointer) return;
-            var at = PointerInRoot(root, e);
+            lastDragAt = PointerInRoot(root, e);
+            RefreshDrag();
+        }
+
+        private static Color BaseGlow(Move move) =>
+            move.Kind == ActionKind.Attack ? new Color(1f, .4f, .32f, .26f)
+            : move.Kind == ActionKind.March ? new Color(.6f, .8f, 1f, .16f)
+            : move.Target != 0 ? new Color(1f, .8f, .4f, .24f) : new Color(.7f, .9f, .75f, .16f);
+
+        /// <summary>Runs every frame while dragging: moves the carried card or aim chain and pulses every legal target.</summary>
+        private void RefreshDrag()
+        {
+            if (dragLayer == null) return;
+            var at = lastDragAt;
             if (carriedCard != null) carriedCard.anchoredPosition = new Vector2(at.x, -at.y);
-            if (dragArrow != null) AimArrow(at);
             var hit = DropTargetAt(at);
+            float pulse = .5f + .5f * Mathf.Sin(Time.unscaledTime * 5f);
             foreach (var target in dragTargets)
-                if (target.Glow) target.Glow.color = hit != null && target.Move == hit
-                    ? new Color(1f, .85f, .4f, .42f)
-                    : (target.Move.Target != 0 ? new Color(1, .8f, .4f, .22f) : new Color(.7f, .9f, .75f, .16f));
+            {
+                if (!target.Glow) continue;
+                var c = BaseGlow(target.Move);
+                bool hovered = hit != null && target.Move == hit;
+                c.a = hovered ? .5f : c.a * (.75f + .5f * pulse);
+                target.Glow.color = c;
+            }
+            if (dragArrow != null) AimArrow(at, hit);
         }
 
         private Move DropTargetAt(Vector2 at)
@@ -170,22 +191,59 @@ namespace Wolfsun
                 }
             }
             arrowFrom = RootCenter(tile);
-            dragArrow = Box(dragLayer, "Aim", arrowFrom.x, arrowFrom.y, 10, 10);
-            dragArrow.pivot = new Vector2(0, .5f);
-            var arrowImage = dragArrow.gameObject.AddComponent<Image>();
-            arrowImage.color = new Color(Gold.r, Gold.g, Gold.b, .9f);
-            arrowImage.raycastTarget = false;
-            AimArrow(PointerInRoot(root, e));
+            var ring = Pic(dragLayer, Foundry + "UnitTokenGlow", arrowFrom.x - tile.rect.width / 2f - 18, arrowFrom.y - tile.rect.height / 2f - 18, tile.rect.width + 36, tile.rect.height + 36, Gold);
+            ring.raycastTarget = false;
+            dragArrow = Box(dragLayer, "Aim", 0, 0, 1, 1);
+            aimDots.Clear();
+            for (int i = 0; i < AimDotCount; i++)
+            {
+                var dot = Pic(dragArrow, "Gen/Shadow", 0, 0, 30, 30, Gold);
+                dot.raycastTarget = false;
+                dot.rectTransform.pivot = new Vector2(.5f, .5f);
+                aimDots.Add(dot.rectTransform);
+            }
+            aimHead = Pic(dragArrow, Foundry + "TargetNode", 0, 0, 84, 84, Gold).rectTransform;
+            aimHead.pivot = new Vector2(.5f, .5f);
+            aimHead.GetComponent<RawImage>().raycastTarget = false;
+            lastDragAt = PointerInRoot(root, e);
+            RefreshDrag();
             UiSound("card-select");
         }
 
-        private void AimArrow(Vector2 at)
+        private const int AimDotCount = 18;
+        private readonly List<RectTransform> aimDots = new List<RectTransform>();
+        private RectTransform aimHead;
+
+        /// <summary>A curved chain of growing beads that ends in a reticle. It snaps to a valid target and turns red over an attack.</summary>
+        private void AimArrow(Vector2 at, Move hit)
         {
-            if (!dragArrow) return;
-            Vector2 d = at - arrowFrom;
-            dragArrow.anchoredPosition = new Vector2(arrowFrom.x, -arrowFrom.y);
-            dragArrow.sizeDelta = new Vector2(Mathf.Max(4, d.magnitude), 10);
-            dragArrow.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(-d.y, d.x) * Mathf.Rad2Deg);
+            if (!dragArrow || aimHead == null) return;
+            Vector2 end = at;
+            if (hit != null)
+                foreach (var target in dragTargets)
+                    if (target.Move == hit && target.Area) { end = RootCenter(target.Area); break; }
+            Vector2 mid = (arrowFrom + end) * .5f;
+            float lift = Mathf.Min(150f, (end - arrowFrom).magnitude * .28f);
+            Vector2 control = mid + new Vector2(0, -lift);
+            Color tint = hit == null ? new Color(Gold.r, Gold.g, Gold.b, .85f)
+                : hit.Kind == ActionKind.Attack ? new Color(1f, .36f, .3f, 1f) : new Color(.6f, .9f, 1f, 1f);
+            float time = Time.unscaledTime;
+            for (int i = 0; i < aimDots.Count; i++)
+            {
+                float t = (i + 1f) / (aimDots.Count + 1f);
+                Vector2 p = (1 - t) * (1 - t) * arrowFrom + 2 * (1 - t) * t * control + t * t * end;
+                float wave = .5f + .5f * Mathf.Sin(time * 9f - i * .7f);
+                var dot = aimDots[i];
+                dot.anchoredPosition = new Vector2(p.x, -p.y);
+                dot.sizeDelta = Vector2.one * (14f + 26f * t) * (.9f + .2f * wave);
+                var image = dot.GetComponent<RawImage>();
+                if (image) image.color = new Color(tint.r, tint.g, tint.b, Mathf.Lerp(.35f, .95f, t));
+            }
+            aimHead.anchoredPosition = new Vector2(end.x, -end.y);
+            aimHead.localScale = Vector3.one * (hit != null ? 1.25f + .08f * Mathf.Sin(time * 8f) : 1f);
+            aimHead.localRotation = Quaternion.Euler(0, 0, time * 40f);
+            var headImage = aimHead.GetComponent<RawImage>();
+            if (headImage) headImage.color = tint;
         }
     }
 }
