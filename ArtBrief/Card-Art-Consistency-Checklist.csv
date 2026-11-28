@@ -70,13 +70,13 @@ J14,Snowline Ambush,Order,Assets/Resources/Art/CardFaces/J14.png,,Pending,Pendin
 J15,Slopes of Élivágar,Site,Assets/Resources/Art/CardFaces/J15.png,Assets/Resources/Art/BoardPortraits/J15.png,Pending,Pending,Pending,Pending review
 J16,Raider of the Old Road,Unit,Assets/Resources/Art/CardFaces/J16.png,Assets/Resources/Art/BoardPortraits/J16.png,Pending,Pending,Pending,Pending review
 J17,Boulder Cast,Order,Assets/Resources/Art/CardFaces/J17.png,,Pending,Pending,Pending,Pending review
-J18,Mountain-Back Bear,Unit,Assets/Resources/Art/CardFaces/J18.png,Assets/Resources/Art/BoardPortraits/J18.png,Pending,Pending,Pending,Pending review
-J19,Ironwood Brood,Unit,Assets/Resources/Art/CardFaces/J19.png,Assets/Resources/Art/BoardPortraits/J19.png,Pending,Pending,Pending,Pending review
+J18,Mountain-Back Bear,Unit,Assets/Resources/Art/CardFaces/J18.png,Assets/Resources/Art/BoardPortraits/J18.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+J19,Ironwood Brood,Unit,Assets/Resources/Art/CardFaces/J19.png,Assets/Resources/Art/BoardPortraits/J19.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 J20,The Avalanche Comes,Order,Assets/Resources/Art/CardFaces/J20.png,,Pending,Pending,Pending,Pending review
-J21,Hrim’s Hammer,Unit,Assets/Resources/Art/CardFaces/J21.png,Assets/Resources/Art/BoardPortraits/J21.png,Pending,Pending,Pending,Pending review
+J21,Hrim’s Hammer,Unit,Assets/Resources/Art/CardFaces/J21.png,Assets/Resources/Art/BoardPortraits/J21.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 J22,Fire on the Snow,Order,Assets/Resources/Art/CardFaces/J22.png,,Pending,Pending,Pending,Pending review
-J23,"Fenrir, Chainbreaker",Unit,Assets/Resources/Art/CardFaces/J23.png,Assets/Resources/Art/BoardPortraits/J23.png,Pending,Pending,Pending,Pending review
-J24,"Surtr, the Coming Fire",Unit,Assets/Resources/Art/CardFaces/J24.png,Assets/Resources/Art/BoardPortraits/J24.png,Pending,Pending,Pending,Pending review
+J23,"Fenrir, Chainbreaker",Unit,Assets/Resources/Art/CardFaces/J23.png,Assets/Resources/Art/BoardPortraits/J23.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+J24,"Surtr, the Coming Fire",Unit,Assets/Resources/Art/CardFaces/J24.png,Assets/Resources/Art/BoardPortraits/J24.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H01,Grave Candle Bearer,Unit,Assets/Resources/Art/CardFaces/H01.png,Assets/Resources/Art/BoardPortraits/H01.png,Pending,Pending,Pending,Pending review
 H02,Knock Once,Order,Assets/Resources/Art/CardFaces/H02.png,,Pending,Pending,Pending,Pending review
 H03,Record of the Dead,Site,Assets/Resources/Art/CardFaces/H03.png,Assets/Resources/Art/BoardPortraits/H03.png,Pending,Pending,Pending,Pending review
