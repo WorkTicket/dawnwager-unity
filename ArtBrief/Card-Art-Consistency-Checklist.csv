@@ -86,14 +86,14 @@ H06,Threshold Warden,Unit,Assets/Resources/Art/CardFaces/H06.png,Assets/Resource
 H07,Pay the Ferrier,Order,Assets/Resources/Art/CardFaces/H07.png,,Pending,Pending,Pending,Pending review
 H08,House of Names,Site,Assets/Resources/Art/CardFaces/H08.png,Assets/Resources/Art/BoardPortraits/H08.png,Pending,Pending,Pending,Pending review
 H09,The Kindly Dead,Unit,Assets/Resources/Art/CardFaces/H09.png,Assets/Resources/Art/BoardPortraits/H09.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
-H10,Bone Listener,Unit,Assets/Resources/Art/CardFaces/H10.png,Assets/Resources/Art/BoardPortraits/H10.png,Pending,Pending,Pending,Pending review
+H10,Bone Listener,Unit,Assets/Resources/Art/CardFaces/H10.png,Assets/Resources/Art/BoardPortraits/H10.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H11,Call by Name,Order,Assets/Resources/Art/CardFaces/H11.png,,Pending,Pending,Pending,Pending review
 H12,Take the Empty Seat,Order,Assets/Resources/Art/CardFaces/H12.png,,Pending,Pending,Pending,Pending review
-H13,Mound-Crossing Guide,Unit,Assets/Resources/Art/CardFaces/H13.png,Assets/Resources/Art/BoardPortraits/H13.png,Pending,Pending,Pending,Pending review
+H13,Mound-Crossing Guide,Unit,Assets/Resources/Art/CardFaces/H13.png,Assets/Resources/Art/BoardPortraits/H13.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H14,Unfinished Work,Order,Assets/Resources/Art/CardFaces/H14.png,,Pending,Pending,Pending,Pending review
-H15,Witness to Winter,Unit,Assets/Resources/Art/CardFaces/H15.png,Assets/Resources/Art/BoardPortraits/H15.png,Pending,Pending,Pending,Pending review
+H15,Witness to Winter,Unit,Assets/Resources/Art/CardFaces/H15.png,Assets/Resources/Art/BoardPortraits/H15.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H16,Quiet Hall,Site,Assets/Resources/Art/CardFaces/H16.png,Assets/Resources/Art/BoardPortraits/H16.png,Pending,Pending,Pending,Pending review
-H17,Barrow Bailiff,Unit,Assets/Resources/Art/CardFaces/H17.png,Assets/Resources/Art/BoardPortraits/H17.png,Pending,Pending,Pending,Pending review
+H17,Barrow Bailiff,Unit,Assets/Resources/Art/CardFaces/H17.png,Assets/Resources/Art/BoardPortraits/H17.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H18,Gates Open Below,Order,Assets/Resources/Art/CardFaces/H18.png,,Pending,Pending,Pending,Pending review
 H19,Procession of Names,Unit,Assets/Resources/Art/CardFaces/H19.png,Assets/Resources/Art/BoardPortraits/H19.png,Pending,Pending,Pending,Pending review
 H20,Death Takes Attendance,Order,Assets/Resources/Art/CardFaces/H20.png,,Pending,Pending,Pending,Pending review
