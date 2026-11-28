@@ -1,4 +1,4 @@
-Warning: truncated output (original token count: 8457)
+Warning: truncated output (original token count: 8556)
 Total output lines: 162
 
 Card ID,Card name,Kind,Card face,Board art,Face/board identity reviewed,Unique pose reviewed,Human-style art QA,Status
@@ -42,7 +42,7 @@ M07,Lantern Line,Order,Assets/Resources/Art/CardFaces/M07.png,,Pending,Pending,P
 M08,Eastbound Refuge,Site,Assets/Resources/Art/CardFaces/M08.png,Assets/Resources/Art/BoardPortraits/M08.png,Pass - matching site structure; separate views,Pass - card scene and board site asset are distinct views,Pending - needs human art director review,Redrawn site pair installed; final human art review pending
 M09,Ferry Militia,Unit,Assets/Resources/Art/CardFaces/M09.png,Assets/Resources/Art/BoardPortraits/M09.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 M10,First Across,Unit,Assets/Resources/Art/CardFaces/M10.png,Assets/Resources/Art/BoardPortraits/M10.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
-M11,The Last Longship,Order,Ass…3457 tokens truncated…ending,Pending,Pending review
+M11,The Last Longship,Order,Ass…3556 tokens truncated…led; human art review pending
 H17,Barrow Bailiff,Unit,Assets/Resources/Art/CardFaces/H17.png,Assets/Resources/Art/BoardPortraits/H17.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H18,Gates Open Below,Order,Assets/Resources/Art/CardFaces/H18.png,,N/A - Order,Pass - distinct scene,Pending - human art director review,Redrawn Order illustration; human art review pending
 H19,Procession of Names,Unit,Assets/Resources/Art/CardFaces/H19.png,Assets/Resources/Art/BoardPortraits/H19.png,Pass - same character/group identity; separate view and pose,Pass - card scene and board cutout differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
