@@ -145,7 +145,7 @@ namespace Wolfsun
         }
 
         private RectTransform CirclePortrait(Transform parent, string artPath, float x, float y, float size,
-            string frameArt = null, Color? spentTint = null)
+            string frameArt = null, Color? spentTint = null, bool cropToFace = true)
         {
             var holder = Box(parent, "portrait", x, y, size, size);
             bool framed = !string.IsNullOrEmpty(frameArt);
@@ -163,8 +163,9 @@ namespace Wolfsun
             {
                 // Busts have the face near the top: scale down and sit lower so the circle never clips it.
                 Backdrop(disc, 0, 0, d, d, new Color(.31f, .45f, .62f, 1f), true);
-                float s = d * 1.22f;
-                CoverSafe(disc, artPath, (d - s) / 2f, d * .03f, s, s, spentTint ?? Color.white);
+                float s = cropToFace ? d * 1.22f : d;
+                float top = cropToFace ? d * .03f : 0f;
+                CoverSafe(disc, artPath, (d - s) / 2f, top, s, s, spentTint ?? Color.white);
                 Pic(holder, frameArt, 0, 0, size, size);
             }
             else CoverSafe(disc, artPath, 0, 0, d, d, spentTint ?? Color.white);

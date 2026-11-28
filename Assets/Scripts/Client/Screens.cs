@@ -106,7 +106,7 @@ namespace Wolfsun
             ChromePanel(root, "Wallet", 1500, 22, 380, 56, "Panel");
             Pic(root, Foundry + "Attack", 1516, 30, 40, 40);
             Label(root, profile.embers + " Embers", 1564, 22, 300, 56, 24, Gold, true, TextAnchor.MiddleLeft);
-            CirclePortrait(root, HeroArt(profile.hero), 1418, 18, 64);
+            CirclePortrait(root, HeroArt(profile.hero), 1418, 18, 64, HeroFrameArt(profile.hero));
             Label(root, hero.Name, 1170, 24, 232, 28, 21, White, true, TextAnchor.MiddleRight);
             Label(root, Ladder.DisplayName(profile.ladderAbsolute, profile.legendPlace), 1170, 52, 232, 24, 15, Muted, false, TextAnchor.MiddleRight);
 

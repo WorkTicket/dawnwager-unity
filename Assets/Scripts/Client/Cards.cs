@@ -33,7 +33,7 @@ namespace Wolfsun
         {
             switch (card.Kind)
             {
-                case Kind.Unit: return "Units/" + (card.Id == "X11" ? "X02" : card.Id);
+                case Kind.Unit: return "Units/" + card.Id;
                 case Kind.Order: return "Orders/" + card.Id;
                 default: return "Places/" + card.Id;
             }

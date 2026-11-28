@@ -156,7 +156,7 @@ namespace Wolfsun
                 bool current = profile.hero == hero.Id;
                 string id = hero.Id;
                 float hx = 1416 + i * 94;
-                var portrait = CirclePortrait(root, HeroArt(hero.Id), hx, 286, 84, Foundry + "HeroFrame", unlocked ? Color.white : new Color(.3f, .3f, .35f, 1f));
+                var portrait = CirclePortrait(root, HeroArt(hero.Id), hx, 286, 84, HeroFrameArt(hero.Id), unlocked ? Color.white : new Color(.3f, .3f, .35f, 1f));
                 Click(portrait, () => ChooseHero(id), unlocked).transition = Selectable.Transition.None;
                 if (current) Pic(root, Foundry + "UnitTokenGlow", hx - 6, 280, 96, 96, Gold);
             }

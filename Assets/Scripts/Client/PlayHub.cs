@@ -63,7 +63,7 @@ namespace Wolfsun
             // --- deck bar
             ChromePanel(root, "Deck bar", 110, 700, 1700, 190, "Panel");
             var hero = Hero.Info(profile.hero);
-            CirclePortrait(root, HeroArt(profile.hero), 130, 716, 150);
+            CirclePortrait(root, HeroArt(profile.hero), 130, 716, 150, HeroFrameArt(profile.hero));
             OutlinedText(root, hero.Name + " · " + hero.Title, 300, 716, 600, 44, 30, Gold, true, TextAnchor.MiddleLeft, 16);
             bool legal = Campaign.LegalDeck(profile.deck, owned);
             Label(root, legal ? "Deck ready · 30 cards" : "Your deck is not legal", 300, 762, 500, 30, 20, legal ? AllySage : EnemyCopper, false);
