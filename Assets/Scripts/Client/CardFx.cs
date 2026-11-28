@@ -216,11 +216,11 @@ namespace Wolfsun
 
         private IEnumerator DelayedSpell(RectTransform layer, Card card, Vector2 from, Vector2 to, float delay)
         {
-            yield return new WaitForSecondsRealtime(delay);
-            if (!layer || match == null || page != Page.Battle) yield break;
+            if (delay > 0f) yield return new WaitForSecondsRealtime(delay);
+            if (!layer || match == null || page != Page.Battle || reduceMotion) yield break;
             // Use the mapped transparent atlas for this exact card when it has been imported.
             // The existing tailored procedural spell remains the safe fallback during art setup.
-            if (TryStartCardVfx(layer, card.Id, to, new Vector2(460f, 460f))) yield break;
+            if (TryStartCardVfx(layer, card.Id, to, new Vector2(280f, 280f))) yield break;
             string r = card.Rules ?? "";
             bool wide = r.Contains("Choose a lane") || r.Contains("every unit") || r.Contains("all ");
             var kind = PickFx(card);
@@ -575,9 +575,10 @@ namespace Wolfsun
 
         private IEnumerator DelayedEntrance(RectTransform layer, Card card, Vector2 at, float delay)
         {
-            yield return new WaitForSecondsRealtime(delay);
-            if (!layer || match == null || page != Page.Battle) yield break;
-            if (TryStartCardVfx(layer, card.Id, at, new Vector2(390f, 390f))) yield break;
+            if (delay > 0f) yield return new WaitForSecondsRealtime(delay);
+            if (!layer || match == null || page != Page.Battle || reduceMotion) yield break;
+            float width = card.Kind == Kind.Site ? 120f : 240f;
+            if (TryStartCardVfx(layer, card.Id, at, Vector2.one * width)) yield break;
             StartCoroutine(UnitEntranceFx(layer, card, at));
         }
 

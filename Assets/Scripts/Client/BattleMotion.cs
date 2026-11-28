@@ -31,10 +31,13 @@ namespace Wolfsun
             }
             else if (played != null)
             {
-                if (victim != null && battlePieces.TryGetValue(victim.Key, out var tile)) impactAt = CenterAnchored(tile);
+                if (victim != null)
+                    impactAt = battlePieces.TryGetValue(victim.Key, out var tile) && tile
+                        ? PieceEffectPoint(victim, tile) : LanePoint(victim.Side, victim.Lane);
                 else if (move.Lane >= 0) impactAt = LanePoint(side, move.Lane);
             }
             var snap = TakeSnap();
+            var previousPieces = new HashSet<int>(match.Board.Select(piece => piece.Key));
             Vector2? actorFrom = null;
             string actorArt = null;
             if (strike && actor != null)
@@ -42,6 +45,15 @@ namespace Wolfsun
                 if (battlePieces.TryGetValue(actor.Key, out var actorTile) && actorTile) actorFrom = CenterAnchored(actorTile);
                 actorArt = UnitArt(actor.Card.Id);
                 if (victim == null && heroBadges[1 - side]) impactAt = CenterAnchored(heroBadges[1 - side]) + new Vector2(-20, 40);
+            }
+            Vector2? handFrom = null;
+            if (move.Kind == ActionKind.Play && side == 0 && handPoints.TryGetValue(move.Slot, out var handRect) && handRect) handFrom = CenterAnchored(handRect);
+            else if (move.Kind == ActionKind.Play && side == 1) handFrom = new Vector2(960, -60);
+            var pendingProphecies = match.Prophecies.Where(prophecy => !prophecy.Spent).ToArray();
+            if (!match.Apply(side, move))
+            {
+                UiSound("deny");
+                return false;
             }
             if (side == 1)
             {
@@ -53,72 +65,70 @@ namespace Wolfsun
                 else if (move.Kind == ActionKind.Pass) line = "The enemy passes";
                 if (line != null) Callout(line, EnemyCopper);
             }
-            Vector2? handFrom = null;
-            if (move.Kind == ActionKind.Play && side == 0 && handPoints.TryGetValue(move.Slot, out var handRect) && handRect) handFrom = CenterAnchored(handRect);
-            else if (move.Kind == ActionKind.Play && side == 1) handFrom = new Vector2(960, -60);
-            var pendingProphecies = match.Prophecies.Where(prophecy => !prophecy.Spent).ToArray();
-            if (!match.Apply(side, move))
-            {
-                UiSound("deny");
-                return false;
-            }
             MixLog();
             choosing = false; selected = ActionKind.Pass; cursor = -1;
             Render();
             var layer = CardAnimationLayer();
             QueuePhaseFeedback(layer, oldRound, oldTurn, move);
+            bool prophecyResolved = false;
             foreach (var prophecy in pendingProphecies)
                 if (prophecy.Spent)
                 {
+                    prophecyResolved = true;
                     StartCoroutine(ProphecyFx(layer, prophecy.Card.Id));
-                    TryStartCardVfx(layer, prophecy.Card.Id, new Vector2(960f, -540f), new Vector2(1020f, 640f));
+                    TryStartCardVfx(layer, prophecy.Card.Id, new Vector2(960f, -540f), new Vector2(1020f, 640f), opacity: .48f);
                     StartCoroutine(DelayedBanner(layer, "Prophecy", prophecy.Card.Name, Gold, 1.4f, 0f));
                     StartCoroutine(ResolveArt(layer, prophecy.Card.Id, new Vector2(960, -520), 650));
                 }
             Color accent = side == 0 ? Gold : EnemyCopper;
             float feedbackDelay = 0f;
-            if (played != null && handFrom.HasValue && !reduceMotion)
+            if (played != null)
             {
                 if (played.Kind == Kind.Order)
                 {
                     var kind = PickFx(played);
-                    Vector2 caster = heroBadges[side] ? CenterAnchored(heroBadges[side]) : handFrom.Value;
                     Vector2 spellAt = impactAt;
-                    int foe = 1 - side;
-                    if (move.Target == 0 && move.Lane < 0)
+                    if (victim != null && battlePieces.TryGetValue(victim.Key, out var targetTile) && targetTile)
+                        spellAt = PieceEffectPoint(victim, targetTile);
+                    else if (move.Target == 0 && move.Lane < 0)
                     {
-                        int owner = WantsOwnHero(kind) ? side : foe;
+                        int owner = WantsOwnHero(kind) ? side : 1 - side;
                         if (heroBadges[owner]) spellAt = CenterAnchored(heroBadges[owner]);
                     }
-                    StartCoroutine(CardSlam(layer, played, handFrom.Value, spellAt, accent));
-                    StartCoroutine(DelayedSpell(layer, played, caster, spellAt, .46f));
-                    feedbackDelay = .46f + ImpactDelay(kind) + .06f;
-                    // Units this Order summoned arrive after the spell lands and play their own card's effect.
-                    foreach (var summoned in match.Units().Where(u => !snap.Hp.ContainsKey(u.Key)))
-                        if (battlePieces.TryGetValue(summoned.Key, out var summonedTile) && summonedTile)
-                        {
-                            StartCoroutine(SpawnReveal(summonedTile, feedbackDelay));
-                            StartCoroutine(DelayedEntrance(layer, summoned.Card, CenterAnchored(summonedTile), feedbackDelay));
-                        }
+                    if (reduceMotion)
+                        StartCoroutine(ResolveArt(layer, played.Id, spellAt, 290));
+                    else
+                    {
+                        float castDelay = handFrom.HasValue ? .46f : 0f;
+                        if (handFrom.HasValue)
+                            StartCoroutine(CardSlam(layer, played, handFrom.Value, spellAt, accent));
+                        Vector2 caster = heroBadges[side] ? CenterAnchored(heroBadges[side]) : handFrom ?? spellAt;
+                        StartCoroutine(DelayedSpell(layer, played, caster, spellAt, castDelay));
+                        feedbackDelay = castDelay + ImpactDelay(kind) + .06f;
+                    }
                 }
-                else
+                else if (!reduceMotion && handFrom.HasValue)
                 {
+                    var arrival = match.Board.FirstOrDefault(piece => piece.Side == side && piece.Card.Id == played.Id &&
+                        !previousPieces.Contains(piece.Key));
+                    if (arrival != null && battlePieces.TryGetValue(arrival.Key, out var arrivalTile) && arrivalTile)
+                        impactAt = PieceEffectPoint(arrival, arrivalTile);
                     StartCoroutine(CardSlam(layer, played, handFrom.Value, impactAt, accent));
                     feedbackDelay = .66f;
-                    foreach (var fresh in match.Units().Where(u => !snap.Hp.ContainsKey(u.Key)))
-                        if (battlePieces.TryGetValue(fresh.Key, out var freshTile) && freshTile)
-                        {
-                            StartCoroutine(SpawnReveal(freshTile, .66f));
-                            // Use the arriving piece's identity: summon effects can create a different card
-                            // from the card that was played, and each board arrival gets its own mapped VFX.
-                            StartCoroutine(DelayedEntrance(layer, fresh.Card, CenterAnchored(freshTile), .66f));
-                        }
-                    if (played.Kind == Kind.Site)
-                        StartCoroutine(DelayedEntrance(layer, played, impactAt, .66f));
                 }
             }
-            else if (played != null && played.Kind == Kind.Order)
-                StartCoroutine(ResolveArt(layer, played.Id, impactAt, 290));
+            if (!reduceMotion)
+            {
+                float arrivalDelay = prophecyResolved ? 1.05f : feedbackDelay;
+                foreach (var piece in match.Board)
+                {
+                    if (previousPieces.Contains(piece.Key) || !battlePieces.TryGetValue(piece.Key, out var tile) || !tile)
+                        continue;
+                    if (piece.Card.Kind == Kind.Unit)
+                        StartCoroutine(SpawnReveal(tile, arrivalDelay));
+                    StartCoroutine(DelayedEntrance(layer, piece.Card, PieceEffectPoint(piece, tile), arrivalDelay));
+                }
+            }
             if (strike && actorFrom.HasValue && actorArt != null && !reduceMotion)
             {
                 battlePieces.TryGetValue(actor.Key, out var realTile);
@@ -139,6 +149,15 @@ namespace Wolfsun
             if (fxLayer == null) fxLayer = Box(stage, "Effects", 0, 0, 1920, 1080);
             fxLayer.SetAsLastSibling();
             return fxLayer;
+        }
+
+        private Vector2 PieceEffectPoint(Piece piece, RectTransform tile)
+        {
+            var center = CenterAnchored(tile);
+            // Sites draw their portrait at the left edge of the strip. Unit stats sit below the art.
+            return piece.Card.Kind == Kind.Site
+                ? center + new Vector2(21f - tile.rect.width * .5f, 0f)
+                : center + new Vector2(0f, 24f);
         }
 
         private Vector2 CenterPoint(RectTransform rect)

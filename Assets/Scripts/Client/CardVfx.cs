@@ -27,6 +27,8 @@ namespace Wolfsun
             public VfxCardEntry[] cards;
         }
 
+        private const int VfxGrid = 8;
+        private const float VfxFramesPerSecond = 30f;
         private static Dictionary<string, VfxCardEntry> vfxByCard;
         private static Material additiveVfxMaterial;
 
@@ -51,29 +53,36 @@ namespace Wolfsun
         /// Starts a mapped card effect if its source atlas has been imported. Returns false when
         /// the asset is absent so callers can retain the game's existing procedural animation.
         /// </summary>
-        private bool TryStartCardVfx(RectTransform layer, string cardId, Vector2 at, Vector2 size, float delay = 0f)
+        private bool TryStartCardVfx(RectTransform layer, string cardId, Vector2 at, Vector2 size, float opacity = .78f)
         {
             if (reduceMotion || !layer) return false;
             var entry = VfxFor(cardId);
             if (entry == null || string.IsNullOrEmpty(entry.primary)) return false;
-            var primary = Resources.Load<Texture2D>("Art/VFX/" + entry.primary);
+            var primary = LoadVfxAtlas(entry.primary);
             if (primary == null) return false;
 
-            StartCoroutine(PlayVfxAtlas(layer, primary, at, size, entry.primaryLoop, entry.primaryAdditive, delay, 1f));
+            StartCoroutine(PlayVfxAtlas(layer, primary, at, size, entry.primaryLoop, entry.primaryAdditive, 0f, opacity));
             if (!string.IsNullOrEmpty(entry.secondary))
             {
-                var secondary = Resources.Load<Texture2D>("Art/VFX/" + entry.secondary);
+                var secondary = LoadVfxAtlas(entry.secondary);
                 if (secondary != null)
-                    StartCoroutine(PlayVfxAtlas(layer, secondary, at, size * .66f, entry.secondaryLoop, entry.secondaryAdditive, delay + .1f, .82f));
+                    StartCoroutine(PlayVfxAtlas(layer, secondary, at, size * .66f, entry.secondaryLoop, entry.secondaryAdditive, .1f, opacity * .77f));
             }
             return true;
+        }
+
+        private Texture2D LoadVfxAtlas(string key)
+        {
+            var atlas = Texture("VFX/" + key);
+            return atlas && atlas.width == atlas.height && atlas.width >= VfxGrid &&
+                atlas.width % VfxGrid == 0 ? atlas : null;
         }
 
         private IEnumerator PlayVfxAtlas(RectTransform layer, Texture2D atlas, Vector2 at, Vector2 size,
             bool loop, bool additive, float delay, float alpha)
         {
             if (delay > 0f) yield return new WaitForSecondsRealtime(delay);
-            if (!layer || !atlas || page != Page.Battle) yield break;
+            if (!layer || !atlas || page != Page.Battle || reduceMotion) yield break;
 
             var holder = new GameObject("VFX " + atlas.name, typeof(RectTransform), typeof(CanvasRenderer), typeof(RawImage));
             holder.transform.SetParent(layer, false);
@@ -98,25 +107,26 @@ namespace Wolfsun
                 if (additiveVfxMaterial != null) image.material = additiveVfxMaterial;
             }
 
-            const int grid = 8;
-            const int frames = 64;
-            const float fps = 30f;
-            float duration = loop ? .9f : frames / fps;
+            const int frames = VfxGrid * VfxGrid;
+            const float cell = 1f / VfxGrid;
+            const float duration = frames / VfxFramesPerSecond;
+            float inset = .5f / atlas.width;
+            double startedAt = Time.realtimeSinceStartupAsDouble;
             float elapsed = 0f;
-            while (elapsed < duration && holder && layer && page == Page.Battle)
+            while (elapsed < duration && holder && layer && page == Page.Battle && !reduceMotion)
             {
-                int frame = Mathf.FloorToInt(elapsed * fps);
-                if (loop) frame %= frames;
-                else frame = Mathf.Min(frame, frames - 1);
-                int column = frame % grid;
-                int row = frame / grid;
-                // The publisher's atlas is row-major from the top-left; Unity UVs start bottom-left.
-                const float inset = .00035f;
-                float cell = 1f / grid;
+                int frame = Mathf.Min(Mathf.FloorToInt(elapsed * VfxFramesPerSecond), frames - 1);
+                int column = frame % VfxGrid;
+                int row = frame / VfxGrid;
+                // The atlas is row-major from the top-left; Unity UVs start bottom-left.
                 image.uvRect = new Rect(column * cell + inset, 1f - (row + 1) * cell + inset,
                     cell - inset * 2f, cell - inset * 2f);
-                elapsed += Time.unscaledDeltaTime;
+                // Loop sheets contain no authored fade, so ease them out before removing the image.
+                float opacity = loop ? Mathf.Clamp01((duration - elapsed) / .22f) : 1f;
+                image.color = new Color(1f, 1f, 1f, alpha * opacity);
+                image.enabled = !settings && !showRules && inspected == null;
                 yield return null;
+                elapsed = (float)(Time.realtimeSinceStartupAsDouble - startedAt);
             }
             if (holder) Destroy(holder);
         }

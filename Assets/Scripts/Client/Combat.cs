@@ -163,14 +163,15 @@ namespace Wolfsun
         /// <summary>Holds a freshly summoned tile invisible until the card lands, then pops it in.</summary>
         private IEnumerator SpawnReveal(RectTransform tile, float delay)
         {
-            if (!tile) yield break;
+            if (!tile || delay <= 0f) yield break;
             var group = tile.GetComponent<CanvasGroup>() ?? tile.gameObject.AddComponent<CanvasGroup>();
             group.alpha = 0f;
             yield return new WaitForSecondsRealtime(delay);
             if (!tile) yield break;
+            if (reduceMotion) { group.alpha = 1f; yield break; }
             tile.pivot = new Vector2(.5f, .5f);
             tile.anchoredPosition += new Vector2(tile.sizeDelta.x * .5f, -tile.sizeDelta.y * .5f);
-            for (float t = 0; t < .22f && tile; t += Time.unscaledDeltaTime)
+            for (float t = 0; t < .22f && tile && !reduceMotion; t += Time.unscaledDeltaTime)
             {
                 float k = EaseOut(t / .22f);
                 group.alpha = Mathf.Clamp01(k * 2f);
