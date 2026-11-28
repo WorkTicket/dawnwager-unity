@@ -1,0 +1,1453 @@
+{
+  "cards": [
+    {
+      "id": "P01",
+      "primary": "blizzard_overlay_loop",
+      "secondary": "frozen_screen_edges",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "P02",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "drifting_embers_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "P03",
+      "primary": "wave_crash",
+      "secondary": "boat_wake_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "P04",
+      "primary": "arched_door_portal_loop",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "P05",
+      "primary": "lightning_strike",
+      "secondary": "level_up_light_pillar",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "P06",
+      "primary": "wall_of_fire_loop",
+      "secondary": "falling_ash_overlay_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A01",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "guard_block_flash",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A02",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "shield_activate",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A03",
+      "primary": "shield_activate",
+      "secondary": "rune_ward_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A04",
+      "primary": "rune_glyph_burst",
+      "secondary": "ground_halo_pulse_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A05",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "guard_block_flash",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A06",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "shield_activate",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A07",
+      "primary": "shield_activate",
+      "secondary": "rune_ward_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A08",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A09",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "shield_activate",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A10",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A11",
+      "primary": "shield_activate",
+      "secondary": "rune_ward_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A12",
+      "primary": "lightning_strike",
+      "secondary": "hit_flash_and_impact_ring",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A13",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "shield_activate",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A14",
+      "primary": "summoning_circle_spawn",
+      "secondary": "warp_in_ripple",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A15",
+      "primary": "landing_dust_puffs",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A16",
+      "primary": "sword_slash_arc",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A17",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "shield_activate",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A18",
+      "primary": "shield_activate",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A19",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A20",
+      "primary": "xp_orbs_collect",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "A21",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "guard_block_flash",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A22",
+      "primary": "ground_halo_pulse_loop",
+      "secondary": "guard_block_flash",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A23",
+      "primary": "lightning_strike",
+      "secondary": "shield_activate",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "A24",
+      "primary": "rune_ward_loop",
+      "secondary": "guard_block_flash",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M01",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M02",
+      "primary": "landing_dust_puffs",
+      "secondary": "dash_speed_streaks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M03",
+      "primary": "wind_wisps_loop",
+      "secondary": "dash_speed_streaks",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M04",
+      "primary": "torch_flame_loop",
+      "secondary": "summoning_circle_spawn",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M05",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M06",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M07",
+      "primary": "wind_wisps_loop",
+      "secondary": "dash_speed_streaks",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M08",
+      "primary": "ground_fog_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M09",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M10",
+      "primary": "landing_dust_puffs",
+      "secondary": "guard_block_flash",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M11",
+      "primary": "boat_wake_loop",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M12",
+      "primary": "torch_flame_loop",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M13",
+      "primary": "summoning_circle_spawn",
+      "secondary": "warp_in_ripple",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M14",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M15",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M16",
+      "primary": "steam_burst",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M17",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M18",
+      "primary": "ground_slam_shockwave",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M19",
+      "primary": "boat_wake_loop",
+      "secondary": "water_ripple_rings_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M20",
+      "primary": "torch_flame_loop",
+      "secondary": "summoning_circle_spawn",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M21",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M22",
+      "primary": "shield_activate",
+      "secondary": "rune_ward_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "M23",
+      "primary": "boat_wake_loop",
+      "secondary": "snow_kick",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "M24",
+      "primary": "torch_flame_loop",
+      "secondary": "drifting_embers_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "J01",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J02",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J03",
+      "primary": "sword_slash_arc",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "J04",
+      "primary": "rune_glyph_burst",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "J05",
+      "primary": "heavy_landing_crack",
+      "secondary": "drifting_embers_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "J06",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J07",
+      "primary": "xp_orbs_collect",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "J08",
+      "primary": "campfire_loop_with_embers",
+      "secondary": "drifting_embers_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "J09",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J10",
+      "primary": "snow_kick",
+      "secondary": "guard_block_flash",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J11",
+      "primary": "ground_slam_shockwave",
+      "secondary": "heavy_landing_crack",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J12",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J13",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J14",
+      "primary": "ice_spikes_eruption",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J15",
+      "primary": "frost_spreading",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J16",
+      "primary": "snow_kick",
+      "secondary": "dash_speed_streaks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J17",
+      "primary": "ground_slam_shockwave",
+      "secondary": "heavy_landing_crack",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J18",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J19",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J20",
+      "primary": "frost_spreading",
+      "secondary": "ice_shatter",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J21",
+      "primary": "snow_kick",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "J22",
+      "primary": "fire_burst",
+      "secondary": "drifting_embers_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "J23",
+      "primary": "heavy_landing_crack",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "J24",
+      "primary": "fire_burst",
+      "secondary": "drifting_embers_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H01",
+      "primary": "wraith_smoke_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H02",
+      "primary": "hit_flash_and_impact_ring",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H03",
+      "primary": "rune_glyph_burst",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H04",
+      "primary": "healing_aura_loop",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H05",
+      "primary": "wraith_smoke_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H06",
+      "primary": "wraith_smoke_loop",
+      "secondary": "guard_block_flash",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H07",
+      "primary": "water_ripple_rings_loop",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H08",
+      "primary": "wraith_smoke_loop",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H09",
+      "primary": "wraith_smoke_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H10",
+      "primary": "wraith_smoke_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H11",
+      "primary": "wraith_smoke_loop",
+      "secondary": "void_crack_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H12",
+      "primary": "wraith_smoke_loop",
+      "secondary": "void_crack_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H13",
+      "primary": "wraith_smoke_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H14",
+      "primary": "summoning_circle_spawn",
+      "secondary": "warp_in_ripple",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H15",
+      "primary": "wraith_smoke_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H16",
+      "primary": "ground_fog_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H17",
+      "primary": "wraith_smoke_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H18",
+      "primary": "arched_door_portal_loop",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H19",
+      "primary": "wraith_smoke_loop",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "H20",
+      "primary": "wraith_smoke_loop",
+      "secondary": "void_crack_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H21",
+      "primary": "wraith_smoke_loop",
+      "secondary": "guard_block_flash",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H22",
+      "primary": "wraith_smoke_loop",
+      "secondary": "void_crack_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H23",
+      "primary": "rune_glyph_burst",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "H24",
+      "primary": "arched_door_portal_loop",
+      "secondary": "claw_scratch",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L01",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L02",
+      "primary": "torch_flame_loop",
+      "secondary": "curse_aura_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L03",
+      "primary": "curse_aura_loop",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L04",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L05",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L06",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L07",
+      "primary": "snow_kick",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L08",
+      "primary": "rune_glyph_burst",
+      "secondary": "candle_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L09",
+      "primary": "shadow_step",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L10",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L11",
+      "primary": "rune_glyph_burst",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L12",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L13",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L14",
+      "primary": "curse_aura_loop",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L15",
+      "primary": "shadow_step",
+      "secondary": "ground_fog_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L16",
+      "primary": "curse_aura_loop",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L17",
+      "primary": "fire_burst",
+      "secondary": "falling_ash_overlay_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L18",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L19",
+      "primary": "rune_glyph_burst",
+      "secondary": "xp_orbs_collect",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L20",
+      "primary": "sword_slash_arc",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L21",
+      "primary": "curse_aura_loop",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L22",
+      "primary": "shadow_step",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "L23",
+      "primary": "time_stop_clock_ring",
+      "secondary": "shadow_step",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "L24",
+      "primary": "falling_ash_overlay_loop",
+      "secondary": "rune_glyph_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "N01",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N02",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N03",
+      "primary": "healing_aura_loop",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "N04",
+      "primary": "feather_burst",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N05",
+      "primary": "landing_dust_puffs",
+      "secondary": "guard_block_flash",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N06",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N07",
+      "primary": "wind_wisps_loop",
+      "secondary": "dash_speed_streaks",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N08",
+      "primary": "light_arrow_loop",
+      "secondary": "hit_flash_and_impact_ring",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N09",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N10",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N11",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N12",
+      "primary": "summoning_circle_spawn",
+      "secondary": "warp_in_ripple",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N13",
+      "primary": "campfire_loop_with_embers",
+      "secondary": "steam_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": true,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N14",
+      "primary": "candle_flame_loop",
+      "secondary": "drifting_embers_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "N15",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N16",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N17",
+      "primary": "ground_slam_shockwave",
+      "secondary": "heavy_landing_crack",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N18",
+      "primary": "sword_slash_arc",
+      "secondary": "metal_hit_sparks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "N19",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N20",
+      "primary": "healing_aura_loop",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "N21",
+      "primary": "landing_dust_puffs",
+      "secondary": "wind_wisps_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N22",
+      "primary": "landing_dust_puffs",
+      "secondary": "guard_block_flash",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N23",
+      "primary": "ice_shatter",
+      "secondary": "cold_mist_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "N24",
+      "primary": "landing_dust_puffs",
+      "secondary": "shield_activate",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "X01",
+      "primary": "summoning_circle_spawn",
+      "secondary": "guard_block_flash",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "X02",
+      "primary": "shallow_water_step_splash",
+      "secondary": "water_ripple_rings_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "X03",
+      "primary": "summoning_circle_spawn",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "X04",
+      "primary": "snow_kick",
+      "secondary": "dash_speed_streaks",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "X05",
+      "primary": "wraith_smoke_loop",
+      "secondary": "warp_in_ripple",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "X06",
+      "primary": "summoning_circle_spawn",
+      "secondary": "guard_block_flash",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "X07",
+      "primary": "summoning_circle_spawn",
+      "secondary": "magic_sparkle_burst",
+      "primaryLoop": false,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "X08",
+      "primary": "curse_aura_loop",
+      "secondary": "wraith_smoke_loop",
+      "primaryLoop": true,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "X09",
+      "primary": "fire_burst",
+      "secondary": "drifting_embers_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": true,
+      "secondaryAdditive": true
+    },
+    {
+      "id": "X10",
+      "primary": "wind_wisps_loop",
+      "secondary": "dash_speed_streaks",
+      "primaryLoop": true,
+      "secondaryLoop": false,
+      "primaryAdditive": false,
+      "secondaryAdditive": false
+    },
+    {
+      "id": "X11",
+      "primary": "landing_dust_puffs",
+      "secondary": "torch_flame_loop",
+      "primaryLoop": false,
+      "secondaryLoop": true,
+      "primaryAdditive": false,
+      "secondaryAdditive": true
+    }
+  ]
+}

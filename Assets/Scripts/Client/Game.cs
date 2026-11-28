@@ -1,3 +1,4 @@
+#pragma warning disable CS0414
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -99,6 +100,7 @@ namespace Wolfsun
             score=gameObject.AddComponent<AudioSource>();score.loop=true;score.spatialBlend=0;
             sfx=gameObject.AddComponent<AudioSource>();sfx.spatialBlend=0;
             reduceMotion=PlayerPrefs.GetInt("wolfsun.reduceMotion",0)!=0;
+            fastEnemy=PlayerPrefs.GetInt("wolfsun.fastEnemy",0)!=0;
             score.volume=PlayerPrefs.GetFloat("wolfsun.music",.62f);
             sfx.volume=PlayerPrefs.GetFloat("wolfsun.effects",.8f);
             try{profile=JsonUtility.FromJson<Profile>(PlayerPrefs.GetString("wolfsun.profile",""))??new Profile();}
@@ -133,6 +135,7 @@ namespace Wolfsun
             scaler.screenMatchMode=CanvasScaler.ScreenMatchMode.Expand;
             if(FindAnyObjectByType<EventSystem>()==null)
                 new GameObject("Event System",typeof(EventSystem),typeof(InputSystemUIInputModule));
+            BuildBadgeTextures();
             CreateBackdrop(canvas.transform);
             var o=new GameObject("Stage",typeof(RectTransform));
             stage=o.GetComponent<RectTransform>();stage.SetParent(canvas.transform,false);
@@ -172,10 +175,12 @@ namespace Wolfsun
         {
             var keyboard = Keyboard.current;
             if (keyboard != null && keyboard.f11Key.wasPressedThisFrame) ToggleFullscreen();
+            if (keyboard != null) BattleKeys(keyboard);
+            if (dragLayer != null) RefreshDrag();
             if (keyboard == null || !keyboard.escapeKey.wasPressedThisFrame || presenting) return;
             if(dragLayer){CancelDrag();return;}
             if(showRules){showRules=false;Render();return;}
-            if(settings){settings=false;PlayerPrefs.Save();Render();return;}
+            if(settings){settings=false;concedeArmed=false;PlayerPrefs.Save();Render();return;}
             if(inspected!=null||choosing){inspected=null;choosing=false;selected=ActionKind.Pass;Render();return;}
             if(page==Page.Home||page==Page.Battle){settings=true;Render();}
             else Go(Page.Home);
@@ -183,13 +188,32 @@ namespace Wolfsun
 
         private void Go(Page destination)
         {
-            if(page==Page.Battle&&destination!=Page.Battle)StopAllCoroutines();
+            if(page==Page.Battle&&destination!=Page.Battle){StopAllCoroutines();ClearEffects();shaking=false;shakeEnergy=0f;if(stage)stage.anchoredPosition=Vector2.zero;}
             if(destination!=Page.Play){queueSearching=false;queueStatus="";}
             if(destination!=Page.Home&&menuAmbience!=null&&menuAmbience.isPlaying)menuAmbience.Stop();
-            ai=false;presenting=false;showRules=false;page=destination;inspected=null;settings=false;status="";
+            var previousPage=page;
+            ai=false;presenting=false;concedeArmed=false;refundArmed=false;showRules=false;page=destination;inspected=null;settings=false;status="";
             if(destination!=Page.Battle&&destination!=Page.Outcome){tutorialMatch=false;onlineDuel=null;}
             if(destination!=Page.Battle)ResetPhaseAnnouncements();
             Render();
+            if(previousPage!=destination&&!reduceMotion)StartCoroutine(ScreenIn());
+        }
+
+        /// <summary>A short fade and rise when a new screen opens.</summary>
+        private System.Collections.IEnumerator ScreenIn()
+        {
+            var target=root;
+            if(!target)yield break;
+            var group=target.GetComponent<CanvasGroup>()??target.gameObject.AddComponent<CanvasGroup>();
+            const float duration=.24f;
+            for(float t=0;t<duration&&target;t+=Time.unscaledDeltaTime)
+            {
+                float k=t/duration,e=1f-(1f-k)*(1f-k)*(1f-k);
+                group.alpha=e;
+                target.anchoredPosition=new Vector2(0,-16f*(1f-e));
+                yield return null;
+            }
+            if(target){group.alpha=1f;target.anchoredPosition=Vector2.zero;}
         }
         private Texture2D Texture(string name)
         {
@@ -221,20 +245,32 @@ namespace Wolfsun
             CancelDrag();
             ClearCardPreview();
             viewportShades.Clear();
+            if(stage)stage.anchoredPosition=Vector2.zero;
             if(root)
             {
                 root.gameObject.SetActive(false);
                 Destroy(root.gameObject);
             }
             root=Box(stage,"Screen",0,0,1920,1080);
-            // Fresh start: no client UI. Core rules remain in Assets/Scripts/Core.
-            ColorBox(root,"Blank",0,0,1920,1080,Ink);
-            Label(root,"Dawnwager",80,80,800,80,48,White,true);
-            Label(root,"UI cleared. Core rules only.",80,180,1000,40,22,Muted);
-            Label(root,"Match · Catalog · Campaign · Abilities wired under Assets/Scripts/Core.",80,240,1400,40,18,Muted);
-            inspected=null;
-            settings=false;
-            showRules=false;
+            UpdateBackdrop();
+            if(page!=Page.Home&&page!=Page.Battle&&page!=Page.Outcome)Nav();
+            switch(page)
+            {
+                case Page.Home:Home();break;
+                case Page.Story:Story();break;
+                case Page.Collection:Collection();break;
+                case Page.Battle:Battle();break;
+                case Page.Outcome:Outcome();break;
+                case Page.Play:PlayHub();break;
+                case Page.Career:Career();break;
+                case Page.Skills:SkillTree();break;
+            }
+            if(page==Page.Home)TryMenuAmbience();
+            Music(page==Page.Battle?(!duel&&!tutorialMatch&&chapter==Campaign.Chapters.Length-1?"Boss":"Battle")
+                :page==Page.Story||page==Page.Skills?"Campaign":"Menu");
+            if(inspected!=null)Inspect();
+            if(showRules)RulesOverlay();
+            if(settings)Settings();
         }
         private RectTransform Box(Transform parent,string name,float x,float y,float w,float h)
         {

@@ -10,9 +10,27 @@ namespace Wolfsun
         private readonly List<RectTransform> enemyHandPoints = new List<RectTransform>();
         private string CardBackArt => string.IsNullOrEmpty(profile.cardBack) ? Foundry + "CardBack" : profile.cardBack;
 
-        private void DrawPiles() { }
+        private void DrawPiles()
+        {
+            DrawPile(1, 1700, 60, 56, 80);
+            DrawPile(0, 1700, 560, 56, 80);
+        }
 
-        private void DrawPile(int side, int x, int y, int w, int h) { }
+        private void DrawPile(int side, int x, int y, int w, int h)
+        {
+            var pilot = match.Players[side];
+            int count = pilot.Pile.Count;
+            var pile = Box(root, "Draw pile " + side, x, y, w, h);
+            drawPiles[side] = pile;
+            if (count > 0)
+            {
+                Pic(pile, CardBackArt, 4, 4, w, h, new Color(1, 1, 1, .7f));
+                Pic(pile, CardBackArt, 0, 0, w, h);
+            }
+            else ColorBox(pile, "Empty", 0, 0, w, h, new Color(0, 0, 0, .35f));
+            Label(root, count + (count == 1 ? " card" : " cards"), x - 24, y + h + 2, w + 48, 22, 15, Muted, false, TextAnchor.MiddleCenter);
+            if (pilot.Fatigue > 0) Label(root, "Fatigue " + pilot.Fatigue, x - 32, y + h + 24, 120, 22, 14, EnemyCopper, false, TextAnchor.MiddleCenter);
+        }
 
         private static CanvasGroup HideUntilLanding(RectTransform destination)
         {

@@ -10,8 +10,16 @@ namespace Wolfsun
         private readonly System.Collections.Generic.Dictionary<(Color, Color, bool), Texture2D> gradients = new System.Collections.Generic.Dictionary<(Color, Color, bool), Texture2D>();
         private string HeroArt(string id)
         {
+            var bust = "HeroBusts/" + id;
+            if (Texture(bust) != null) return bust;
             var path = Foundry + "Hero-" + id;
             return Texture(path) != null ? path : "Units/" + id;
+        }
+
+        private string HeroFrameArt(string id)
+        {
+            string path = Foundry + "HeroFrame-" + id;
+            return Texture(path) != null ? path : Foundry + "HeroFrame";
         }
 
         private void Gradient(Transform parent, string name, float x, float y, float w, float h, Color from, Color to, bool vertical)
@@ -35,7 +43,7 @@ namespace Wolfsun
         {
             Picture(parent, Foundry + type, x, y, size, size);
             // Dead-center the numeral in the gem — outlined for HS readability.
-            var num = Label(parent, value, x, y, size, size, fontSize, White, false, TextAnchor.MiddleCenter);
+            var num = Label(parent, value, x, y + (type == "Health" ? size * .08f : 0f), size, size, fontSize, White, false, TextAnchor.MiddleCenter);
             num.resizeTextForBestFit = true;
             num.resizeTextMinSize = Mathf.Max(8, fontSize - 8);
             num.resizeTextMaxSize = fontSize;
@@ -92,6 +100,33 @@ namespace Wolfsun
                 yield return null;
             }
             if (sweep) sweep.color = Color.clear;
+        }
+
+        private IEnumerator ResolveArt(RectTransform layer, string cardId, Vector2 at, float width)
+        {
+            if (!layer) yield break;
+            string path = "ResolveEffects/" + cardId;
+            if (Texture(path) == null) yield break;
+            var art = Pic(layer, path, 0, 0, width, width);
+            art.rectTransform.pivot = new Vector2(.5f, .5f);
+            art.rectTransform.anchoredPosition = at;
+            if (reduceMotion)
+            {
+                yield return new WaitForSecondsRealtime(.24f);
+            }
+            else
+            {
+                const float duration = .46f;
+                for (float time = 0; time < duration && art; time += Time.unscaledDeltaTime)
+                {
+                    float phase = time / duration;
+                    float scale = Mathf.Lerp(.62f, 1.16f, 1f - (1f - phase) * (1f - phase));
+                    art.rectTransform.localScale = Vector3.one * scale;
+                    art.color = new Color(1f, 1f, 1f, 1f - phase * phase);
+                    yield return null;
+                }
+            }
+            if (art) Destroy(art.gameObject);
         }
 
         private IEnumerator CardImpact(RectTransform layer, Card card, Vector2 position, bool strike)
