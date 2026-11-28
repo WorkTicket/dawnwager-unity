@@ -123,8 +123,8 @@ L19,Read Between the Runes,Order,Assets/Resources/Art/CardFaces/L19.png,,Pending
 L20,Broken Pact,Order,Assets/Resources/Art/CardFaces/L20.png,,Pending,Pending,Pending,Pending review
 L21,The Wrong Army,Order,Assets/Resources/Art/CardFaces/L21.png,,Pending,Pending,Pending,Pending review
 L22,Winter Envoy,Unit,Assets/Resources/Art/CardFaces/L22.png,Assets/Resources/Art/BoardPortraits/L22.png,Pass - same character; separate scene/bust,Pass - bust framing and signature prop verified,Pending - human art director review,Bust portrait installed; human art review pending
-L23,"Loki, Oathbreaker",Unit,Assets/Resources/Art/CardFaces/L23.png,Assets/Resources/Art/BoardPortraits/L23.png,Pending,Pending,Pending,Pending review
-L24,"Angrboða, Who Warned Us",Unit,Assets/Resources/Art/CardFaces/L24.png,Assets/Resources/Art/BoardPortraits/L24.png,Pending,Pending,Pending,Pending review
+L23,"Loki, Oathbreaker",Unit,Assets/Resources/Art/CardFaces/L23.png,Assets/Resources/Art/BoardPortraits/L23.png,Pass - same Loki identity; distinct scene/bust,Pass - transparent bust and rune prop verified,Pending,Bust portrait installed; human art review pending
+L24,"Angrboða, Who Warned Us",Unit,Assets/Resources/Art/CardFaces/L24.png,Assets/Resources/Art/BoardPortraits/L24.png,Pass - same Angrboða identity; distinct scene/bust,Pass - transparent seer bust and rowan prop verified,Pending,Bust portrait installed; human art review pending
 N01,Cold Hearth Keeper,Unit,Assets/Resources/Art/CardFaces/N01.png,Assets/Resources/Art/BoardPortraits/N01.png,Pending,Pending,Pending,Pending review
 N02,Barley Runner,Unit,Assets/Resources/Art/CardFaces/N02.png,Assets/Resources/Art/BoardPortraits/N02.png,Pending,Pending,Pending,Pending review
 N03,Hot Broth,Order,Assets/Resources/Art/CardFaces/N03.png,,Pending,Pending,Pending,Pending review
