@@ -29,12 +29,12 @@ A21,Gate of Horn,Unit,Assets/Resources/Art/CardFaces/A21.png,Assets/Resources/Ar
 A22,Bifröst Cavalry,Unit,Assets/Resources/Art/CardFaces/A22.png,Assets/Resources/Art/BoardPortraits/A22.png,Pending,Pending,Pending,Pending review
 A23,"Thor, Last Light",Unit,Assets/Resources/Art/CardFaces/A23.png,Assets/Resources/Art/BoardPortraits/A23.png,Pending,Pending,Pending,Pending review
 A24,"Týr, the Open Hand",Unit,Assets/Resources/Art/CardFaces/A24.png,Assets/Resources/Art/BoardPortraits/A24.png,Pending,Pending,Pending,Pending review
-M01,Beacon Child,Unit,Assets/Resources/Art/CardFaces/M01.png,Assets/Resources/Art/BoardPortraits/M01.png,Pending,Pending,Pending,Pending review
-M02,Fjord Runner,Unit,Assets/Resources/Art/CardFaces/M02.png,Assets/Resources/Art/BoardPortraits/M02.png,Pending,Pending,Pending,Pending review
+M01,Beacon Child,Unit,Assets/Resources/Art/CardFaces/M01.png,Assets/Resources/Art/BoardPortraits/M01.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+M02,Fjord Runner,Unit,Assets/Resources/Art/CardFaces/M02.png,Assets/Resources/Art/BoardPortraits/M02.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 M03,Find the Ford,Order,Assets/Resources/Art/CardFaces/M03.png,,Pending,Pending,Pending - needs human art director review,First-pass painted draft installed; final review pending
 M04,Borrowed Lantern,Order,Assets/Resources/Art/CardFaces/M04.png,,Pending,Pending,Pending - needs human art director review,First-pass painted draft installed; final review pending
-M05,Pier Carpenter,Unit,Assets/Resources/Art/CardFaces/M05.png,Assets/Resources/Art/BoardPortraits/M05.png,Pending,Pending,Pending,Pending review
-M06,Ice Ferry Pilot,Unit,Assets/Resources/Art/CardFaces/M06.png,Assets/Resources/Art/BoardPortraits/M06.png,Pending,Pending,Pending,Pending review
+M05,Pier Carpenter,Unit,Assets/Resources/Art/CardFaces/M05.png,Assets/Resources/Art/BoardPortraits/M05.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+M06,Ice Ferry Pilot,Unit,Assets/Resources/Art/CardFaces/M06.png,Assets/Resources/Art/BoardPortraits/M06.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 M07,Lantern Line,Order,Assets/Resources/Art/CardFaces/M07.png,,Pending,Pending,Pending - needs human art director review,First-pass painted draft installed; final review pending
 M08,Eastbound Refuge,Site,Assets/Resources/Art/CardFaces/M08.png,Assets/Resources/Art/BoardPortraits/M08.png,Pending,Pending,Pending,Pending review
 M09,Ferry Militia,Unit,Assets/Resources/Art/CardFaces/M09.png,Assets/Resources/Art/BoardPortraits/M09.png,Pending,Pending,Pending,Pending review
