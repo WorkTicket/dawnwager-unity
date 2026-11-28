@@ -113,7 +113,7 @@ namespace Wolfsun
                 story = cleared ? ch.After : ch.Before;
                 SafeText(root, "Foe: " + ch.Boss + " · " + ch.Health + " health", 62, 380, 460, 30, 21, EnemyCopper, true, TextAnchor.MiddleLeft, 12);
                 var hero = Hero.Info(ch.Hero);
-                CirclePortrait(root, HeroArt(ch.Hero), 380, 400, 130, Foundry + "HeroFrame");
+                CirclePortrait(root, HeroArt(ch.Hero), 380, 400, 130, HeroFrameArt(ch.Hero));
             }
             else story = "Special rule: " + enc.BossOrRule + ".";
             SafeText(root, story, 62, 420, enc.IsOptional ? 440 : 310, 300, 21, White, false, TextAnchor.UpperLeft, 13);

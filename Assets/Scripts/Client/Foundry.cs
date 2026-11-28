@@ -16,6 +16,12 @@ namespace Wolfsun
             return Texture(path) != null ? path : "Units/" + id;
         }
 
+        private string HeroFrameArt(string id)
+        {
+            string path = Foundry + "HeroFrame-" + id;
+            return Texture(path) != null ? path : Foundry + "HeroFrame";
+        }
+
         private void Gradient(Transform parent, string name, float x, float y, float w, float h, Color from, Color to, bool vertical)
         {
             var key = (from, to, vertical);

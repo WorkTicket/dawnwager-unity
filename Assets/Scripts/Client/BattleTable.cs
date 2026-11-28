@@ -140,7 +140,7 @@ namespace Wolfsun
             string portrait = "BoardPortraits/" + id;
             if (Texture(portrait) != null) return portrait;
             if (Hero.All.Any(hero => hero.Id == id)) return "Heroes/" + id;
-            return "Units/" + (id == "X11" ? "X02" : id);
+            return "Units/" + id;
         }
 
         private void DrawBoardUnit(Transform parent, string art, float scale, Color tint)
@@ -165,6 +165,7 @@ namespace Wolfsun
             // Soft ground shadow, warmed when the unit can act.
             Shade(tile, -12 * sc, 176 * sc - 4, 200 * sc, 46 * sc, new Color(0, 0, 0, .75f));
             if (picked || target || ready) Shade(tile, -4 * sc, 150 * sc, 184 * sc, 52 * sc, new Color(glow.r, glow.g, glow.b, target || picked ? .85f : .5f));
+            FitSafe(tile, Foundry + "UnitTerrain", 8 * sc, 166 * sc, (TileW - 16) * sc, 23 * sc, tint);
             var art = Box(tile, "Art", 0, 0, TileW * sc, 184 * sc);
             DrawBoardUnit(art, UnitArt(unit.Card.Id), sc, tint);
             if (!reduceMotion && !unit.Spent) StartCoroutine(Breathe(art));
@@ -194,11 +195,9 @@ namespace Wolfsun
             heroBadges[side] = badge;
             bool strike = side == 1 && choices.Any(m => m.Kind == ActionKind.Attack && m.Target == 0);
             Shade(badge, 10, 176, 170, 34, new Color(0, 0, 0, .8f));
-            var portrait = Box(badge, "Portrait", 0, 0, 190, 190);
             string heroPortrait = "HeroPortraits/" + pilot.Hero;
-            if (Texture(heroPortrait) != null)
-                FitSafe(portrait, heroPortrait, 3, 0, 184, 184);
-            else CutFit(portrait, "Heroes/" + pilot.Hero, 190, 190, Color.white);
+            var portrait = CirclePortrait(badge, Texture(heroPortrait) != null ? heroPortrait : HeroArt(pilot.Hero),
+                0, 0, 190, HeroFrameArt(pilot.Hero), cropToFace: false);
             if (!reduceMotion) StartCoroutine(Breathe(portrait));
             if (strike)
             {
