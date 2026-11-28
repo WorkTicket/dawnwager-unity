@@ -1,4 +1,4 @@
-Warning: truncated output (original token count: 8649)
+Warning: truncated output (original token count: 8749)
 Total output lines: 162
 
 Card ID,Card name,Kind,Card face,Board art,Face/board identity reviewed,Unique pose reviewed,Human-style art QA,Status
@@ -42,8 +42,7 @@ M07,Lantern Line,Order,Assets/Resources/Art/CardFaces/M07.png,,Pending,Pending,P
 M08,Eastbound Refuge,Site,Assets/Resources/Art/CardFaces/M08.png,Assets/Resources/Art/BoardPortraits/M08.png,Pass - matching site structure; separate views,Pass - card scene and board site asset are distinct views,Pending - needs human art director review,Redrawn site pair installed; final human art review pending
 M09,Ferry Militia,Unit,Assets/Resources/Art/CardFaces/M09.png,Assets/Resources/Art/BoardPortraits/M09.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 M10,First Across,Unit,Assets/Resources/Art/CardFaces/M10.png,Assets/Resources/Art/BoardPortraits/M10.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
-M11,The Last Longship,Order,Ass…3649 tokens truncated…rces/Art/CardFaces/H18.png,,N/A - Order,Pass - distinct scene,Pending - human art director review,Redrawn Order illustration; human art review pending
-H19,Procession of Names,Unit,Assets/Resources/Art/CardFaces/H19.png,Assets/Resources/Art/BoardPortraits/H19.png,Pass - same character/group identity; separate view and pose,Pass - card scene and board cutout differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+M11,The Last Longship,Order,Ass…3749 tokens truncated…r review,Redrawn pair installed; final human art review pending
 H20,Death Takes Attendance,Order,Assets/Resources/Art/CardFaces/H20.png,,N/A - Order,Pass - distinct scene,Pending - human art director review,Redrawn Order illustration; human art review pending
 H21,Guest of the Barrow,Unit,Assets/Resources/Art/CardFaces/H21.png,Assets/Resources/Art/BoardPortraits/H21.png,Pass - same character/group identity; separate view and pose,Pass - card scene and board cutout differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H22,A Door Left Open,Order,Assets/Resources/Art/CardFaces/H22.png,,N/A - Order,Pass - distinct scene,Pending - human art director review,Redrawn Order illustration; human art review pending
@@ -54,13 +53,13 @@ L02,False Lantern,Order,Assets/Resources/Art/CardFaces/L02.png,,Pending,Pending,
 L03,A Knot Undone,Order,Assets/Resources/Art/CardFaces/L03.png,,Pending,Pending,Pending,Pending review
 L04,Rabbit in the Snow,Unit,Assets/Resources/Art/CardFaces/L04.png,Assets/Resources/Art/BoardPortraits/L04.png,Pass - same character; separate poses,Pass - card and board poses differ,Pending - human art director review,Redrawn unit pair installed; human art review pending
 L05,Wandering Double,Unit,Assets/Resources/Art/CardFaces/L05.png,Assets/Resources/Art/BoardPortraits/L05.png,Pass - same character; separate poses,Pass - card and board poses differ,Pending - human art director review,Redrawn unit pair installed; human art review pending
-L06,Mouth of Rumor,Unit,Assets/Resources/Art/CardFaces/L06.png,Assets/Resources/Art/BoardPortraits/L06.png,Pending,Pending,Pending,Pending review
+L06,Mouth of Rumor,Unit,Assets/Resources/Art/CardFaces/L06.png,Assets/Resources/Art/BoardPortraits/L06.png,Pass - same character; separate poses,Pass - distinct action and board silhouette,Pending - human art director review,Redrawn unit pair installed; human art review pending
 L07,Wrong Footprints,Order,Assets/Resources/Art/CardFaces/L07.png,,Pending,Pending,Pending,Pending review
 L08,Rune-Market Stall,Site,Assets/Resources/Art/CardFaces/L08.png,Assets/Resources/Art/BoardPortraits/L08.png,Pending,Pending,Pending,Pending review
 L09,Stolen Passage,Order,Assets/Resources/Art/CardFaces/L09.png,,Pending,Pending,Pending,Pending review
-L10,Ash-Mask Performer,Unit,Assets/Resources/Art/CardFaces/L10.png,Assets/Resources/Art/BoardPortraits/L10.png,Pending,Pending,Pending,Pending review
+L10,Ash-Mask Performer,Unit,Assets/Resources/Art/CardFaces/L10.png,Assets/Resources/Art/BoardPortraits/L10.png,Pass - same character; separate poses,Pass - distinct action and board silhouette,Pending - human art director review,Redrawn unit pair installed; human art review pending
 L11,Change the Subject,Order,Assets/Resources/Art/CardFaces/L11.png,,Pending,Pending,Pending,Pending review
-L12,Raven in Borrowed Feathers,Unit,Assets/Resources/Art/CardFaces/L12.png,Assets/Resources/Art/BoardPortraits/L12.png,Pending,Pending,Pending,Pending review
+L12,Raven in Borrowed Feathers,Unit,Assets/Resources/Art/CardFaces/L12.png,Assets/Resources/Art/BoardPortraits/L12.png,Pass - same character; separate poses,Pass - distinct action and board silhouette,Pending - human art director review,Redrawn unit pair installed; human art review pending
 L13,Promise Thief,Unit,Assets/Resources/Art/CardFaces/L13.png,Assets/Resources/Art/BoardPortraits/L13.png,Pending,Pending,Pending,Pending review
 L14,Runes in Reverse,Order,Assets/Resources/Art/CardFaces/L14.png,,Pending,Pending,Pending,Pending review
 L15,The Unlit Stage,Site,Assets/Resources/Art/CardFaces/L15.png,Assets/Resources/Art/BoardPortraits/L15.png,Pending,Pending,Pending,Pending review
