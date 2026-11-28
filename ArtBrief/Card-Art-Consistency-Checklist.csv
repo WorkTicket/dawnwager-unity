@@ -95,12 +95,12 @@ H15,Witness to Winter,Unit,Assets/Resources/Art/CardFaces/H15.png,Assets/Resourc
 H16,Quiet Hall,Site,Assets/Resources/Art/CardFaces/H16.png,Assets/Resources/Art/BoardPortraits/H16.png,Pending,Pending,Pending,Pending review
 H17,Barrow Bailiff,Unit,Assets/Resources/Art/CardFaces/H17.png,Assets/Resources/Art/BoardPortraits/H17.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H18,Gates Open Below,Order,Assets/Resources/Art/CardFaces/H18.png,,Pending,Pending,Pending,Pending review
-H19,Procession of Names,Unit,Assets/Resources/Art/CardFaces/H19.png,Assets/Resources/Art/BoardPortraits/H19.png,Pending,Pending,Pending,Pending review
+H19,Procession of Names,Unit,Assets/Resources/Art/CardFaces/H19.png,Assets/Resources/Art/BoardPortraits/H19.png,Pass - same character/group identity; separate view and pose,Pass - card scene and board cutout differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H20,Death Takes Attendance,Order,Assets/Resources/Art/CardFaces/H20.png,,Pending,Pending,Pending,Pending review
-H21,Guest of the Barrow,Unit,Assets/Resources/Art/CardFaces/H21.png,Assets/Resources/Art/BoardPortraits/H21.png,Pending,Pending,Pending,Pending review
+H21,Guest of the Barrow,Unit,Assets/Resources/Art/CardFaces/H21.png,Assets/Resources/Art/BoardPortraits/H21.png,Pass - same character/group identity; separate view and pose,Pass - card scene and board cutout differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H22,A Door Left Open,Order,Assets/Resources/Art/CardFaces/H22.png,,Pending,Pending,Pending,Pending review
-H23,"Hel, Keeper of the Names",Unit,Assets/Resources/Art/CardFaces/H23.png,Assets/Resources/Art/BoardPortraits/H23.png,Pending,Pending,Pending,Pending review
-H24,"Garmr, Door of the Dead",Unit,Assets/Resources/Art/CardFaces/H24.png,Assets/Resources/Art/BoardPortraits/H24.png,Pending,Pending,Pending,Pending review
+H23,"Hel, Keeper of the Names",Unit,Assets/Resources/Art/CardFaces/H23.png,Assets/Resources/Art/BoardPortraits/H23.png,Pass - same character/group identity; separate view and pose,Pass - card scene and board cutout differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+H24,"Garmr, Door of the Dead",Unit,Assets/Resources/Art/CardFaces/H24.png,Assets/Resources/Art/BoardPortraits/H24.png,Pass - same character/group identity; separate view and pose,Pass - card scene and board cutout differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 L01,Ice-Road Pickpocket,Unit,Assets/Resources/Art/CardFaces/L01.png,Assets/Resources/Art/BoardPortraits/L01.png,Pending,Pending,Pending,Pending review
 L02,False Lantern,Order,Assets/Resources/Art/CardFaces/L02.png,,Pending,Pending,Pending,Pending review
 L03,A Knot Undone,Order,Assets/Resources/Art/CardFaces/L03.png,,Pending,Pending,Pending,Pending review
