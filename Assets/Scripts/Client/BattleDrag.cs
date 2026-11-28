@@ -190,6 +190,17 @@ namespace Wolfsun
                     dragTargets.Add((move, box, box.GetComponent<Image>()));
                 }
             }
+            // Enemies that cannot be attacked (behind a Guard) fade back so legal targets stand out.
+            if (options.Any(m => m.Kind == ActionKind.Attack && m.Target != 0))
+                foreach (var foe in match.Units(1))
+                    if (!options.Any(m => m.Target == foe.Key) && battlePieces.TryGetValue(foe.Key, out var cover) && cover)
+                    {
+                        var cc = RootCenter(cover);
+                        var veil = ColorBox(dragLayer, "Blocked", cc.x - cover.rect.width / 2f, cc.y - cover.rect.height / 2f, cover.rect.width, cover.rect.height, new Color(0, 0, 0, .42f));
+                        var why = SafeText(veil, "Guarded", 0, cover.rect.height / 2f - 14, cover.rect.width, 28, 17, Quiet, true, TextAnchor.MiddleCenter, 10);
+                        why.raycastTarget = false;
+                        veil.GetComponent<Image>().raycastTarget = false;
+                    }
             arrowFrom = RootCenter(tile);
             var ring = Pic(dragLayer, Foundry + "UnitTokenGlow", arrowFrom.x - tile.rect.width / 2f - 18, arrowFrom.y - tile.rect.height / 2f - 18, tile.rect.width + 36, tile.rect.height + 36, Gold);
             ring.raycastTarget = false;
@@ -208,6 +219,12 @@ namespace Wolfsun
             aimHead = Pic(dragArrow, Foundry + "TargetNode", 0, 0, 96, 96, Gold).rectTransform;
             aimHead.pivot = new Vector2(.5f, .5f);
             aimHead.GetComponent<RawImage>().raycastTarget = false;
+            aimTip = Box(dragArrow, "Preview", 0, 0, 260, 40);
+            var pill = ColorBox(aimTip, "pill", 0, 0, 260, 40, new Color(.05f, .07f, .1f, .88f));
+            pill.GetComponent<Image>().raycastTarget = false;
+            aimTipText = SafeText(aimTip, "", 0, 0, 260, 40, 19, White, true, TextAnchor.MiddleCenter, 12);
+            aimTipText.raycastTarget = false;
+            aimAttacker = unit;
             lastDragAt = PointerInRoot(root, e);
             RefreshDrag();
             UiSound("card-select");
@@ -216,7 +233,35 @@ namespace Wolfsun
         private const int AimDotCount = 14;
         private readonly List<RectTransform> aimDots = new List<RectTransform>();
         private readonly RectTransform[] aimWings = new RectTransform[2];
-        private RectTransform aimHead;
+        private RectTransform aimHead, aimTip;
+        private Text aimTipText;
+        private Piece aimAttacker;
+
+        /// <summary>Outcome of the attack being aimed: damage dealt, whether it kills, and what comes back.</summary>
+        private void UpdateAimPreview(Vector2 end, Move hit)
+        {
+            if (!aimTip) return;
+            bool show = hit != null && hit.Kind == ActionKind.Attack && aimAttacker != null;
+            aimTip.gameObject.SetActive(show);
+            if (!show) return;
+            string line;
+            Color tone = White;
+            if (hit.Target == 0) line = "Strike the Bastion  −" + aimAttacker.Attack;
+            else
+            {
+                var foe = match.Find(hit.Target);
+                if (foe == null) { aimTip.gameObject.SetActive(false); return; }
+                bool kills = !foe.Shield && aimAttacker.Attack >= foe.Hp;
+                int back = foe.Attack;
+                bool dies = !aimAttacker.Shield && back >= aimAttacker.Hp;
+                string dealt = foe.Shield ? "breaks Ward" : (kills ? "kills" : "deals " + aimAttacker.Attack);
+                line = dealt + (back > 0 ? "  ·  " + (dies ? "dies" : "takes " + back) : "");
+                tone = kills && !dies ? AllySage : dies && !kills ? EnemyCopper : White;
+            }
+            aimTipText.text = line;
+            aimTipText.color = tone;
+            aimTip.anchoredPosition = new Vector2(Mathf.Clamp(end.x - 130, 8, 1920 - 268), -Mathf.Max(8f, end.y - 150f));
+        }
 
         /// <summary>
         /// A single clean arc of evenly spaced beads ending in a chevron. It snaps its tip to a valid target, which
@@ -257,6 +302,7 @@ namespace Wolfsun
                 var image = wing.GetComponent<Image>();
                 if (image) image.color = tint;
             }
+            UpdateAimPreview(end, hit);
             bool locked = hit != null;
             aimHead.anchoredPosition = new Vector2(end.x, -end.y);
             aimHead.localScale = Vector3.one * (locked ? 1f + .05f * Mathf.Sin(Time.unscaledTime * 7f) : .0f);

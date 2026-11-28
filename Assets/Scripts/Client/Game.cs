@@ -100,6 +100,7 @@ namespace Wolfsun
             score=gameObject.AddComponent<AudioSource>();score.loop=true;score.spatialBlend=0;
             sfx=gameObject.AddComponent<AudioSource>();sfx.spatialBlend=0;
             reduceMotion=PlayerPrefs.GetInt("wolfsun.reduceMotion",0)!=0;
+            fastEnemy=PlayerPrefs.GetInt("wolfsun.fastEnemy",0)!=0;
             score.volume=PlayerPrefs.GetFloat("wolfsun.music",.62f);
             sfx.volume=PlayerPrefs.GetFloat("wolfsun.effects",.8f);
             try{profile=JsonUtility.FromJson<Profile>(PlayerPrefs.GetString("wolfsun.profile",""))??new Profile();}

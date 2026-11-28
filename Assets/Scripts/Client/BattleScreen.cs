@@ -139,11 +139,11 @@ namespace Wolfsun
             ai=true;
             while(page==Page.Battle&&match.Turn==1&&match.Winner<0)
             {
-                yield return new WaitForSecondsRealtime(.64f);
+                yield return new WaitForSecondsRealtime(.64f*Pace);
                 while((settings||showRules||presenting)&&page==Page.Battle)yield return null;
                 var move=match.ChooseAI(1, tutorialMatch ? 0 : Mathf.Clamp(profile.aiDifficulty, 0, 2));
                 bool resolved=move!=null&&ResolveWithMotion(1,move);
-                if(resolved)yield return new WaitForSecondsRealtime(move.Kind==ActionKind.Play?1.5f:move.Kind==ActionKind.Attack?.7f:.45f);
+                if(resolved)yield return new WaitForSecondsRealtime((move.Kind==ActionKind.Play?1.5f:move.Kind==ActionKind.Attack?.7f:.45f)*Pace);
                 if(!resolved)
                 {
                     // Never leave the match stuck on the enemy's turn: fall back to passing.
@@ -157,6 +157,9 @@ namespace Wolfsun
             if(page==Page.Battle&&match!=null)Render();
             if(match.Winner>=0)Schedule();
         }
+        private bool fastEnemy;
+        private float Pace=>fastEnemy?.55f:1f;
+
         private IEnumerator ShowResult()
         {
             yield return new WaitForSecondsRealtime(.85f);

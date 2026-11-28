@@ -185,18 +185,25 @@ namespace Wolfsun
             }, true, reduceMotion);
             Label(root, "Fullscreen", 740, 428, 300, 56, 26, White, true);
             TableButton(Screen.fullScreen ? "On" : "Off", 1056, 428, 150, 56, () => { ToggleFullscreen(); Render(); }, !Application.isEditor, Screen.fullScreen);
-            Label(root, "Opponent skill", 740, 504, 300, 56, 26, White, true);
+            Label(root, "Fast enemy turns", 740, 504, 300, 56, 26, White, true);
+            TableButton(fastEnemy ? "On" : "Off", 1056, 504, 150, 56, () =>
+            {
+                fastEnemy = !fastEnemy;
+                PlayerPrefs.SetInt("wolfsun.fastEnemy", fastEnemy ? 1 : 0);
+                Render();
+            }, true, fastEnemy);
+            Label(root, "Opponent skill", 740, 576, 300, 44, 26, White, true);
             string[] levels = { "Easy", "Normal", "Hard" };
             for (int i = 0; i < 3; i++)
             {
                 int level = i;
-                TableButton(levels[i], 740 + i * 150, 570, 140, 56, () => { profile.aiDifficulty = level; Save(); Render(); }, true, profile.aiDifficulty == level);
+                TableButton(levels[i], 740 + i * 150, 628, 140, 52, () => { profile.aiDifficulty = level; Save(); Render(); }, true, profile.aiDifficulty == level);
             }
-            SafeText(root, "Applies to practice and campaign battles. The tutorial always uses Easy.", 740, 632, 440, 54, 17, Quiet, false, TextAnchor.UpperLeft, 12);
-            TableButton("How It Works", 740, 704, 440, 60, () => { settings = false; OpenRules(); });
+            SafeText(root, "Practice and campaign. The tutorial always uses Easy.", 740, 686, 440, 28, 15, Quiet, false, TextAnchor.UpperLeft, 12);
+            TableButton("How It Works", 740, 728, 440, 56, () => { settings = false; OpenRules(); });
             bool inMatch = page == Page.Battle && match != null && match.Winner < 0;
             if (inMatch)
-                TableButton(concedeArmed ? "Really concede?" : "Concede Match", 740, 778, 440, 60, () =>
+                TableButton(concedeArmed ? "Really concede?" : "Concede Match", 740, 794, 440, 56, () =>
                 {
                     if (!concedeArmed) { concedeArmed = true; UiSound("deny"); Render(); return; }
                     concedeArmed = false;
@@ -206,8 +213,8 @@ namespace Wolfsun
                     Render();
                 });
             else if (page != Page.Home)
-                TableButton("Main Menu", 740, 778, 440, 60, () => Go(Page.Home));
-            TableButton(page == Page.Battle ? "Resume" : "Close", 740, 850, 440, 70, () => { settings = false; concedeArmed = false; PlayerPrefs.Save(); UiSound("close"); Render(); }, true, true);
+                TableButton("Main Menu", 740, 794, 440, 56, () => Go(Page.Home));
+            TableButton(page == Page.Battle ? "Resume" : "Close", 740, 860, 440, 66, () => { settings = false; concedeArmed = false; PlayerPrefs.Save(); UiSound("close"); Render(); }, true, true);
             SafeText(root, "VFX: vinish.dev (https://vinish.dev/free-vfx), CC BY 4.0", 740, 936, 440, 28, 13, Quiet, false, TextAnchor.MiddleCenter, 10);
         }
 

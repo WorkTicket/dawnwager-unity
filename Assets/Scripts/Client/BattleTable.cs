@@ -75,6 +75,7 @@ namespace Wolfsun
             TextLink("Menu", 40, 26, 190, 30, 22, new Color32(207, 213, 216, 255), () => { settings = true; UiSound("open"); Render(); });
             TextLink("Rules", 40, 60, 190, 26, 17, Muted, () => OpenRules(), false);
             OutlinedText(root, "Round " + Mathf.Max(1, match.Round), 40, 350, 260, 50, 40, Gold, true, TextAnchor.MiddleLeft, 24);
+            SafeText(root, "Seals  You " + match.Players[0].Seals + " · Foe " + match.Players[1].Seals + "  ·  first to 6 wins", 40, 322, 300, 26, 16, Quiet, false, TextAnchor.MiddleLeft, 11);
             var fresh = match.Prophecies.FirstOrDefault(p => !p.Spent);
             string line = fresh == null ? "All prophecies spent" : (match.Round == fresh.Round ? "Prophecy now" : "Prophecy, round " + fresh.Round);
             var note = SafeText(root, line + (fresh != null ? "\n" + fresh.Card.Name : "") +
@@ -105,6 +106,13 @@ namespace Wolfsun
             var site1 = match.Board.FirstOrDefault(p => p.Card.Kind == Kind.Site && p.Lane == lane && p.Side == 1);
             string extra = (contested ? " · Contested" : "");
             var power = OutlinedText(root, "Seal power " + mine + " – " + theirs + extra, lx, 212, LaneWidth, 26, 17, lead, false, TextAnchor.MiddleCenter, 12);
+            if (contested)
+            {
+                int winner = mine == theirs ? -1 : mine > theirs ? 0 : 1;
+                bool holds = winner >= 0 && match.Units(winner, lane).Any();
+                string forecast = holds ? (winner == 0 ? "Round end: you claim a Seal" : "Round end: foe claims a Seal") : "Round end: no Seal yet";
+                OutlinedText(root, forecast, lx, 238, LaneWidth, 22, 15, holds ? (winner == 0 ? AllySage : EnemyCopper) : Muted, false, TextAnchor.MiddleCenter, 11);
+            }
             var zone = choices.FirstOrDefault(m => m.Target == 0 && m.Lane == lane && m.Kind != ActionKind.Attack);
             if (zone != null)
             {
@@ -172,7 +180,8 @@ namespace Wolfsun
             bool target = choices.Any(m => m.Target == unit.Key);
             bool picked = choosing && selected == ActionKind.Attack && cursor == unit.Key;
             bool ready = mine && canAct && !unit.Spent && !choosing;
-            Color tint = unit.Spent ? new Color(.62f, .62f, .68f, 1f) : Color.white;
+            bool blocked = !mine && !target && choosing && selected == ActionKind.Attack && choices.Any(m => m.Kind == ActionKind.Attack && m.Target != 0);
+            Color tint = blocked ? new Color(.45f, .45f, .5f, 1f) : unit.Spent ? new Color(.62f, .62f, .68f, 1f) : Color.white;
             Color glow = target ? (mine ? AllySage : EnemyCopper) : picked ? Gold : new Color(1f, .88f, .5f, 1f);
             // Soft ground shadow, warmed when the unit can act.
             Shade(tile, -12 * sc, 176 * sc - 4, 200 * sc, 46 * sc, new Color(0, 0, 0, .75f));
@@ -186,7 +195,11 @@ namespace Wolfsun
             Pic(tile, Foundry + "UnitPlate", 44 * sc, 180 * sc, 88 * sc, 30 * sc, new Color(1, 1, 1, .92f));
             OutlinedText(tile, unit.Card.Name, 50 * sc, 182 * sc, 76 * sc, 26 * sc, Mathf.RoundToInt(14 * sc), unit.Card.Legendary ? Gold : White, true, TextAnchor.MiddleCenter, 8);
             if (unit.Shield) Pic(tile, Foundry + "Shield", (TileW - 44) * sc, 0, 44 * sc, 44 * sc);
-            if (unit.Guard) OutlinedText(tile, "Guard", 2, 2, 62, 22, 14, Frost, true, TextAnchor.MiddleLeft, 9);
+            if (unit.Guard)
+            {
+                ColorBox(tile, "Guard chip", 0, 0, 70, 24, new Color(.08f, .2f, .3f, .9f));
+                OutlinedText(tile, "◆ Guard", 2, 1, 66, 22, 14, Frost, true, TextAnchor.MiddleCenter, 9);
+            }
             else if (unit.Card.Rush) OutlinedText(tile, "Rush", 2, 2, 62, 22, 14, Gold, true, TextAnchor.MiddleLeft, 9);
             if (unit.Spent) OutlinedText(tile, "zzz", TileW * sc / 2f - 30, 4, 60, 22, 15, Muted, false, TextAnchor.MiddleCenter, 9);
             if (target) Pic(tile, Foundry + "TargetNode", TileW * sc / 2f - 36, TileH * sc / 2f - 56, 72, 72);
