@@ -93,6 +93,13 @@ namespace Wolfsun
                     StartCoroutine(CardSlam(layer, played, handFrom.Value, spellAt, accent));
                     StartCoroutine(DelayedSpell(layer, played, caster, spellAt, .46f));
                     feedbackDelay = .46f + ImpactDelay(kind) + .06f;
+                    // Units this Order summoned arrive after the spell lands and play their own card's effect.
+                    foreach (var summoned in match.Units().Where(u => !snap.Hp.ContainsKey(u.Key)))
+                        if (battlePieces.TryGetValue(summoned.Key, out var summonedTile) && summonedTile)
+                        {
+                            StartCoroutine(SpawnReveal(summonedTile, feedbackDelay));
+                            StartCoroutine(DelayedEntrance(layer, summoned.Card, CenterAnchored(summonedTile), feedbackDelay));
+                        }
                 }
                 else
                 {
