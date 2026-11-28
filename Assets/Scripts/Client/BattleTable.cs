@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -145,7 +146,18 @@ namespace Wolfsun
 
         private void DrawBoardUnit(Transform parent, string art, float scale, Color tint)
         {
-            if (art.StartsWith("BoardPortraits/", StringComparison.Ordinal))
+            if (art.StartsWith("BoardPortraits/", StringComparison.Ordinal) && PortraitBounds.TryGetValue(art, out var pb) && Texture(art) != null)
+            {
+                // Fit the painted figure itself (not the transparent square around it) and stand it on the nameplate:
+                // the lowest opaque pixel lands just behind the plate so feet and robes are grounded, never floating.
+                float bw = pb[2] - pb[0] + 1, bh = pb[3] - pb[1] + 1;
+                float s = Mathf.Min((TileW - 6) * scale / bw, 192 * scale / bh);
+                float left = TileW * scale / 2f - (pb[0] + pb[2] + 1) / 2f * s;
+                float top = 190 * scale - (pb[3] + 1) * s;
+                var figure = Picture(parent, art, left, top, 320f * s, 320f * s, tint);
+                figure.raycastTarget = false;
+            }
+            else if (art.StartsWith("BoardPortraits/", StringComparison.Ordinal))
                 FitSafe(parent, art, 6 * scale, 0, (TileW - 12) * scale, 176 * scale, tint);
             else
                 CutFit(parent, art, TileW * scale, 184 * scale, tint);
@@ -208,14 +220,15 @@ namespace Wolfsun
             }
             else if (side == 1) Click(portrait, null).transition = Selectable.Transition.None;
             Medal(badge, "Health", pilot.Hp.ToString(), 122, 126, 78, 38);
-            OutlinedText(badge, name, 0, 204, 190, 32, 24, White, true, TextAnchor.MiddleCenter, 14);
+            ChromePanel(badge, "Hero plate", 2, 194, 186, 82, "Panel");
+            OutlinedText(badge, name, 0, 198, 190, 34, 26, White, true, TextAnchor.MiddleCenter, 14);
             for (int i = 0; i < 6; i++)
             {
-                var d = ColorBox(badge, "Seal", 52 + i * 17 + (i * 0), 245, 10, 10, i < pilot.Seals ? Gold : new Color(1, 1, 1, .18f));
+                var d = ColorBox(badge, "Seal", 52 + i * 17 + (i * 0), 240, 10, 10, i < pilot.Seals ? Gold : new Color(1, 1, 1, .18f));
                 d.pivot = new Vector2(.5f, .5f);
                 d.localRotation = Quaternion.Euler(0, 0, 45);
             }
-            SafeText(badge, "Deck " + pilot.Pile.Count + " · Hand " + pilot.Hand.Count, 0, 256, 190, 20, 14, Muted, false, TextAnchor.MiddleCenter, 10);
+            SafeText(badge, "Deck " + pilot.Pile.Count + " · Hand " + pilot.Hand.Count, 0, 252, 190, 20, 14, Muted, false, TextAnchor.MiddleCenter, 10);
         }
 
         private void DrawChargeRow()
@@ -385,6 +398,40 @@ namespace Wolfsun
             }
         }
 
+        private readonly Dictionary<RectTransform, Coroutine> handTweens = new Dictionary<RectTransform, Coroutine>();
+
+        private void TweenCard(RectTransform card, Vector2 pos, float scale, float tilt, float duration = .14f)
+        {
+            if (!card) return;
+            if (handTweens.TryGetValue(card, out var running) && running != null) StopCoroutine(running);
+            if (reduceMotion || duration <= 0f)
+            {
+                card.anchoredPosition = pos; card.localScale = Vector3.one * scale; card.localRotation = Quaternion.Euler(0, 0, tilt);
+                return;
+            }
+            handTweens[card] = StartCoroutine(TweenCardRoutine(card, pos, scale, tilt, duration));
+        }
+
+        private IEnumerator TweenCardRoutine(RectTransform card, Vector2 pos, float scale, float tilt, float duration)
+        {
+            Vector2 p0 = card.anchoredPosition;
+            float s0 = card.localScale.x;
+            float r0 = Mathf.DeltaAngle(0f, card.localEulerAngles.z);
+            for (float t = 0; t < duration && card; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration, e = 1f - (1f - k) * (1f - k) * (1f - k);
+                card.anchoredPosition = Vector2.Lerp(p0, pos, e);
+                card.localScale = Vector3.one * Mathf.Lerp(s0, scale, e);
+                card.localRotation = Quaternion.Euler(0, 0, Mathf.Lerp(r0, tilt, e));
+                yield return null;
+            }
+            if (card)
+            {
+                card.anchoredPosition = pos; card.localScale = Vector3.one * scale; card.localRotation = Quaternion.Euler(0, 0, tilt);
+            }
+            handTweens.Remove(card);
+        }
+
         private void BindHandHover(RectTransform card, string id, float restTilt, bool pinned, RawImage hoverGlow = null)
         {
             var relay = card.gameObject.GetComponent<PointerRelay>() ?? card.gameObject.AddComponent<PointerRelay>();
@@ -395,17 +442,14 @@ namespace Wolfsun
                 if (pinned || dragLayer != null) return;
                 if (hoverGlow) hoverGlow.enabled = true;
                 card.SetAsLastSibling();
-                card.localRotation = Quaternion.identity;
-                card.localScale = Vector3.one * 1.18f;
-                card.anchoredPosition = rest + new Vector2(0, 34);
+                // Lift and enlarge so the full rules are comfortably readable.
+                TweenCard(card, rest + new Vector2(0, 150), 1.55f, 0f);
             };
             relay.Exit = () =>
             {
                 if (hoverGlow) hoverGlow.enabled = false;
                 if (pinned) return;
-                card.localScale = Vector3.one;
-                card.anchoredPosition = rest;
-                card.localRotation = Quaternion.Euler(0, 0, restTilt);
+                TweenCard(card, rest, 1f, restTilt, .12f);
             };
             relay.RightClick = _ => { inspected = id; UiSound("open"); Render(); };
         }

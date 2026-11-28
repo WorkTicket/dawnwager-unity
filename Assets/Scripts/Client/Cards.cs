@@ -69,44 +69,48 @@ namespace Wolfsun
             // CardShadow and CardPlayableGlow are authored at exactly card size: draw them 1:1, never enlarged.
             Pic(rect, Foundry + "CardShadow", w * .012f, h * .014f, w, h, new Color(1, 1, 1, .4f));
             if (highlighted) Pic(rect, Foundry + "CardPlayableGlow", 0, 0, w, h);
+            // Layout (card space 416x590): a shorter art window on top, then name, type, and a tall rules panel
+            // so every card can explain its full rules. The unused lower part of the frame opening is filled with the
+            // frame's own metal tone behind the nameplate.
+            const float ArtH = 212f;
             var well = Box(rect, "Art well", 34 * sx, 56 * sy, 348 * sx, 296 * sy);
-            var backing = Fill(well, new Color(.035f, .045f, .06f, 1f));
+            var backing = Fill(well, new Color32(66, 57, 47, 255));
             backing.raycastTarget = false;
-            var mask = MaskedContent(well, "Portrait", 0, 0, 348 * sx, 296 * sy);
+            var portrait = Box(well, "Portrait", 0, 0, 348 * sx, ArtH * sy); // no RectMask2D: it clips wrongly on tilted cards
             string art = CardArt(card);
             string facePath = "CardFaces/" + card.Id;
             bool hasFace = Texture(facePath) != null;
             string foilPath = "Foil/Faces/" + card.Id;
             if (hasFace)
-                CoverSafe(mask, facePath, 0, 0, 348 * sx, 296 * sy, Color.white);
+                TopCover(portrait, facePath, 348 * sx, ArtH * sy, Color.white);
             else if (card.Kind == Kind.Unit)
             {
-                Backdrop(mask, 0, 0, 348 * sx, 296 * sy, CardAccent(card));
-                float ua = 348 * sx * 1.04f;
-                FitSafe(mask, art, (348 * sx - ua) / 2f, 4 * sy, ua, ua);
+                Backdrop(portrait, 0, 0, 348 * sx, ArtH * sy, CardAccent(card));
+                float ua = Mathf.Min(348 * sx, ArtH * sy) * 1.02f;
+                FitSafe(portrait, art, (348 * sx - ua) / 2f, 2 * sy, ua, ua);
             }
-            else CoverSafe(mask, art, 0, 0, 348 * sx, 296 * sy, Color.white);
+            else TopCover(portrait, art, 348 * sx, ArtH * sy, Color.white);
             if (hasFace && card.Kind == Kind.Unit && Texture(foilPath) != null)
             {
-                var layer = CoverSafe(mask, foilPath, 0, 0, 348 * sx, 296 * sy, new Color(1f, 1f, 1f, .8f));
+                var layer = TopCover(portrait, foilPath, 348 * sx, ArtH * sy, new Color(1f, 1f, 1f, .8f));
                 if (!reduceMotion) StartCoroutine(PortraitFoil(layer, card));
             }
             else if (!hasFace || card.Kind != Kind.Unit)
             {
-                var foil = Pic(mask, Foundry + "Foil-" + card.Faction, 0, 0, 88 * sx, 296 * sy, Color.clear);
+                var foil = Pic(portrait, Foundry + "Foil-" + card.Faction, 0, 0, 88 * sx, ArtH * sy, Color.clear);
                 if (foil.texture != null && !reduceMotion) StartCoroutine(FoilSweep(foil, card, 348 * sx, 0));
             }
             Pic(rect, FramePath(card), 0, 0, w, h);
-            Pic(rect, Foundry + "Nameplate", 40 * sx, 330 * sy, 336 * sx, 44 * sy);
-            var name = OutlinedText(rect, card.Name, 58 * sx, 330 * sy, 300 * sx, 44 * sy, Mathf.Max(11, Mathf.RoundToInt(26 * sx)),
+            Pic(rect, Foundry + "Nameplate", 40 * sx, 248 * sy, 336 * sx, 44 * sy);
+            var name = OutlinedText(rect, card.Name, 58 * sx, 248 * sy, 300 * sx, 44 * sy, Mathf.Max(11, Mathf.RoundToInt(26 * sx)),
                 card.Legendary ? Gold : White, true, TextAnchor.MiddleCenter, 8);
             string keywords = card.Kind == Kind.Unit ? (card.Guard ? " · Guard" : card.Rush ? " · Rush" : card.Unchain > 0 ? " · Unchain" : "") : "";
-            SafeText(rect, FactionName(card.Faction) + " " + KindName(card) + keywords, 50 * sx, 374 * sy, 316 * sx, 28 * sy,
+            SafeText(rect, FactionName(card.Faction) + " " + KindName(card) + keywords, 50 * sx, 292 * sy, 316 * sx, 26 * sy,
                 Mathf.Max(9, Mathf.RoundToInt(17 * sx)), new Color32(222, 205, 168, 255), false, TextAnchor.MiddleCenter, 7);
-            Pic(rect, Foundry + "RulesParchment", 42 * sx, 410 * sy, 332 * sx, 120 * sy);
-            string text = RulesText.Describe(card);
-            SafeText(rect, rules ? text : CompactRules(text), 56 * sx, 416 * sy, 304 * sx, 108 * sy,
-                Mathf.Max(9, Mathf.RoundToInt((rules ? 19 : 20) * sx)), DarkInk, false, TextAnchor.MiddleCenter, 7);
+            Pic(rect, Foundry + "RulesParchment", 40 * sx, 320 * sy, 336 * sx, 214 * sy);
+            // Always the complete rules; the box shrinks the type to fit rather than cutting words.
+            SafeText(rect, RulesText.Describe(card), 54 * sx, 328 * sy, 308 * sx, 176 * sy,
+                Mathf.Max(8, Mathf.RoundToInt(23 * sx)), DarkInk, false, TextAnchor.MiddleCenter, 6);
             int medal = Mathf.Max(10, Mathf.RoundToInt(38 * sx));
             if (card.Kind != Kind.Prophecy)
                 Medal(rect, "Cost", Mathf.Max(0, cost).ToString(), 8 * sx, 8 * sy, 72 * sx, medal);
@@ -125,6 +129,16 @@ namespace Wolfsun
                 Pic(rect, Foundry + "DenyX", w * .25f, h * .3f, w * .5f, w * .5f);
             }
             return rect;
+        }
+
+        /// <summary>Cover-fits a texture into a w x h window, keeping the upper part (faces and focal props) when it must crop.</summary>
+        private RawImage TopCover(Transform parent, string path, float w, float h, Color tint)
+        {
+            var view = Cover(parent, path, 0, 0, w, h, tint);
+            if (view.texture == null) { view.color = Color.clear; return view; }
+            var uv = view.uvRect;
+            if (uv.height < 1f) { uv.y = Mathf.Max(0f, 1f - uv.height - .06f); view.uvRect = uv; }
+            return view;
         }
 
         private System.Collections.IEnumerator PortraitFoil(RawImage layer, Card card)

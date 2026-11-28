@@ -149,8 +149,11 @@ namespace Wolfsun
         {
             var holder = Box(parent, "portrait", x, y, size, size);
             bool framed = !string.IsNullOrEmpty(frameArt);
-            // HeroFrame/UnitToken openings measure about 0.67 of the frame; tuck the disc just under the ring.
-            float d = framed ? size * .82f : size * .92f;
+            // Every hero ring is scaled so its opening has the same diameter, whatever the artist's canvas margins were.
+            float[] info = null;
+            bool measured = framed && HeroFrameInfo.TryGetValue(frameArt, out info);
+            float hole = size * .72f;
+            float d = measured ? hole * 1.05f : framed ? size * .82f : size * .92f;
             float off = (size - d) / 2f;
             var disc = Box(holder, "disc", off, off, d, d);
             var maskImage = disc.gameObject.AddComponent<Image>();
@@ -166,7 +169,13 @@ namespace Wolfsun
                 float s = cropToFace ? d * 1.22f : d;
                 float top = cropToFace ? d * .03f : 0f;
                 CoverSafe(disc, artPath, (d - s) / 2f, top, s, s, spentTint ?? Color.white);
-                Pic(holder, frameArt, 0, 0, size, size);
+                if (measured)
+                {
+                    float k = hole / info[2];
+                    float fw = info[3] * k;
+                    Pic(holder, frameArt, size / 2f - info[0] * k, size / 2f - info[1] * k, fw, fw);
+                }
+                else Pic(holder, frameArt, 0, 0, size, size);
             }
             else CoverSafe(disc, artPath, 0, 0, d, d, spentTint ?? Color.white);
             return holder;
