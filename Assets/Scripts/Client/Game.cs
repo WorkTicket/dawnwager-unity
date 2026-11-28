@@ -190,10 +190,29 @@ namespace Wolfsun
             if(page==Page.Battle&&destination!=Page.Battle){StopAllCoroutines();ClearEffects();shaking=false;shakeEnergy=0f;if(stage)stage.anchoredPosition=Vector2.zero;}
             if(destination!=Page.Play){queueSearching=false;queueStatus="";}
             if(destination!=Page.Home&&menuAmbience!=null&&menuAmbience.isPlaying)menuAmbience.Stop();
+            var previousPage=page;
             ai=false;presenting=false;concedeArmed=false;refundArmed=false;showRules=false;page=destination;inspected=null;settings=false;status="";
             if(destination!=Page.Battle&&destination!=Page.Outcome){tutorialMatch=false;onlineDuel=null;}
             if(destination!=Page.Battle)ResetPhaseAnnouncements();
             Render();
+            if(previousPage!=destination&&!reduceMotion)StartCoroutine(ScreenIn());
+        }
+
+        /// <summary>A short fade and rise when a new screen opens.</summary>
+        private System.Collections.IEnumerator ScreenIn()
+        {
+            var target=root;
+            if(!target)yield break;
+            var group=target.GetComponent<CanvasGroup>()??target.gameObject.AddComponent<CanvasGroup>();
+            const float duration=.24f;
+            for(float t=0;t<duration&&target;t+=Time.unscaledDeltaTime)
+            {
+                float k=t/duration,e=1f-(1f-k)*(1f-k)*(1f-k);
+                group.alpha=e;
+                target.anchoredPosition=new Vector2(0,-16f*(1f-e));
+                yield return null;
+            }
+            if(target){group.alpha=1f;target.anchoredPosition=Vector2.zero;}
         }
         private Texture2D Texture(string name)
         {

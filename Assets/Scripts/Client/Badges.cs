@@ -294,7 +294,7 @@ namespace Wolfsun
             image.texture = Texture(enabled ? "Gen/Pill" : "Gen/PillOff");
             var button = Click(rect, () => { UiSound("click"); click?.Invoke(); }, enabled, image);
             button.transition = Selectable.Transition.None;
-            HoverCue(rect, () => enabled);
+            HoverCue(rect, () => enabled, !pulse);
             var label = Label(rect, text, 0, 0, w, h, Mathf.Clamp(Mathf.RoundToInt(h * .46f), 16, 34), enabled ? new Color32(42, 30, 8, 255) : Quiet, true, TextAnchor.MiddleCenter);
             label.resizeTextForBestFit = true;
             label.resizeTextMinSize = 12;

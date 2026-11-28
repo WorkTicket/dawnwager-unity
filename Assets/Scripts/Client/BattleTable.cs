@@ -343,6 +343,7 @@ namespace Wolfsun
             var button = Click(area, click);
             button.transition = Selectable.Transition.None;
             BindPreview(area, id, piece);
+            if (piece != null) Hoverable(area, 1.045f);
         }
 
         // ---------------------------------------------------------------- hand

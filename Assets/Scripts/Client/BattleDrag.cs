@@ -197,12 +197,15 @@ namespace Wolfsun
             aimDots.Clear();
             for (int i = 0; i < AimDotCount; i++)
             {
-                var dot = Pic(dragArrow, "Gen/Shadow", 0, 0, 30, 30, Gold);
+                var dot = Pic(dragArrow, "Gen/Shadow", 0, 0, 20, 20, Gold);
                 dot.raycastTarget = false;
                 dot.rectTransform.pivot = new Vector2(.5f, .5f);
                 aimDots.Add(dot.rectTransform);
             }
-            aimHead = Pic(dragArrow, Foundry + "TargetNode", 0, 0, 84, 84, Gold).rectTransform;
+            // A clean chevron arrowhead (two bars) and a quiet target ring.
+            aimWings[0] = Bar(dragArrow, Vector2.zero, new Vector2(40f, 0f), 10f, Gold);
+            aimWings[1] = Bar(dragArrow, Vector2.zero, new Vector2(40f, 0f), 10f, Gold);
+            aimHead = Pic(dragArrow, Foundry + "TargetNode", 0, 0, 96, 96, Gold).rectTransform;
             aimHead.pivot = new Vector2(.5f, .5f);
             aimHead.GetComponent<RawImage>().raycastTarget = false;
             lastDragAt = PointerInRoot(root, e);
@@ -210,11 +213,15 @@ namespace Wolfsun
             UiSound("card-select");
         }
 
-        private const int AimDotCount = 18;
+        private const int AimDotCount = 14;
         private readonly List<RectTransform> aimDots = new List<RectTransform>();
+        private readonly RectTransform[] aimWings = new RectTransform[2];
         private RectTransform aimHead;
 
-        /// <summary>A curved chain of growing beads that ends in a reticle. It snaps to a valid target and turns red over an attack.</summary>
+        /// <summary>
+        /// A single clean arc of evenly spaced beads ending in a chevron. It snaps its tip to a valid target, which
+        /// gets a soft pulsing ring; the colour reads red for an attack, blue for a march and gold otherwise.
+        /// </summary>
         private void AimArrow(Vector2 at, Move hit)
         {
             if (!dragArrow || aimHead == null) return;
@@ -222,28 +229,39 @@ namespace Wolfsun
             if (hit != null)
                 foreach (var target in dragTargets)
                     if (target.Move == hit && target.Area) { end = RootCenter(target.Area); break; }
-            Vector2 mid = (arrowFrom + end) * .5f;
-            float lift = Mathf.Min(150f, (end - arrowFrom).magnitude * .28f);
-            Vector2 control = mid + new Vector2(0, -lift);
-            Color tint = hit == null ? new Color(Gold.r, Gold.g, Gold.b, .85f)
+            Vector2 start = arrowFrom;
+            float distance = (end - start).magnitude;
+            Vector2 control = (start + end) * .5f + new Vector2(0, -Mathf.Min(120f, distance * .22f));
+            Color tint = hit == null ? new Color(Gold.r, Gold.g, Gold.b, .9f)
                 : hit.Kind == ActionKind.Attack ? new Color(1f, .36f, .3f, 1f) : new Color(.6f, .9f, 1f, 1f);
-            float time = Time.unscaledTime;
+            Vector2 last = start;
             for (int i = 0; i < aimDots.Count; i++)
             {
                 float t = (i + 1f) / (aimDots.Count + 1f);
-                Vector2 p = (1 - t) * (1 - t) * arrowFrom + 2 * (1 - t) * t * control + t * t * end;
-                float wave = .5f + .5f * Mathf.Sin(time * 9f - i * .7f);
+                Vector2 p = (1 - t) * (1 - t) * start + 2 * (1 - t) * t * control + t * t * end;
                 var dot = aimDots[i];
                 dot.anchoredPosition = new Vector2(p.x, -p.y);
-                dot.sizeDelta = Vector2.one * (14f + 26f * t) * (.9f + .2f * wave);
+                dot.sizeDelta = Vector2.one * Mathf.Lerp(14f, 22f, t);
                 var image = dot.GetComponent<RawImage>();
-                if (image) image.color = new Color(tint.r, tint.g, tint.b, Mathf.Lerp(.35f, .95f, t));
+                if (image) image.color = new Color(tint.r, tint.g, tint.b, Mathf.Lerp(.3f, .95f, t));
+                last = p;
             }
+            Vector2 dir = (end - last).sqrMagnitude > .01f ? (end - last).normalized : Vector2.up;
+            float baseAngle = Mathf.Atan2(-dir.y, dir.x) * Mathf.Rad2Deg; // anchored space is y-up, root space is y-down
+            for (int i = 0; i < 2; i++)
+            {
+                var wing = aimWings[i];
+                if (!wing) continue;
+                wing.anchoredPosition = new Vector2(end.x, -end.y);
+                wing.localRotation = Quaternion.Euler(0, 0, baseAngle + 180f + (i == 0 ? 32f : -32f));
+                var image = wing.GetComponent<Image>();
+                if (image) image.color = tint;
+            }
+            bool locked = hit != null;
             aimHead.anchoredPosition = new Vector2(end.x, -end.y);
-            aimHead.localScale = Vector3.one * (hit != null ? 1.25f + .08f * Mathf.Sin(time * 8f) : 1f);
-            aimHead.localRotation = Quaternion.Euler(0, 0, time * 40f);
+            aimHead.localScale = Vector3.one * (locked ? 1f + .05f * Mathf.Sin(Time.unscaledTime * 7f) : .0f);
             var headImage = aimHead.GetComponent<RawImage>();
-            if (headImage) headImage.color = tint;
+            if (headImage) headImage.color = new Color(tint.r, tint.g, tint.b, locked ? .9f : 0f);
         }
     }
 }

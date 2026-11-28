@@ -169,8 +169,7 @@ namespace Wolfsun
             yield return new WaitForSecondsRealtime(delay);
             if (!tile) yield break;
             if (reduceMotion) { group.alpha = 1f; yield break; }
-            tile.pivot = new Vector2(.5f, .5f);
-            tile.anchoredPosition += new Vector2(tile.sizeDelta.x * .5f, -tile.sizeDelta.y * .5f);
+            CenterPivot(tile);
             for (float t = 0; t < .22f && tile && !reduceMotion; t += Time.unscaledDeltaTime)
             {
                 float k = EaseOut(t / .22f);

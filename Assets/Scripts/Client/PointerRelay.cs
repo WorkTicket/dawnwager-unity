@@ -12,11 +12,11 @@ namespace Wolfsun
         IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler,
         IBeginDragHandler, IDragHandler, IEndDragHandler
     {
-        public Action Enter, Exit;
+        public Action Enter, Exit, HoverIn, HoverOut;
         public Action<PointerEventData> RightClick, BeginDrag, Drag, EndDrag;
 
-        public void OnPointerEnter(PointerEventData eventData) { if (Enter != null) Enter(); }
-        public void OnPointerExit(PointerEventData eventData) { if (Exit != null) Exit(); }
+        public void OnPointerEnter(PointerEventData eventData) { if (Enter != null) Enter(); if (HoverIn != null) HoverIn(); }
+        public void OnPointerExit(PointerEventData eventData) { if (Exit != null) Exit(); if (HoverOut != null) HoverOut(); }
 
         public void OnPointerClick(PointerEventData eventData)
         {

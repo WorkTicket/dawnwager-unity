@@ -183,11 +183,54 @@ namespace Wolfsun
 
         private Sprite ButtonFace(string name) => Slice(name);
 
-        private void HoverCue(RectTransform rect, Func<bool> active = null)
+        private void HoverCue(RectTransform rect, Func<bool> active = null, bool lift = true)
         {
             var relay = rect.gameObject.GetComponent<PointerRelay>();
             if (relay == null) relay = rect.gameObject.AddComponent<PointerRelay>();
             relay.Enter = () => { if (active == null || active()) UiSound("hover"); };
+            if (lift) Hoverable(rect, 1.035f, active);
+        }
+
+        private readonly Dictionary<RectTransform, Coroutine> scaleTweens = new Dictionary<RectTransform, Coroutine>();
+
+        /// <summary>Moves the pivot to the centre without moving the element, so it can scale around its middle.</summary>
+        private static void CenterPivot(RectTransform rect)
+        {
+            if (!rect || (Mathf.Approximately(rect.pivot.x, .5f) && Mathf.Approximately(rect.pivot.y, .5f))) return;
+            Vector2 p = rect.pivot;
+            rect.anchoredPosition += new Vector2((.5f - p.x) * rect.rect.width, (.5f - p.y) * rect.rect.height);
+            rect.pivot = new Vector2(.5f, .5f);
+        }
+
+        /// <summary>Eased grow on hover and settle on exit, around the element's centre.</summary>
+        private void Hoverable(RectTransform rect, float scale, Func<bool> active = null)
+        {
+            if (!rect) return;
+            CenterPivot(rect);
+            var relay = rect.gameObject.GetComponent<PointerRelay>() ?? rect.gameObject.AddComponent<PointerRelay>();
+            relay.HoverIn = () => { if (active == null || active()) TweenScale(rect, scale, .12f); };
+            relay.HoverOut = () => TweenScale(rect, 1f, .14f);
+        }
+
+        private void TweenScale(RectTransform rect, float target, float duration)
+        {
+            if (!rect) return;
+            if (scaleTweens.TryGetValue(rect, out var running) && running != null) StopCoroutine(running);
+            if (reduceMotion) { rect.localScale = Vector3.one * target; return; }
+            scaleTweens[rect] = StartCoroutine(TweenScaleRoutine(rect, target, duration));
+        }
+
+        private System.Collections.IEnumerator TweenScaleRoutine(RectTransform rect, float target, float duration)
+        {
+            float from = rect.localScale.x;
+            for (float t = 0; t < duration && rect; t += Time.unscaledDeltaTime)
+            {
+                float k = t / duration;
+                rect.localScale = Vector3.one * Mathf.Lerp(from, target, 1f - (1f - k) * (1f - k));
+                yield return null;
+            }
+            if (rect) rect.localScale = Vector3.one * target;
+            scaleTweens.Remove(rect);
         }
 
         private void TableButton(string text, float x, float y, float w, float h, Action click,
@@ -217,7 +260,7 @@ namespace Wolfsun
             else image.color = primary ? Brass : Slate;
             if (click != null)
                 button.onClick.AddListener(() => { UiSound("click"); click(); });
-            HoverCue(rect, () => enabled);
+            HoverCue(rect, () => enabled, !pulse);
             int size = Mathf.Clamp(Mathf.RoundToInt(h * .36f), 15, 30);
             Color ink = enabled ? (primary ? InkOnGold : new Color32(241, 223, 174, 255)) : Quiet;
             SafeText(rect, text, 16, 0, w - 32, h, size, ink, true, TextAnchor.MiddleCenter, 11);

@@ -164,6 +164,7 @@ namespace Wolfsun
             {
                 Click(rect, click);
                 BindPreview(rect, id, null, true);
+                Hoverable(rect, 1.05f);
             }
         }
     }
