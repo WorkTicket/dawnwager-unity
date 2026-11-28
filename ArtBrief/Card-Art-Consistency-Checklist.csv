@@ -53,12 +53,12 @@ M21,People of the Beacon,Unit,Assets/Resources/Art/CardFaces/M21.png,Assets/Reso
 M22,Hold Until Morning,Order,Assets/Resources/Art/CardFaces/M22.png,,Pending,Pending,Pending - needs human art director review,First-pass painted draft installed; final review pending
 M23,"Runa, the Ice Ferrier",Unit,Assets/Resources/Art/CardFaces/M23.png,Assets/Resources/Art/BoardPortraits/M23.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 M24,"Eydis, Beacon Keeper",Unit,Assets/Resources/Art/CardFaces/M24.png,Assets/Resources/Art/BoardPortraits/M24.png,Pass - same character identity; separate view and pose,Pass - scene and board portrait use different poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
-J01,Crag Rat,Unit,Assets/Resources/Art/CardFaces/J01.png,Assets/Resources/Art/BoardPortraits/J01.png,Pending,Pending,Pending,Pending review
-J02,Frost-Born Porter,Unit,Assets/Resources/Art/CardFaces/J02.png,Assets/Resources/Art/BoardPortraits/J02.png,Pending,Pending,Pending,Pending review
+J01,Crag Rat,Unit,Assets/Resources/Art/CardFaces/J01.png,Assets/Resources/Art/BoardPortraits/J01.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+J02,Frost-Born Porter,Unit,Assets/Resources/Art/CardFaces/J02.png,Assets/Resources/Art/BoardPortraits/J02.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 J03,Test the Chain,Order,Assets/Resources/Art/CardFaces/J03.png,,Pending,Pending,Pending,Pending review
 J04,Split Stone,Order,Assets/Resources/Art/CardFaces/J04.png,,Pending,Pending,Pending,Pending review
-J05,Basalt Whelp,Unit,Assets/Resources/Art/CardFaces/J05.png,Assets/Resources/Art/BoardPortraits/J05.png,Pending,Pending,Pending,Pending review
-J06,Outcrop Hunter,Unit,Assets/Resources/Art/CardFaces/J06.png,Assets/Resources/Art/BoardPortraits/J06.png,Pending,Pending,Pending,Pending review
+J05,Basalt Whelp,Unit,Assets/Resources/Art/CardFaces/J05.png,Assets/Resources/Art/BoardPortraits/J05.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+J06,Outcrop Hunter,Unit,Assets/Resources/Art/CardFaces/J06.png,Assets/Resources/Art/BoardPortraits/J06.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 J07,Mead for the March,Order,Assets/Resources/Art/CardFaces/J07.png,,Pending,Pending,Pending,Pending review
 J08,Feast of the Crags,Site,Assets/Resources/Art/CardFaces/J08.png,Assets/Resources/Art/BoardPortraits/J08.png,Pending,Pending,Pending,Pending review
 J09,Ice-Maw Bruiser,Unit,Assets/Resources/Art/CardFaces/J09.png,Assets/Resources/Art/BoardPortraits/J09.png,Pending,Pending,Pending,Pending review
