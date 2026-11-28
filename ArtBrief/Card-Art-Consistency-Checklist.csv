@@ -77,15 +77,15 @@ J21,Hrim’s Hammer,Unit,Assets/Resources/Art/CardFaces/J21.png,Assets/Resources
 J22,Fire on the Snow,Order,Assets/Resources/Art/CardFaces/J22.png,,N/A - Order,Pass - unique action scene,Pending - needs human art director review,Redrawn Order illustration; final human art review pending
 J23,"Fenrir, Chainbreaker",Unit,Assets/Resources/Art/CardFaces/J23.png,Assets/Resources/Art/BoardPortraits/J23.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 J24,"Surtr, the Coming Fire",Unit,Assets/Resources/Art/CardFaces/J24.png,Assets/Resources/Art/BoardPortraits/J24.png,Pass - same character or creature identity; separate view,Pass - card scene and board cutout use distinct poses,Pending - needs human art director review,Redrawn pair installed; final human art review pending
-H01,Grave Candle Bearer,Unit,Assets/Resources/Art/CardFaces/H01.png,Assets/Resources/Art/BoardPortraits/H01.png,Pending,Pending,Pending,Pending review
+H01,Grave Candle Bearer,Unit,Assets/Resources/Art/CardFaces/H01.png,Assets/Resources/Art/BoardPortraits/H01.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H02,Knock Once,Order,Assets/Resources/Art/CardFaces/H02.png,,Pending,Pending,Pending,Pending review
 H03,Record of the Dead,Site,Assets/Resources/Art/CardFaces/H03.png,Assets/Resources/Art/BoardPortraits/H03.png,Pending,Pending,Pending,Pending review
 H04,A Seat for the Lost,Order,Assets/Resources/Art/CardFaces/H04.png,,Pending,Pending,Pending,Pending review
-H05,Lamp-Tender,Unit,Assets/Resources/Art/CardFaces/H05.png,Assets/Resources/Art/BoardPortraits/H05.png,Pending,Pending,Pending,Pending review
-H06,Threshold Warden,Unit,Assets/Resources/Art/CardFaces/H06.png,Assets/Resources/Art/BoardPortraits/H06.png,Pending,Pending,Pending,Pending review
+H05,Lamp-Tender,Unit,Assets/Resources/Art/CardFaces/H05.png,Assets/Resources/Art/BoardPortraits/H05.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
+H06,Threshold Warden,Unit,Assets/Resources/Art/CardFaces/H06.png,Assets/Resources/Art/BoardPortraits/H06.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H07,Pay the Ferrier,Order,Assets/Resources/Art/CardFaces/H07.png,,Pending,Pending,Pending,Pending review
 H08,House of Names,Site,Assets/Resources/Art/CardFaces/H08.png,Assets/Resources/Art/BoardPortraits/H08.png,Pending,Pending,Pending,Pending review
-H09,The Kindly Dead,Unit,Assets/Resources/Art/CardFaces/H09.png,Assets/Resources/Art/BoardPortraits/H09.png,Pending,Pending,Pending,Pending review
+H09,The Kindly Dead,Unit,Assets/Resources/Art/CardFaces/H09.png,Assets/Resources/Art/BoardPortraits/H09.png,Pass - same character identity; separate view and pose,Pass - card scene and board portrait differ,Pending - needs human art director review,Redrawn pair installed; final human art review pending
 H10,Bone Listener,Unit,Assets/Resources/Art/CardFaces/H10.png,Assets/Resources/Art/BoardPortraits/H10.png,Pending,Pending,Pending,Pending review
 H11,Call by Name,Order,Assets/Resources/Art/CardFaces/H11.png,,Pending,Pending,Pending,Pending review
 H12,Take the Empty Seat,Order,Assets/Resources/Art/CardFaces/H12.png,,Pending,Pending,Pending,Pending review
